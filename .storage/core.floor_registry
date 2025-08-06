@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "core.floor_registry",
+  "data": {
+    "floors": [
+      {
+        "aliases": [],
+        "floor_id": "rdc",
+        "icon": "mdi:home-floor-0",
+        "level": 0,
+        "name": "RDC",
+        "created_at": "2025-07-30T15:03:00.306657+00:00",
+        "modified_at": "2025-07-30T15:03:00.306663+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": "1er_etage",
+        "icon": null,
+        "level": 1,
+        "name": "1er étage",
+        "created_at": "2025-07-30T15:05:33.170195+00:00",
+        "modified_at": "2025-07-30T15:05:33.170202+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": "2eme_etage",
+        "icon": null,
+        "level": 2,
+        "name": "2eme Etage",
+        "created_at": "2025-07-30T15:17:36.512984+00:00",
+        "modified_at": "2025-07-30T15:17:36.512988+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": "exterieur",
+        "icon": null,
+        "level": 0,
+        "name": "Extérieur",
+        "created_at": "2025-07-30T15:43:12.702315+00:00",
+        "modified_at": "2025-07-30T15:43:12.702321+00:00"
+      }
+    ]
+  }
+}

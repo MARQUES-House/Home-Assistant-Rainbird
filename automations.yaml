@@ -1,0 +1,68 @@
+
+- id: '1754091337657'
+  alias: Soirée Film
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: Soirée Film
+    context:
+      user_id:
+      - bd0aa55dc5c848d1afedfb75b7a0b506
+  conditions: []
+  actions:
+  - device_id: 0ffe757b7ed7e148594b6d4228be8021
+    domain: cover
+    entity_id: 8dfe605c0cea5c531b0e7ec1130ba750
+    type: close
+  - device_id: 328d351c7033d222afdbc71339243d53
+    domain: cover
+    entity_id: c3d4fd9d624e623c920f97ab095fd449
+    type: close
+  - device_id: 19f5f8be3987f06c6fe70fa7f5cfc669
+    domain: cover
+    entity_id: 9a03e91d687975c5e162d398875389e3
+    type: close
+  - device_id: 38541408f876d3bfb58fee260fffde7f
+    domain: cover
+    entity_id: cd21704b91283d93f5971c51010375d5
+    type: set_position
+    position: 31
+  - device_id: 3a5819b7763ebb1477c73c432ae8efb2
+    domain: cover
+    entity_id: e99374faab748395820173ff9af4579b
+    type: close
+  - device_id: c7f91a54b01c84c179dd73c87ccf92f6
+    domain: cover
+    entity_id: a591ce8fdd7cc69a4660770a2cb81ace
+    type: close
+  - device_id: a0abba0fe61d52ddb22538aded221db4
+    domain: cover
+    entity_id: 12be92b0289e71f14b19cc9ef45ffdeb
+    type: close
+  - type: turn_on
+    device_id: 01b3fc192fbb57be752dc0777e04965c
+    entity_id: e205de6a55496ad5d5481fbbfcd8899c
+    domain: remote
+  mode: single
+- id: '1754092102093'
+  alias: Nuit
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: Nuit
+    context:
+      user_id:
+      - bd0aa55dc5c848d1afedfb75b7a0b506
+  conditions: []
+  actions:
+  - device_id: 344152588bebbdf3af77415914512a58
+    domain: cover
+    entity_id: 645debaf2500b9d06a8af7a8aa18f357
+    type: close
+  - device_id: 413cb3a50ecc06a4c49afd75846c05f4
+    domain: cover
+    entity_id: e1f6b68153141ad516ec7e4ee922c6d6
+    type: close
+  - stop: ''
+  - parallel: []
+  mode: single

@@ -1,0 +1,148 @@
+/* ===========================================
+   DASHBOARD HOME ASSISTANT - COULEURS ET THÈMES
+   Scénarios colorés + États des entités
+   =========================================== */
+
+/* Scénarios avec dégradés colorés */
+.scenario-card.coucher {
+    background: -webkit-linear-gradient(135deg, rgba(63, 81, 181, 0.9), rgba(103, 58, 183, 0.8));
+    background: linear-gradient(135deg, rgba(63, 81, 181, 0.9), rgba(103, 58, 183, 0.8));
+    color: white;
+}
+
+.scenario-card.absent {
+    background: -webkit-linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(233, 30, 99, 0.8));
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(233, 30, 99, 0.8));
+    color: white;
+}
+
+.scenario-card.fete {
+    background: -webkit-linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(233, 30, 99, 0.8));
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(233, 30, 99, 0.8));
+    color: white;
+}
+
+.scenario-card.film {
+    background: -webkit-linear-gradient(135deg, rgba(0, 150, 136, 0.9), rgba(0, 188, 212, 0.8));
+    background: linear-gradient(135deg, rgba(0, 150, 136, 0.9), rgba(0, 188, 212, 0.8));
+    color: white;
+}
+
+.scenario-card.nuit {
+    background: -webkit-linear-gradient(135deg, rgba(33, 33, 33, 0.9), rgba(66, 66, 66, 0.8));
+    background: linear-gradient(135deg, rgba(33, 33, 33, 0.9), rgba(66, 66, 66, 0.8));
+    color: white;
+}
+
+.scenario-card.reveil {
+    background: -webkit-linear-gradient(135deg, rgba(255, 193, 7, 0.9), rgba(255, 152, 0, 0.8));
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.9), rgba(255, 152, 0, 0.8));
+    color: white;
+}
+
+.scenario-card.detente {
+    background: -webkit-linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(139, 195, 74, 0.8));
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(139, 195, 74, 0.8));
+    color: white;
+}
+
+.scenario-card:active {
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+/* Entités indisponibles */
+.entity.unavailable .entity-name {
+    color: #999;
+}
+
+/* Entité en cours de chargement */
+.entity.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.entity.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: -webkit-linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    -webkit-animation: loading 1.5s infinite;
+    animation: loading 1.5s infinite;
+}
+
+@-webkit-keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Animations d'apparition */
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+.section, .room-card, .material-card, .scenario-card {
+    -webkit-animation: fadeInUp 0.3s ease-out;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* Focus visible pour accessibilité */
+.control-btn:focus,
+.filter-tab:focus,
+.back-btn:focus {
+    outline: 2px solid #4a90e2;
+    outline-offset: 2px;
+}
+
+/* Amélioration contraste pour lisibilité */
+.entity-name {
+    color: #1a1a1a;
+}
+
+.section h3 {
+    color: #1a1a1a;
+}
+
+/* Réduction ombres sur écrans low-DPI */
+@media (-webkit-max-device-pixel-ratio: 1) {
+    .section,
+    .config-panel,
+    .control-btn,
+    .room-card,
+    .material-card,
+    .scenario-card {
+        -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+}

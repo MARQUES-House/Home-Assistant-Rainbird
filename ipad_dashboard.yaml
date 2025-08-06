@@ -1,0 +1,130 @@
+title: iPad
+views:
+  - path: accueil
+    title: Accueil
+    icon: mdi:tablet-dashboard
+    cards:
+      - type: horizontal-stack
+        cards:
+          # --- COLONNE 1: BIENVENUE & MÉTÉO ---
+          - type: vertical-stack
+            cards:
+              - type: markdown
+                content: >
+                  ## Bonjour {{ user }}
+                  ### Nous sommes le {{ now().strftime('%A %d %B %Y') }}.
+              - type: weather.forecast
+                entity: weather.forecast_maison
+                show_current: true
+                show_forecast: false
+          
+          # --- COLONNE 2: ACCÈS RAPIDE & INFOS ---
+          - type: vertical-stack
+            cards:
+              - type: entities
+                title: Accès Rapide
+                show_header_toggle: false
+                entities:
+                  - light.salondejardin
+                  - switch.volet_chambre
+                  - switch.prise_salon
+              - type: entities
+                title: Infos Système
+                show_header_toggle: false
+                entities:
+                  - sensor.backup_backup_manager_state
+                  - sun.sun
+
+          # --- COLONNE 3: ACTIONS & APPARENCE ---
+          - type: vertical-stack
+            cards:
+              - type: entities
+                title: Actions & Apparence
+                show_header_toggle: false
+                entities:
+                  - entity: input_boolean.A_REMPLIR_THEME_SOMBRE
+                    name: Thème Sombre
+              - type: horizontal-stack
+                cards:
+                  - type: button
+                    name: Apéro
+                    icon: mdi:glass-cocktail
+                    tap_action:
+                      action: toggle
+                    entity: scene.apero_terrasse
+                  - type: button
+                    name: Fermer Volets
+                    icon: mdi:window-shutter
+                    tap_action:
+                      action: toggle
+                    entity: cover.A_REMPLIR_GROUPE_VOLETS
+                  - type: button
+                    name: Tout Éteindre
+                    icon: mdi:power
+                    tap_action:
+                      action: call-service
+                      service: light.turn_off
+                      service_data:
+                        entity_id: all
+
+  - path: pieces
+    title: Pièces
+    icon: mdi:floor-plan
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: entities
+            title: Salon & Séjour
+            show_header_toggle: false
+            entities:
+              - light.salondejardin
+              - climate.sejour
+          - type: entities
+            title: Cuisine & Chambre
+            show_header_toggle: false
+            entities:
+              - light.plafonnier_cuisine
+              - sensor.temperature_cuisine
+              - light.lampe_chevet
+              - climate.chambre
+
+  - path: materiel
+    title: Matériel
+    icon: mdi:devices
+    cards:
+      - type: history-graph
+        title: Températures (24h)
+        entities:
+          - sensor.temperature_cuisine
+          - sensor.temperature_terrasse
+        hours_to_show: 24
+        refresh_interval: 300
+      - type: entities
+        title: Tous les appareils
+        show_header_toggle: false
+        entities:
+          - sensor.temperature_terrasse
+          - switch.volet_chambre
+          - switch.prise_salon
+
+  - path: scenos
+    title: Scénarios
+    icon: mdi:script-text-outline
+    cards:
+      - type: conditional
+        conditions:
+          - condition: time
+            after: '18:00:00'
+        card:
+          type: entities
+          title: Scénario Soirée
+          show_header_toggle: false
+          entities:
+            - entity: scene.A_REMPLIR_SOIREE_FILM
+              name: Soirée Film
+      - type: entities
+        title: Scénarios et Automatisations
+        show_header_toggle: false
+        entities:
+          - scene.apero_terrasse
+          - automation.fermeture_volets_nuit

@@ -1,0 +1,53 @@
+volets_tous:
+  friendly_name: "Volets (Tous)"
+  unique_id: "template_volets_tous"
+  device_class: shutter
+  value_template: "{{ is_state('cover.tous_les_volets', 'open') }}"
+  open_cover:
+    service: cover.open_cover
+    target:
+      entity_id: cover.tous_les_volets
+  close_cover:
+    service: cover.close_cover
+    target:
+      entity_id: cover.tous_les_volets
+  stop_cover:
+    service: cover.stop_cover
+    target:
+      entity_id: cover.tous_les_volets
+
+volets_rdc:
+  friendly_name: "Volets (RDC)"
+  unique_id: "template_volets_rdc"
+  device_class: shutter
+  value_template: "{{ is_state('cover.volets_rdc', 'open') }}"
+  open_cover:
+    service: cover.open_cover
+    target:
+      entity_id: cover.volets_rdc
+  close_cover:
+    service: cover.close_cover
+    target:
+      entity_id: cover.volets_rdc
+  stop_cover:
+    service: cover.stop_cover
+    target:
+      entity_id: cover.volets_rdc
+
+volets_chambres:
+  friendly_name: "Volets (Chambres)"
+  unique_id: "template_volets_chambres"
+  device_class: shutter
+  value_template: "{{ is_state('cover.volets_chambres', 'open') }}"
+  open_cover:
+    service: cover.open_cover
+    target:
+      entity_id: cover.volets_chambres
+  close_cover:
+    service: cover.close_cover
+    target:
+      entity_id: cover.volets_chambres
+  stop_cover:
+    service: cover.stop_cover
+    target:
+      entity_id: cover.volets_chambres

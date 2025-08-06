@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>🏠 Home Assistant Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- CSS modulaire - Ordre d'importation important -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/colors.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/enhancements.css">
+    <link rel="stylesheet" href="css/advanced-controls.css">
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a90e2">
+    <meta name="apple-mobile-web-app-title" content="HA Dashboard">
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+</head>
+<body>
+    <!-- Panel de debug -->
+    <div class="debug-panel" id="debugPanel">
+        <strong>DEBUG:</strong> <span id="debugText">Initialisation...</span>
+    </div>
+
+    <!-- En-tête -->
+    <div class="header">
+        <h1>🏠 Home Assistant</h1>
+        <div class="header-info">Tableau de bord connecté</div>
+        
+        <!-- Filtres de navigation -->
+        <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" onclick="switchToFilter('all', this)">Tout</button>
+            <button class="filter-tab" onclick="switchToFilter('pieces', this)">Pièces</button>
+            <button class="filter-tab" onclick="switchToFilter('materiel', this)">Matériel</button>
+            <button class="filter-tab" onclick="switchToFilter('scenarios', this)">Scénarios</button>
+        </div>
+    </div>
+
+    <!-- Panel de configuration -->
+    <div class="config-panel" id="configPanel">
+        <h3>⚙️ Configuration de connexion</h3>
+        <input type="text" id="haUrl" name="url" placeholder="URL Home Assistant (ex: http://192.168.1.100:8123)" autocomplete="on" />
+        <input type="password" id="haToken" name="token" placeholder="Token d'accès long terme" autocomplete="on" />
+        <button onclick="saveConfig()">Se connecter</button>
+        <button onclick="testConnection()" style="background: #f0ad4e; margin-top: 10px;">🔧 Test Connexion</button>
+        <div style="margin-top: 15px; font-size: 0.9em; color: #666;">
+            💡 Pour créer un token : Profil → Tokens d'accès long terme
+        </div>
+    </div>
+
+    <!-- Indicateur de chargement -->
+    <div class="loading" id="loading" style="display: none;">
+        <div>🔄 Connexion en cours...</div>
+    </div>
+    
+    <!-- Contenu principal -->
+    <div class="page-content" id="dashboardPage">
+        <div class="dashboard-container">
+            <!-- Vue principale - Toutes les entités -->
+            <div class="dashboard-grid" id="allContent"></div>
+            
+            <!-- Vue Pièces -->
+            <div class="rooms-grid" id="piecesContent" style="display: none;"></div>
+            <div id="pieceDetails" style="display: none;">
+                <div class="back-nav">
+                    <button class="back-btn" onclick="showPiecesList()">← Retour aux pièces</button>
+                </div>
+                <div class="dashboard-container">
+                    <div class="dashboard-grid" id="pieceEntities"></div>
+                </div>
+            </div>
+            
+            <!-- Vue Matériel -->
+            <div class="material-grid" id="materielContent" style="display: none;"></div>
+            <div id="materielDetails" style="display: none;">
+                <div class="back-nav">
+                    <button class="back-btn" onclick="showMaterielList()">← Retour au matériel</button>
+                </div>
+                <div class="dashboard-container">
+                    <div class="dashboard-grid" id="materielEntities"></div>
+                </div>
+            </div>
+            
+            <!-- Vue Scénarios -->
+            <div class="scenarios-grid" id="scenariosContent" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Barre de statut -->
+    <div class="status-bar" id="statusBar">
+        🔄 Dernière mise à jour : --:--:--
+    </div>
+
+    <!-- Scripts - Ordre d'importation important pour iOS 9.3.5 -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/entities.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/scenarios.js"></script>
+    <script src="js/smart-refresh.js"></script>
+    <script src="js/gestures.js"></script>
+    <script src="js/advanced-controls.js"></script>
+    
+    <!-- Initialisation -->
+    <script>
+        // Enregistrer le Service Worker pour PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        debugLog('Service Worker enregistré: ' + registration.scope);
+                    })
+                    .catch(function(error) {
+                        debugLog('Erreur Service Worker: ' + error);
+                    });
+            });
+        }
+        
+        // Démarrage de l'application une fois tous les scripts chargés
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp();
+        });
+        
+        // Fallback pour iOS 9.3.5 si DOMContentLoaded ne fonctionne pas
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                initApp();
+            });
+        } else {
+            // Document déjà chargé
+            setTimeout(initApp, 100);
+        }
+    </script>
+</body>
+</html>

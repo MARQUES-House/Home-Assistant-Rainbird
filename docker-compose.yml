@@ -1,0 +1,11 @@
+version: '3'
+services:
+  firefox:
+    image: jlesage/firefox:1.18.0
+    container_name: ha-firefox
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+    shm_size: '512m'
+    ports:
+      - "5800:5800"

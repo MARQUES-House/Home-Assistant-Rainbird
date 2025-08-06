@@ -1,0 +1,104 @@
+- sensor:
+    - name: 'Info Climat Adèle'
+      unique_id: 'info_climat_adele'
+      state: >
+        {% set climate = states('climate.adele') %}
+        {% set temp = state_attr('climate.adele', 'current_temperature') | float %}
+        {% set target = state_attr('climate.adele', 'temperature') | float %}
+        {% if temp > 0 %}
+          {{ temp }}°C
+        {% else %}
+          N/A
+        {% endif %}
+      attributes:
+        temperature: >
+          {{ state_attr('climate.adele', 'current_temperature') | float }}
+        target_temperature: >
+          {{ state_attr('climate.adele', 'temperature') | float }}
+        climate_state: >
+          {{ states('climate.adele') }}
+
+    - name: 'Info Climat Alex'
+      unique_id: 'info_climat_alex'
+      state: >
+        {% set temp = state_attr('climate.alex', 'current_temperature') | float %}
+        {% if temp > 0 %}
+          {{ temp }}°C
+        {% else %}
+          N/A
+        {% endif %}
+      attributes:
+        temperature: >
+          {{ state_attr('climate.alex', 'current_temperature') | float }}
+        target_temperature: >
+          {{ state_attr('climate.alex', 'temperature') | float }}
+        climate_state: >
+          {{ states('climate.alex') }}
+
+    - name: 'Info Climat Bureau'
+      unique_id: 'info_climat_bureau'
+      state: >
+        {% set temp = state_attr('climate.bureau', 'current_temperature') | float %}
+        {% if temp > 0 %}
+          {{ temp }}°C
+        {% else %}
+          N/A
+        {% endif %}
+      attributes:
+        temperature: >
+          {{ state_attr('climate.bureau', 'current_temperature') | float }}
+        target_temperature: >
+          {{ state_attr('climate.bureau', 'temperature') | float }}
+        climate_state: >
+          {{ states('climate.bureau') }}
+
+    - name: 'Info Climat Cuisine'
+      unique_id: 'info_climat_cuisine'
+      state: >
+        {% set temp = state_attr('climate.cuisine', 'current_temperature') | float %}
+        {% if temp > 0 %}
+          {{ temp }}°C
+        {% else %}
+          N/A
+        {% endif %}
+      attributes:
+        temperature: >
+          {{ state_attr('climate.cuisine', 'current_temperature') | float }}
+        target_temperature: >
+          {{ state_attr('climate.cuisine', 'temperature') | float }}
+        climate_state: >
+          {{ states('climate.cuisine') }}
+
+    - name: 'Info Climat Entrée'
+      unique_id: 'info_climat_entree'
+      state: >
+        {% set temp = state_attr('climate.entree_tv', 'current_temperature') | float %}
+        {% if temp > 0 %}
+          {{ temp }}°C
+        {% else %}
+          N/A
+        {% endif %}
+      attributes:
+        temperature: >
+          {{ state_attr('climate.entree_tv', 'current_temperature') | float }}
+        target_temperature: >
+          {{ state_attr('climate.entree_tv', 'temperature') | float }}
+        climate_state: >
+          {{ states('climate.entree_tv') }}
+
+    - name: 'Info Climat Parents'
+      unique_id: 'info_climat_parents'
+      state: >
+        {% set temp = state_attr('climate.parents', 'current_temperature') | float %}
+        {% if temp > 0 %}
+          {{ temp }}°C
+        {% else %}
+          N/A
+        {% endif %}
+      attributes:
+        temperature: >
+          {{ state_attr('climate.parents', 'current_temperature') | float }}
+        target_temperature: >
+          {{ state_attr('climate.parents', 'temperature') | float }}
+        climate_state: >
+          {{ states('climate.parents') }}

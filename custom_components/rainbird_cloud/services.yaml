@@ -1,0 +1,43 @@
+
+start_zone:
+  name: "Démarrer zone"
+  description: "Démarre l'irrigation d'une zone spécifique"
+  target:
+    entity:
+      domain: switch
+      integration: rainbird_cloud
+  fields:
+    duration:
+      name: "Durée"
+      description: "Durée en secondes"
+      example: 600
+      default: 300
+      selector:
+        number:
+          min: 30
+          max: 3600
+          step: 30
+          unit_of_measurement: "s"
+
+start_multiple_zones:
+  name: "Démarrer plusieurs zones"
+  description: "Démarre l'irrigation de plusieurs zones"
+  fields:
+    zones:
+      name: "Zones"
+      description: "Liste des zones à démarrer"
+      example: "[10782087, 10782088]"
+      required: true
+      selector:
+        object:
+    durations:
+      name: "Durées"
+      description: "Durées correspondantes en secondes"
+      example: "[300, 600]"
+      required: true
+      selector:
+        object:
+
+stop_all:
+  name: "Arrêter tout"
+  description: "Arrête toute irrigation en cours"

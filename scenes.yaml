@@ -1,0 +1,35 @@
+- id: '1754092836018'
+  name: Séance Cinéma
+  entities:
+    cover.fenetre_entree:
+      current_position: 100
+      device_class: shutter
+      friendly_name: 'Fenêtre Entrée '
+      supported_features: 15
+      state: open
+    cover.volets:
+      current_position: 50
+      entity_id:
+      - cover.fenetre_adele_arriere
+      - cover.fenetre_adele_ru
+      - cover.fenetre_alex_jar
+      - cover.fenetre_alex_rue
+      - cover.fenetre_bureau
+      - cover.fenetre_cuisine
+      - cover.fenetre_cuisine_avant
+      - cover.fenetre_entree
+      - cover.fenetre_salon_central
+      - cover.fenetre_salon_dr
+      - cover.fenetre_salon_gauche
+      - cover.fenetre_salon_tv
+      - cover.fenetre_sdb_suite
+      - cover.fenetre_suite
+      friendly_name: Volets
+      supported_features: 15
+      state: open
+  icon: mdi:theater
+  metadata:
+    cover.fenetre_entree:
+      entity_only: true
+    cover.volets:
+      entity_only: true

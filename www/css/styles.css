@@ -1,0 +1,1036 @@
+/* ===========================================
+   DASHBOARD HOME ASSISTANT - STYLES CSS
+   Compatible iOS 9.3.5 - iPad Mini
+   =========================================== */
+
+/* Reset et base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: -webkit-linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    min-height: 100vh;
+    color: #333;
+    padding: 10px;
+    -webkit-text-size-adjust: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* ===========================================
+   EN-TÊTE
+   =========================================== */
+
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.header h1 {
+    font-size: 1.8em;
+    font-weight: 300;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.header-info {
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+/* ===========================================
+   PANEL DE DEBUG
+   =========================================== */
+
+.debug-panel {
+    background: rgba(255, 0, 0, 0.9);
+    color: white;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 0.7em;
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 9999;
+    font-weight: 600;
+}
+
+/* ===========================================
+   FILTRES DE NAVIGATION - Compatible iOS 9
+   =========================================== */
+
+.filter-tabs {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 4px;
+    margin: 0 auto 20px auto;
+    max-width: 500px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    
+    /* FLEXBOX pour iOS 9.3.5 */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.filter-tab {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    
+    background: transparent;
+    color: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+    
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.filter-tab:active {
+    -webkit-transform: scale(0.95);
+    -moz-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+.filter-tab.active {
+    background: rgba(255, 255, 255, 0.9);
+    color: #4a90e2;
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* ===========================================
+   GRILLES - FLEXBOX au lieu de GRID pour iOS 9.3.5
+   =========================================== */
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-grid, .rooms-grid, .material-grid, .scenarios-grid {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: -10px;
+}
+
+.dashboard-grid .section,
+.rooms-grid .room-card,
+.material-grid .material-card,
+.scenarios-grid .scenario-card {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 calc(50% - 20px);
+    -ms-flex: 0 0 calc(50% - 20px);
+    flex: 0 0 calc(50% - 20px);
+    margin: 10px;
+}
+
+/* Smartphones uniquement - 1 colonne */
+@media (max-width: 480px) {
+    .dashboard-grid .section,
+    .rooms-grid .room-card,
+    .material-grid .material-card,
+    .scenarios-grid .scenario-card {
+        -webkit-flex: 0 0 calc(100% - 20px);
+        -ms-flex: 0 0 calc(100% - 20px);
+        flex: 0 0 calc(100% - 20px);
+    }
+}
+
+/* ===========================================
+   SECTIONS D'ENTITÉS
+   =========================================== */
+
+.section {
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding: 20px;
+    -webkit-box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.section h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-bottom: 2px solid #e8eaed;
+    padding-bottom: 10px;
+    
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.section-count {
+    background: #4a90e2;
+    color: white;
+    font-size: 0.8em;
+    padding: 4px 8px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    font-weight: 500;
+    min-width: 24px;
+    text-align: center;
+}
+
+/* ===========================================
+   ENTITÉS
+   =========================================== */
+
+.entity {
+    background: #f8f9fa;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 10px 0;
+    min-height: 60px;
+    border: 1px solid rgba(0,0,0,0.05);
+    
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.entity:active {
+    background: #e9ecef;
+    -webkit-transform: scale(0.98);
+    -moz-transform: scale(0.98);
+    -ms-transform: scale(0.98);
+    -o-transform: scale(0.98);
+    transform: scale(0.98);
+}
+
+.entity-info {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    min-width: 0;
+    padding-right: 15px;
+    
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.entity-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    font-size: 1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.entity-state {
+    color: #666;
+    font-size: 0.85em;
+    line-height: 1.3;
+}
+
+.entity-value {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* ===========================================
+   INDICATEURS DE STATUT
+   =========================================== */
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.status-on { 
+    background: #5cb85c; 
+    -webkit-box-shadow: 0 0 8px rgba(92, 184, 92, 0.6);
+    -moz-box-shadow: 0 0 8px rgba(92, 184, 92, 0.6);
+    box-shadow: 0 0 8px rgba(92, 184, 92, 0.6);
+}
+
+.status-off { 
+    background: #d9534f; 
+}
+
+.status-unavailable { 
+    background: #999; 
+}
+
+/* ===========================================
+   BOUTONS DE CONTRÔLE - TRÈS GRANDS pour iPad
+   =========================================== */
+
+.control-btn {
+    background: -webkit-linear-gradient(top, #5cb85c, #449d44);
+    background: -moz-linear-gradient(top, #5cb85c, #449d44);
+    background: -ms-linear-gradient(top, #5cb85c, #449d44);
+    background: -o-linear-gradient(top, #5cb85c, #449d44);
+    background: linear-gradient(to bottom, #5cb85c, #449d44);
+    
+    color: white;
+    border: 1px solid #4cae4c;
+    padding: 15px 25px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.1em;
+    cursor: pointer;
+    min-width: 80px;
+    min-height: 50px;
+    
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    
+    -webkit-transition: all 0.15s ease;
+    -moz-transition: all 0.15s ease;
+    -ms-transition: all 0.15s ease;
+    -o-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+}
+
+.control-btn:active {
+    background: -webkit-linear-gradient(top, #449d44, #3d8b40);
+    background: -moz-linear-gradient(top, #449d44, #3d8b40);
+    background: -ms-linear-gradient(top, #449d44, #3d8b40);
+    background: -o-linear-gradient(top, #449d44, #3d8b40);
+    background: linear-gradient(to bottom, #449d44, #3d8b40);
+    
+    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);
+    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);
+    
+    -webkit-transform: translateY(1px);
+    -moz-transform: translateY(1px);
+    -ms-transform: translateY(1px);
+    -o-transform: translateY(1px);
+    transform: translateY(1px);
+}
+
+.control-btn.off {
+    background: -webkit-linear-gradient(top, #d9534f, #c9302c);
+    background: -moz-linear-gradient(top, #d9534f, #c9302c);
+    background: -ms-linear-gradient(top, #d9534f, #c9302c);
+    background: -o-linear-gradient(top, #d9534f, #c9302c);
+    background: linear-gradient(to bottom, #d9534f, #c9302c);
+    border-color: #d43f3a;
+}
+
+.control-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    -webkit-transform: none !important;
+    -moz-transform: none !important;
+    -ms-transform: none !important;
+    -o-transform: none !important;
+    transform: none !important;
+}
+
+/* ===========================================
+   CONTRÔLES DE VOLETS - 3 boutons
+   =========================================== */
+
+.cover-controls {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 8px;
+}
+
+.cover-controls .control-btn {
+    padding: 12px 18px;
+    font-size: 1.3em;
+    min-width: 55px;
+    min-height: 48px;
+    font-weight: 700;
+}
+
+/* Bouton Monter - Bleu */
+.cover-controls .control-btn:first-child {
+    background: -webkit-linear-gradient(top, #337ab7, #2e6da4);
+    background: -moz-linear-gradient(top, #337ab7, #2e6da4);
+    background: -ms-linear-gradient(top, #337ab7, #2e6da4);
+    background: -o-linear-gradient(top, #337ab7, #2e6da4);
+    background: linear-gradient(to bottom, #337ab7, #2e6da4);
+    border-color: #2e6da4;
+}
+
+/* Bouton Stop - Orange */
+.cover-controls .control-btn:nth-child(2) {
+    background: -webkit-linear-gradient(top, #f0ad4e, #ec971f);
+    background: -moz-linear-gradient(top, #f0ad4e, #ec971f);
+    background: -ms-linear-gradient(top, #f0ad4e, #ec971f);
+    background: -o-linear-gradient(top, #f0ad4e, #ec971f);
+    background: linear-gradient(to bottom, #f0ad4e, #ec971f);
+    border-color: #eea236;
+}
+
+/* Bouton Descendre - Cyan */
+.cover-controls .control-btn:last-child {
+    background: -webkit-linear-gradient(top, #5bc0de, #46b8da);
+    background: -moz-linear-gradient(top, #5bc0de, #46b8da);
+    background: -ms-linear-gradient(top, #5bc0de, #46b8da);
+    background: -o-linear-gradient(top, #5bc0de, #46b8da);
+    background: linear-gradient(to bottom, #5bc0de, #46b8da);
+    border-color: #46b8da;
+}
+
+/* ===========================================
+   INFORMATIONS CLIMATISATION
+   =========================================== */
+
+.climate-info {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-top: 5px;
+    gap: 10px;
+}
+
+.climate-temp {
+    font-size: 0.8em;
+    color: #2980b9;
+    font-weight: 600;
+    background: rgba(41, 128, 185, 0.1);
+    padding: 3px 8px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid rgba(41, 128, 185, 0.2);
+}
+
+/* ===========================================
+   PANEL DE CONFIGURATION
+   =========================================== */
+
+.config-panel {
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.config-panel h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.config-panel input {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border: 2px solid #e9ecef;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-size: 1em;
+    background: white;
+    -webkit-appearance: none;
+    -webkit-transition: border-color 0.3s ease;
+    -moz-transition: border-color 0.3s ease;
+    -ms-transition: border-color 0.3s ease;
+    -o-transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease;
+}
+
+.config-panel input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    -webkit-box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    -moz-box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.config-panel button {
+    background: -webkit-linear-gradient(top, #4a90e2, #357abd);
+    background: -moz-linear-gradient(top, #4a90e2, #357abd);
+    background: -ms-linear-gradient(top, #4a90e2, #357abd);
+    background: -o-linear-gradient(top, #4a90e2, #357abd);
+    background: linear-gradient(to bottom, #4a90e2, #357abd);
+    
+    color: white;
+    border: 1px solid #357abd;
+    padding: 15px 25px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 1.1em;
+    cursor: pointer;
+    
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.config-panel button:active {
+    -webkit-transform: translateY(1px);
+    -moz-transform: translateY(1px);
+    -ms-transform: translateY(1px);
+    -o-transform: translateY(1px);
+    transform: translateY(1px);
+}
+
+/* ===========================================
+   ÉTATS ET MESSAGES
+   =========================================== */
+
+.loading {
+    text-align: center;
+    color: white;
+    padding: 40px;
+    font-size: 1.2em;
+    background: rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.error {
+    background: rgba(217, 83, 79, 0.1);
+    color: #a94442;
+    padding: 15px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border: 1px solid rgba(217, 83, 79, 0.3);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.success-feedback {
+    background: rgba(92, 184, 92, 0.1);
+    color: #3c763d;
+    padding: 12px 15px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    margin-top: 10px;
+    border: 1px solid rgba(92, 184, 92, 0.3);
+    font-weight: 500;
+}
+
+/* ===========================================
+   CARTES (Pièces, Matériel, Scénarios)
+   =========================================== */
+
+.room-card, .material-card, .scenario-card {
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    min-height: 140px;
+    border: 1px solid rgba(0,0,0,0.05);
+    
+    -webkit-box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.room-card:active, .material-card:active {
+    background: rgba(240, 240, 240, 0.95);
+    -webkit-transform: scale(0.98);
+    -moz-transform: scale(0.98);
+    -ms-transform: scale(0.98);
+    -o-transform: scale(0.98);
+    transform: scale(0.98);
+}
+
+.room-icon, .material-icon, .scenario-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.room-name, .material-name, .scenario-name {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.room-info, .material-info, .scenario-info {
+    font-size: 0.85em;
+    color: #666;
+    line-height: 1.3;
+}
+
+/* ===========================================
+   SCÉNARIOS COLORÉS
+   =========================================== */
+
+.scenario-card.coucher {
+    background: -webkit-linear-gradient(135deg, rgba(63, 81, 181, 0.9), rgba(103, 58, 183, 0.8));
+    background: -moz-linear-gradient(135deg, rgba(63, 81, 181, 0.9), rgba(103, 58, 183, 0.8));
+    background: -ms-linear-gradient(135deg, rgba(63, 81, 181, 0.9), rgba(103, 58, 183, 0.8));
+    background: -o-linear-gradient(135deg, rgba(63, 81, 181, 0.9), rgba(103, 58, 183, 0.8));
+    background: linear-gradient(135deg, rgba(63, 81, 181, 0.9), rgba(103, 58, 183, 0.8));
+    color: white;
+}
+
+.scenario-card.absent {
+    background: -webkit-linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(233, 30, 99, 0.8));
+    background: -moz-linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(233, 30, 99, 0.8));
+    background: -ms-linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(233, 30, 99, 0.8));
+    background: -o-linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(233, 30, 99, 0.8));
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(233, 30, 99, 0.8));
+    color: white;
+}
+
+.scenario-card.fete {
+    background: -webkit-linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(233, 30, 99, 0.8));
+    background: -moz-linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(233, 30, 99, 0.8));
+    background: -ms-linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(233, 30, 99, 0.8));
+    background: -o-linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(233, 30, 99, 0.8));
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(233, 30, 99, 0.8));
+    color: white;
+}
+
+.scenario-card.film {
+    background: -webkit-linear-gradient(135deg, rgba(0, 150, 136, 0.9), rgba(0, 188, 212, 0.8));
+    background: -moz-linear-gradient(135deg, rgba(0, 150, 136, 0.9), rgba(0, 188, 212, 0.8));
+    background: -ms-linear-gradient(135deg, rgba(0, 150, 136, 0.9), rgba(0, 188, 212, 0.8));
+    background: -o-linear-gradient(135deg, rgba(0, 150, 136, 0.9), rgba(0, 188, 212, 0.8));
+    background: linear-gradient(135deg, rgba(0, 150, 136, 0.9), rgba(0, 188, 212, 0.8));
+    color: white;
+}
+
+.scenario-card.nuit {
+    background: -webkit-linear-gradient(135deg, rgba(33, 33, 33, 0.9), rgba(66, 66, 66, 0.8));
+    background: -moz-linear-gradient(135deg, rgba(33, 33, 33, 0.9), rgba(66, 66, 66, 0.8));
+    background: -ms-linear-gradient(135deg, rgba(33, 33, 33, 0.9), rgba(66, 66, 66, 0.8));
+    background: -o-linear-gradient(135deg, rgba(33, 33, 33, 0.9), rgba(66, 66, 66, 0.8));
+    background: linear-gradient(135deg, rgba(33, 33, 33, 0.9), rgba(66, 66, 66, 0.8));
+    color: white;
+}
+
+.scenario-card:active {
+    -webkit-transform: scale(0.95);
+    -moz-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+/* ===========================================
+   NAVIGATION
+   =========================================== */
+
+.back-nav {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.back-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c3e50;
+    border: 1px solid #e9ecef;
+    padding: 12px 25px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1em;
+    
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.back-btn:active {
+    -webkit-transform: scale(0.98);
+    -moz-transform: scale(0.98);
+    -ms-transform: scale(0.98);
+    -o-transform: scale(0.98);
+    transform: scale(0.98);
+    background: rgba(240, 240, 240, 0.9);
+}
+
+/* ===========================================
+   BARRE DE STATUT
+   =========================================== */
+
+.status-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8em;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 60px; /* Espace pour la barre de statut */
+}
+
+/* ===========================================
+   RESPONSIVITÉ SPÉCIFIQUE iPad Mini
+   =========================================== */
+
+/* ===========================================
+   RESPONSIVITÉ SPÉCIFIQUE iPad Mini
+   =========================================== */
+
+/* iPad Mini - 2 colonnes pour un meilleur confort (768px - 1024px) */
+@media (min-width: 481px) and (max-width: 1024px) {
+    .dashboard-grid .section,
+    .rooms-grid .room-card,
+    .material-grid .material-card,
+    .scenarios-grid .scenario-card {
+        -webkit-flex: 0 0 calc(50% - 20px);
+        -ms-flex: 0 0 calc(50% - 20px);
+        flex: 0 0 calc(50% - 20px);
+    }
+    
+    .header h1 {
+        font-size: 1.7em;
+    }
+    
+    .filter-tab {
+        font-size: 0.9em;
+        padding: 12px 8px;
+    }
+    
+    /* Cartes plus hautes pour compenser la largeur */
+    .room-card, .material-card, .scenario-card {
+        min-height: 160px;
+        padding: 30px;
+    }
+    
+    .room-icon, .material-icon, .scenario-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+    }
+    
+    .room-name, .material-name, .scenario-name {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+}
+
+/* Très grands écrans - 3 colonnes */
+@media (min-width: 1025px) {
+    .dashboard-grid .section,
+    .rooms-grid .room-card,
+    .material-grid .material-card,
+    .scenarios-grid .scenario-card {
+        -webkit-flex: 0 0 calc(33.333% - 20px);
+        -ms-flex: 0 0 calc(33.333% - 20px);
+        flex: 0 0 calc(33.333% - 20px);
+    }
+}
+
+/* ===========================================
+   AMÉLIORATIONS TACTILES iOS 9.3.5
+   =========================================== */
+
+/* Amélioration des zones tactiles */
+.control-btn, .filter-tab, .back-btn, .config-panel button {
+    min-height: 44px; /* Taille minimale recommandée Apple */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.room-card, .material-card, .scenario-card {
+    min-height: 120px; /* Zone tactile confortable */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Feedback tactile amélioré */
+.entity:active,
+.control-btn:active,
+.filter-tab:active,
+.back-btn:active,
+.room-card:active,
+.material-card:active,
+.scenario-card:active {
+    -webkit-transition: none; /* Feedback immédiat au touch */
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+/* ===========================================
+   ANIMATIONS ET TRANSITIONS
+   =========================================== */
+
+/* Animation d'apparition des sections */
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+.section, .room-card, .material-card, .scenario-card {
+    -webkit-animation: fadeInUp 0.3s ease-out;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* ===========================================
+   ÉTATS SPÉCIAUX
+   =========================================== */
+
+/* Entité indisponible */
+.entity.unavailable {
+    opacity: 0.6;
+    background: #f1f3f4;
+}
+
+.entity.unavailable .entity-name {
+    color: #999;
+}
+
+/* Entité en cours de chargement */
+.entity.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.entity.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: -webkit-linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    -webkit-animation: loading 1.5s infinite;
+    animation: loading 1.5s infinite;
+}
+
+@-webkit-keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ===========================================
+   AMÉLIORATIONS ACCESSIBILITÉ
+   =========================================== */
+
+/* Contraste élevé pour la lisibilité */
+.entity-name {
+    color: #1a1a1a;
+}
+
+.section h3 {
+    color: #1a1a1a;
+}
+
+/* Focus visible pour navigation clavier (au cas où) */
+.control-btn:focus,
+.filter-tab:focus,
+.back-btn:focus {
+    outline: 2px solid #4a90e2;
+    outline-offset: 2px;
+}
+
+/* ===========================================
+   PERFORMANCE iOS 9.3.5
+   =========================================== */
+
+/* Optimisation des transformations pour iOS ancien */
+.entity,
+.control-btn,
+.filter-tab,
+.room-card,
+.material-card,
+.scenario-card {
+    -webkit-transform: translateZ(0); /* Force hardware acceleration */
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Réduction des ombres sur les appareils lents */
+@media (-webkit-max-device-pixel-ratio: 1) {
+    .section,
+    .config-panel,
+    .control-btn,
+    .room-card,
+    .material-card,
+    .scenario-card {
+        -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        -moz-box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+}

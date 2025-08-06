@@ -1,0 +1,620 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+#                                                                                                 #
+#                  Modern Dashboard by Michel - Final Version                                      #
+#                                                                                                 #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+#-------------------------------------------------------------------------------------------------#
+# Main dashboard settings
+#-------------------------------------------------------------------------------------------------#
+background: center / cover no-repeat url("/local/fond_tablette.webp") fixed
+theme: alforis-tablette
+device_preference: desktop
+resources:
+  - url: /hacsfiles/button-card/button-card.js
+    type: module
+  - url: /hacsfiles/lovelace-card-mod/card-mod.js
+    type: module
+  - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+    type: module
+#-------------------------------------------------------------------------------------------------#
+# Reusable card templates
+#-------------------------------------------------------------------------------------------------#
+button_card_templates:
+  # Base template for most buttons
+  base-button:
+    show_state: false
+    show_name: true
+    show_icon: true
+    size: 100%
+    tap_action: { haptic: medium }
+    hold_action: { action: more-info, haptic: heavy }
+    styles:
+      card:
+        - padding: var(--modern-dashboard-card-padding)
+        - border-radius: var(--ha-card-border-radius)
+        - box-shadow: var(--ha-card-box-shadow)
+        - border: var(--ha-card-border-width) solid var(--ha-card-border-color)
+        - background-color: var(--ha-card-background-color)
+        - backdrop-filter: blur(20px)
+        - transition: all 0.3s ease-in-out
+      icon:
+        - width: 32px
+        - height: 32px
+        - color: var(--primary-color)
+        - margin-bottom: 8px
+      name:
+        - font-size: 15px
+        - font-weight: 600
+        - color: var(--primary-text-color)
+        - text-align: center
+    extra_styles: |
+      @media (hover: hover) {
+        #card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px rgba(46, 58, 72, 0.15);
+          border-color: rgba(var(--rgb-primary-color), 0.4);
+        }
+      }
+      @media (max-width: 1024px) {
+        #card {
+          backdrop-filter: none;
+          background-color: rgba(var(--rgb-card-background-color), 0.95);
+        }
+      }
+      @media (max-width: 768px) {
+        #card { padding: 12px; }
+        #name { font-size: 14px; }
+        #icon { width: 24px; height: 24px; }
+      }
+
+  # Template for navigation buttons (like in the home page grids)
+  nav-button:
+    template: base-button
+    styles:
+      card:
+        - min-height: 80px
+
+  # Template for the main navigation bar buttons
+  main-nav-button:
+    template: base-button
+    styles:
+      card:
+        - background: transparent
+        - box-shadow: none
+        - border: none
+        - border-radius: 16px
+        - padding: 8px 12px
+        - min-height: auto
+      icon:
+        - width: 24px
+        - height: 24px
+        - margin-bottom: 4px
+      name:
+        - font-size: 14px
+        - font-weight: 500
+    extra_styles: |
+      @media (max-width: 992px) {
+        #name { display: none; }
+        #icon { margin-bottom: 0; }
+      }
+    state:
+      - operator: template
+        value: "[[[ return window.location.pathname.endsWith(variables.path) ]]]"
+        styles:
+          card: { background: rgba(var(--rgb-primary-color), 0.15) }
+          icon: { color: var(--primary-color) }
+          name: { color: var(--primary-color), font-weight: 600 }
+
+  # Template for scenario buttons
+  scenario-button:
+    template: base-button
+    aspect_ratio: 1.2/1
+    styles:
+      card:
+        - border: 2px solid transparent
+        - transition: all 0.3s ease-in-out
+      icon:
+        - width: 40px
+        - height: 40px
+        - margin-bottom: 16px
+        - filter: drop-shadow(0 0 8px rgba(255,255,255,0.3))
+      name:
+        - font-size: 16px
+        - font-weight: 700
+        - color: white
+        - text-shadow: 0 2px 4px rgba(0,0,0,0.5)
+    tap_action: { haptic: success }
+    state:
+      - operator: template
+        value: true
+        styles:
+          card: { transform: scale(1.05), filter: brightness(1.1) }
+
+  # Template for title cards
+  title-card:
+    type: markdown
+    style: |
+      ha-card {
+        background: none;
+        box-shadow: none;
+        padding: 0 0 var(--modern-dashboard-grid-gap) 0;
+      }
+      h2 {
+        margin: 0;
+        padding: 0;
+        font-size: var(--modern-dashboard-title-font-size);
+        font-weight: var(--modern-dashboard-title-font-weight);
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      @media (max-width: 768px) {
+        h2 {
+          font-size: 22px;
+        }
+      }
+
+  # Template for room navigation buttons
+  room-button:
+    template: base-button
+    aspect_ratio: 1.5/1
+    styles:
+      name: { font-size: 18px }
+
+  # Template for device toggles
+  device-toggle:
+    template: base-button
+    show_state: true
+    tap_action: { action: toggle, haptic: light }
+    state:
+      - value: "on"
+        styles:
+          card:
+            - background: rgba(var(--rgb-primary-color), 0.2)
+            - border-color: rgba(var(--rgb-primary-color), 0.4)
+          icon: { color: var(--primary-color) }
+          name: { color: var(--primary-color), font-weight: 700 }
+      - value: "off"
+        styles:
+          icon: { color: var(--secondary-text-color) }
+
+#-------------------------------------------------------------------------------------------------#
+# YAML Anchors for reusability
+#-------------------------------------------------------------------------------------------------#
+anchors:
+  # Navigation Bar
+  nav_bar: &nav_bar
+    type: custom:mod-card
+    style:
+      .: |
+        ha-card {
+          --ha-card-border-width: 0;
+          position: sticky;
+          top: 16px;
+          z-index: 10;
+          background: rgba(var(--rgb-card-background-color), 0.85);
+          backdrop-filter: blur(20px);
+          padding: 8px;
+          margin: 0 calc(-1 * var(--modern-dashboard-grid-gap));
+          margin-bottom: var(--modern-dashboard-grid-gap);
+          border-radius: var(--ha-card-border-radius);
+          box-shadow: var(--ha-card-box-shadow);
+          border: var(--ha-card-border-width) solid var(--ha-card-border-color);
+        }
+        @media (max-width: 1024px) {
+          ha-card {
+            backdrop-filter: none;
+            background: rgba(var(--rgb-card-background-color), 0.95);
+          }
+        }
+        @media (max-width: 768px) {
+          ha-card {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            top: auto !important;
+            border-radius: 0 !important;
+            border-top: 1px solid var(--ha-card-border-color) !important;
+            margin: 0 !important;
+          }
+        }
+    card:
+      type: horizontal-stack
+      cards:
+        - {
+            template: main-nav-button,
+            name: Accueil,
+            icon: mdi:home-assistant,
+            variables: { path: /accueil },
+            tap_action: { action: navigate, navigation_path: accueil },
+          }
+        - {
+            template: main-nav-button,
+            name: Pièces,
+            icon: mdi:floor-plan,
+            variables: { path: /pieces },
+            tap_action: { action: navigate, navigation_path: pieces },
+          }
+        - {
+            template: main-nav-button,
+            name: Matériel,
+            icon: mdi:devices,
+            variables: { path: /materiel },
+            tap_action: { action: navigate, navigation_path: materiel },
+          }
+        - {
+            template: main-nav-button,
+            name: Scénarios,
+            icon: mdi:script-text-outline,
+            variables: { path: /scenarios },
+            tap_action: { action: navigate, navigation_path: scenarios },
+          }
+        - type: custom:button-card
+          icon: mdi:cog
+          show_name: false
+          styles:
+            card:
+              - background: rgba(var(--rgb-primary-color), 0.1)
+              - border-radius: 16px
+              - width: 48px
+              - height: 48px
+              - margin-left: 16px
+              - box-shadow: none
+              - border: none
+            icon:
+              - color: var(--primary-color)
+              - width: 24px
+          tap_action: { action: navigate, navigation_path: /config/dashboard }
+
+  # Standard View Layout
+  view_layout: &view_layout
+    type: custom:grid-layout
+    grid-gap: var(--modern-dashboard-grid-gap)
+    padding: var(--modern-dashboard-grid-gap)
+    columns: 4
+    mediaquery:
+      "(min-width: 1800px)": { columns: 5 }
+      "(max-width: 1200px)": { columns: 3 }
+      "(max-width: 992px)": { columns: 2 }
+      "(max-width: 768px)": { columns: 1 }
+    card_mod:
+      style:
+        .: |
+          @media (max-width: 768px) {
+            #root {
+              padding-bottom: 70px !important;
+            }
+          }
+
+#-------------------------------------------------------------------------------------------------#
+# Views
+#-------------------------------------------------------------------------------------------------#
+views:
+  #-----------------------------------#
+  # Accueil View
+  #-----------------------------------#
+  - title: Accueil
+    path: accueil
+    icon: mdi:home-assistant
+    layout: *view_layout
+    cards:
+      - <<: *nav_bar
+      - type: markdown
+        style:
+          .: |
+            ha-card {
+              grid-column: 1 / -1;
+              background: transparent;
+              box-shadow: none;
+              padding: 0;
+            }
+          ha-markdown:
+            $: |
+              h2 {
+                margin: 0 0 8px 0;
+                font-size: 24px;
+                background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+              }
+              em { font-size: 14px; color: var(--secondary-text-color); display: block; margin-bottom: 8px; }
+              strong { font-size: 13px; color: var(--accent-color); }
+        content: >
+          ## 🏠 Bonjour {{ user }}
+          *{{ now().strftime('%A %d %B %Y') }} - Maison connectée*
+          **🌡️ {{ states('sensor.temp_salon') }}°C** • **⚡ {{ states('sensor.consommation_electrique') }}W**
+
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: weather-forecast
+                entity: weather.home
+                show_current: true
+                show_forecast: true
+                forecast_type: hourly
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-radius: var(--ha-card-border-radius);
+                      backdrop-filter: blur(20px);
+                      background: linear-gradient(135deg, rgba(66, 165, 245, 0.2), rgba(33, 150, 243, 0.1));
+                      border: 2px solid rgba(66, 165, 245, 0.3);
+                      padding: var(--modern-dashboard-card-padding);
+                      box-shadow: var(--ha-card-box-shadow);
+                    }
+                    @media (max-width: 1024px) {
+                      ha-card {
+                        backdrop-filter: none;
+                        background: linear-gradient(135deg, rgba(66, 165, 245, 0.8), rgba(33, 150, 243, 0.7));
+                      }
+                    }
+              - type: entities
+                title: 🌡️ Climat intérieur
+                show_header_toggle: false
+                entities:
+                  [
+                    climate.rdc,
+                    sensor.temp_salon,
+                    sensor.temp_chambre,
+                    sensor.humidity_salon,
+                  ]
+                card_mod:
+                  style:
+                    .: |
+                      ha-card {
+                        padding: var(--modern-dashboard-card-padding);
+                        border-radius: var(--ha-card-border-radius);
+                        box-shadow: var(--ha-card-box-shadow);
+                        border-width: 0;
+                        backdrop-filter: blur(20px);
+                      }
+                    "@media (max-width: 1024px)": |
+                      ha-card {
+                        backdrop-filter: none;
+                        background-color: rgba(var(--rgb-card-background-color), 0.95);
+                      }
+          - type: vertical-stack
+            cards:
+              - { type: markdown, content: "### 🏠 Navigation par pièce" }
+              - type: custom:grid-layout
+                columns: 2
+                mediaquery:
+                  "(max-width: 768px)": { columns: 1 }
+                cards:
+                  - {
+                      template: nav-button,
+                      name: 🏠 Rez-de-chaussée,
+                      icon: mdi:home-floor-0,
+                      tap_action:
+                        { action: navigate, navigation_path: /lovelace/rdc },
+                    }
+                  - {
+                      template: nav-button,
+                      name: 🏠 1er étage,
+                      icon: mdi:home-floor-1,
+                      tap_action:
+                        { action: navigate, navigation_path: /lovelace/etage1 },
+                    }
+                  - {
+                      template: nav-button,
+                      name: 🏠 2e étage,
+                      icon: mdi:home-floor-2,
+                      tap_action:
+                        { action: navigate, navigation_path: /lovelace/etage2 },
+                    }
+      - type: vertical-stack
+        cards:
+          - { type: markdown, content: "### 🧰 Navigation par matériel" }
+          - type: custom:grid-layout
+            columns: 2
+            mediaquery:
+              "(max-width: 768px)": { columns: 1 }
+            cards:
+              - {
+                  template: nav-button,
+                  name: 🪟 Volets roulants,
+                  icon: mdi:window-shutter,
+                  tap_action:
+                    { action: navigate, navigation_path: /lovelace/volets },
+                }
+              - {
+                  template: nav-button,
+                  name: ❄️ Airzone,
+                  icon: mdi:air-filter,
+                  tap_action:
+                    { action: navigate, navigation_path: /lovelace/clim },
+                }
+              - {
+                  template: nav-button,
+                  name: 💡 Éclairage,
+                  icon: mdi:lightbulb-group,
+                  tap_action:
+                    { action: navigate, navigation_path: /lovelace/lumieres },
+                }
+              - {
+                  template: nav-button,
+                  name: 🔌 Prises & Interrupteurs,
+                  icon: mdi:power-socket-eu,
+                  tap_action:
+                    { action: navigate, navigation_path: /lovelace/prises },
+                }
+      - type: vertical-stack
+        cards:
+          - { type: markdown, content: "### 🎬 Scénarios rapides" }
+          - type: custom:grid-layout
+            columns: 2
+            mediaquery:
+              "(max-width: 768px)": { columns: 1 }
+            cards:
+              - {
+                  template: scenario-button,
+                  name: 🌅 Réveil,
+                  icon: mdi:weather-sunny,
+                  tap_action:
+                    { action: call-service, service: script.scenario_reveil },
+                }
+              - {
+                  template: scenario-button,
+                  name: 🌙 Coucher,
+                  icon: mdi:weather-night,
+                  tap_action:
+                    { action: call-service, service: script.scenario_coucher },
+                }
+              - {
+                  template: scenario-button,
+                  name: 🏠 Absent,
+                  icon: mdi:home-export-outline,
+                  tap_action:
+                    { action: call-service, service: script.scenario_absent },
+                }
+              - {
+                  template: scenario-button,
+                  name: 🎉 Fête,
+                  icon: mdi:party-popper,
+                  tap_action:
+                    { action: call-service, service: script.scenario_fete },
+                }
+
+  #-----------------------------------#
+  # Pièces (Rooms) View
+  #-----------------------------------#
+  - title: Pièces
+    path: pieces
+    icon: mdi:floor-plan
+    layout: *view_layout
+    cards:
+      - <<: *nav_bar
+      - {
+          type: custom:button-card,
+          template: title-card,
+          name: "Gestion des Pièces",
+          styles: { card: { grid-column: 1 / -1 } },
+        }
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - {
+              template: room-button,
+              name: Salon,
+              icon: mdi:sofa,
+              tap_action: { action: navigate, navigation_path: salon },
+            }
+          - {
+              template: room-button,
+              name: Cuisine,
+              icon: mdi:silverware-fork-knife,
+              tap_action: { action: navigate, navigation_path: cuisine },
+            }
+          - {
+              template: room-button,
+              name: Chambre,
+              icon: mdi:bed,
+              tap_action: { action: navigate, navigation_path: chambre },
+            }
+
+  #-----------------------------------#
+  # Matériel (Devices) View
+  #-----------------------------------#
+  - title: Matériel
+    path: materiel
+    icon: mdi:devices
+    layout: *view_layout
+    cards:
+      - <<: *nav_bar
+      - {
+          type: custom:button-card,
+          template: title-card,
+          name: "Contrôle du Matériel",
+          styles: { card: { grid-column: 1 / -1 } },
+        }
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - {
+              template: device-toggle,
+              entity: switch.volet_chambre,
+              name: Volet Chambre,
+              icon: mdi:window-shutter,
+            }
+          - {
+              template: device-toggle,
+              entity: switch.prise_salon,
+              name: Prise Salon,
+              icon: mdi:power-socket-eu,
+            }
+          - type: sensor
+            entity: sensor.temperature_terrasse
+            name: Température Terrasse
+            graph: line
+            card_mod:
+              style: |
+                ha-card {
+                  padding: var(--modern-dashboard-card-padding);
+                  border-radius: var(--ha-card-border-radius);
+                  box-shadow: var(--ha-card-box-shadow);
+                  border-width: 0;
+                  backdrop-filter: blur(20px);
+                }
+                @media (max-width: 1024px) {
+                  ha-card {
+                    backdrop-filter: none;
+                    background-color: rgba(var(--rgb-card-background-color), 0.95);
+                  }
+                }
+
+  #-----------------------------------#
+  # Scénarios (Scenes) View
+  #-----------------------------------#
+  - title: Scénarios
+    path: scenarios
+    icon: mdi:script-text-outline
+    layout: *view_layout
+    cards:
+      - <<: *nav_bar
+      - {
+          type: custom:button-card,
+          template: title-card,
+          name: "Automatisation & Scénarios",
+          styles: { card: { grid-column: 1 / -1 } },
+        }
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:button-card
+            template: scenario-button
+            name: Apéro Terrasse
+            icon: mdi:glass-cocktail
+            tap_action:
+              {
+                action: call-service,
+                service: scene.turn_on,
+                service_data: { entity_id: scene.apero_terrasse },
+              }
+            styles:
+              card:
+                - background: linear-gradient(135deg, rgba(76, 175, 80, 0.4), rgba(139, 195, 74, 0.3))
+                - border: 2px solid rgba(76, 175, 80, 0.5)
+              icon: { color: rgba(76, 175, 80, 0.9) }
+          - type: custom:button-card
+            template: scenario-button
+            name: Fermeture Volets
+            icon: mdi:window-shutter-alert
+            tap_action:
+              {
+                action: call-service,
+                service: automation.trigger,
+                service_data: { entity_id: automation.fermeture_volets_nuit },
+              }
+            styles:
+              card:
+                - background: linear-gradient(135deg, rgba(3, 169, 244, 0.4), rgba(0, 188, 212, 0.3))
+                - border: 2px solid rgba(3, 169, 244, 0.5)
+              icon: { color: rgba(3, 169, 244, 0.9) }

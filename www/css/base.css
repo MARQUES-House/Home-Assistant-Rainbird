@@ -1,0 +1,186 @@
+/* ===========================================
+   DASHBOARD HOME ASSISTANT - STYLES DE BASE
+   Compatible iOS 9.3.5 - Reset + Layout
+   =========================================== */
+
+/* Reset CSS minimal */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: -webkit-linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    min-height: 100vh;
+    color: #333;
+    padding: 10px;
+    -webkit-text-size-adjust: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Layout principal */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+
+/* Grilles Flexbox (compatible iOS 9.3.5) */
+.dashboard-grid, 
+.rooms-grid, 
+.material-grid, 
+.scenarios-grid {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: -10px;
+}
+
+.dashboard-grid .section,
+.rooms-grid .room-card,
+.material-grid .material-card,
+.scenarios-grid .scenario-card {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 calc(50% - 20px);
+    -ms-flex: 0 0 calc(50% - 20px);
+    flex: 0 0 calc(50% - 20px);
+    margin: 10px;
+}
+
+/* En-tête */
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.header h1 {
+    font-size: 1.8em;
+    font-weight: 300;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.header-info {
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+/* Navigation par filtres */
+.filter-tabs {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 4px;
+    margin: 0 auto 20px auto;
+    max-width: 500px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.filter-tab {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.filter-tab:active {
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+.filter-tab.active {
+    background: rgba(255, 255, 255, 0.9);
+    color: #4a90e2;
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Barre de statut */
+.status-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8em;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* États de chargement */
+.loading {
+    text-align: center;
+    color: white;
+    padding: 40px;
+    font-size: 1.2em;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    margin: 20px;
+}
+
+/* Debug panel */
+.debug-panel {
+    background: rgba(255, 0, 0, 0.9);
+    color: white;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 0.7em;
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 9999;
+    font-weight: 600;
+}
+
+/* Optimisations performance iOS 9.3.5 */
+.entity,
+.control-btn,
+.filter-tab,
+.room-card,
+.material-card,
+.scenario-card {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}

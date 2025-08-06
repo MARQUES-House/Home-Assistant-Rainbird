@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "minor_version": 1,
+  "key": "person",
+  "data": {
+    "items": [
+      {
+        "id": "marques",
+        "name": "MARQUES",
+        "user_id": "bd0aa55dc5c848d1afedfb75b7a0b506",
+        "device_trackers": [
+          "device_tracker.iphone_9"
+        ]
+      }
+    ]
+  }
+}

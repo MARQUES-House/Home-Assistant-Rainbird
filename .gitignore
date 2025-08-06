@@ -1,0 +1,14 @@
+secrets.yaml
+home-assistant.log
+home-assistant_v2.db
+*.db-shm
+*.db-wal
+__pycache__/
+deps/
+storage/
+tts/
+.cloud/
+.custom_components/*/__pycache__/
+*.pyc
+backup/
+.storage/core.config_entries

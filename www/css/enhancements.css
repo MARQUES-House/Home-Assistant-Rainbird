@@ -1,0 +1,410 @@
+/* ===========================================
+   DASHBOARD HOME ASSISTANT - AMÉLIORATIONS ESTHÉTIQUES
+   Glassmorphism + Micro-animations + Typographie moderne
+   =========================================== */
+
+/* Variables CSS pour cohérence (compatible iOS 9.3.5) */
+:root {
+    --primary-blue: #4a90e2;
+    --success-green: #5cb85c;
+    --warning-orange: #f0ad4e;
+    --danger-red: #d9534f;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-soft: 0 8px 32px rgba(0,0,0,0.1);
+    --shadow-hover: 0 12px 40px rgba(0,0,0,0.15);
+    --border-radius: 16px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Effet Glassmorphism moderne */
+.section {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid var(--glass-border) !important;
+    -webkit-box-shadow: var(--shadow-soft) !important;
+    box-shadow: var(--shadow-soft) !important;
+    border-radius: var(--border-radius) !important;
+}
+
+.config-panel {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid var(--glass-border) !important;
+    -webkit-box-shadow: var(--shadow-soft) !important;
+    box-shadow: var(--shadow-soft) !important;
+    border-radius: var(--border-radius) !important;
+}
+
+.room-card, .material-card, .scenario-card {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: var(--border-radius) !important;
+    -webkit-transition: var(--transition-smooth) !important;
+    transition: var(--transition-smooth) !important;
+}
+
+/* Typographie moderne avec dégradés */
+.header h1 {
+    font-weight: 200 !important;
+    letter-spacing: 0.5px !important;
+    background: -webkit-linear-gradient(45deg, #fff, #e8f4fd);
+    background: linear-gradient(45deg, #fff, #e8f4fd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none !important;
+}
+
+.entity-name {
+    font-weight: 500 !important;
+    letter-spacing: 0.3px !important;
+}
+
+.section h3 {
+    font-weight: 600 !important;
+    letter-spacing: 0.2px !important;
+}
+
+/* Micro-animations élégantes */
+.control-btn {
+    -webkit-transition: var(--transition-smooth) !important;
+    transition: var(--transition-smooth) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.control-btn:hover {
+    -webkit-transform: translateY(-2px) !important;
+    transform: translateY(-2px) !important;
+    -webkit-box-shadow: var(--shadow-hover) !important;
+    box-shadow: var(--shadow-hover) !important;
+}
+
+/* Effet de ripple sur les boutons (compatible iOS 9.3.5) */
+.control-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: width 0.3s, height 0.3s;
+    transition: width 0.3s, height 0.3s;
+}
+
+.control-btn:active::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* Animation de pulsation pour entités actives */
+.status-on {
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse 2s infinite;
+}
+
+@-webkit-keyframes pulse {
+    0%, 100% { 
+        opacity: 1; 
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7; 
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 1; 
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7; 
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+}
+
+/* Hover effects pour les cartes */
+.room-card:hover, .material-card:hover {
+    -webkit-transform: translateY(-4px) scale(1.02) !important;
+    transform: translateY(-4px) scale(1.02) !important;
+    -webkit-box-shadow: var(--shadow-hover) !important;
+    box-shadow: var(--shadow-hover) !important;
+}
+
+.scenario-card:hover {
+    -webkit-transform: translateY(-4px) scale(1.02) !important;
+    transform: translateY(-4px) scale(1.02) !important;
+    -webkit-box-shadow: 0 16px 48px rgba(0,0,0,0.2) !important;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.2) !important;
+}
+
+/* Animation de rotation douce pour les icônes */
+.room-icon, .material-icon, .scenario-icon {
+    -webkit-transition: var(--transition-smooth);
+    transition: var(--transition-smooth);
+}
+
+.room-card:hover .room-icon,
+.material-card:hover .material-icon {
+    -webkit-transform: rotate(5deg) scale(1.1);
+    transform: rotate(5deg) scale(1.1);
+}
+
+.scenario-card:hover .scenario-icon {
+    -webkit-transform: rotate(-5deg) scale(1.15);
+    transform: rotate(-5deg) scale(1.15);
+}
+
+/* Entités avec transition fluide */
+.entity {
+    -webkit-transition: var(--transition-smooth) !important;
+    transition: var(--transition-smooth) !important;
+    border-radius: 14px !important;
+}
+
+.entity:hover {
+    -webkit-transform: translateX(4px) !important;
+    transform: translateX(4px) !important;
+    -webkit-box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+    background: rgba(248, 249, 250, 0.9) !important;
+}
+
+/* Filtres avec effet glow */
+.filter-tab {
+    -webkit-transition: var(--transition-smooth) !important;
+    transition: var(--transition-smooth) !important;
+    position: relative;
+}
+
+.filter-tab.active {
+    -webkit-box-shadow: 0 0 20px rgba(74, 144, 226, 0.3) !important;
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.3) !important;
+}
+
+.filter-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-blue);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+}
+
+.filter-tab.active::after {
+    width: 80%;
+}
+
+/* Indicateurs de statut améliorés */
+.status-indicator {
+    -webkit-transition: var(--transition-smooth);
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.status-indicator::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.3;
+    -webkit-animation: ripple 1.5s infinite;
+    animation: ripple 1.5s infinite;
+}
+
+.status-on::after {
+    -webkit-animation: ripple 1.5s infinite;
+    animation: ripple 1.5s infinite;
+}
+
+@-webkit-keyframes ripple {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Amélioration des contrôles de volets */
+.cover-controls {
+    gap: 12px !important;
+}
+
+.cover-controls .control-btn {
+    border-radius: 12px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.cover-controls .control-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    -webkit-transition: left 0.5s;
+    transition: left 0.5s;
+}
+
+.cover-controls .control-btn:active::after {
+    left: 100%;
+}
+
+/* Améliorations textuelles */
+.climate-temp {
+    border-radius: 8px !important;
+    -webkit-transition: var(--transition-smooth);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.climate-temp::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    -webkit-animation: shimmer 2s infinite;
+    animation: shimmer 2s infinite;
+}
+
+@-webkit-keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Loading state amélioré */
+.entity.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.entity.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+    -webkit-animation: loading-shimmer 1.5s infinite;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@-webkit-keyframes loading-shimmer {
+    0% { left: -100%; }  
+    100% { left: 100%; }
+}
+
+@keyframes loading-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Skeleton loading élégant */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    -webkit-animation: skeleton-loading 1.5s infinite;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+@-webkit-keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Barre de statut avec glassmorphism */
+.status-bar {
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Mode sombre automatique amélioré */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --glass-bg: rgba(30, 30, 46, 0.8);
+        --glass-border: rgba(255, 255, 255, 0.1);
+    }
+    
+    body {
+        background: -webkit-linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+    }
+    
+    .header h1 {
+        background: -webkit-linear-gradient(45deg, #e2e8f0, #a0aec0);
+        background: linear-gradient(45deg, #e2e8f0, #a0aec0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .entity:hover {
+        background: rgba(45, 55, 72, 0.9) !important;
+    }
+    
+    .control-btn::before {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}

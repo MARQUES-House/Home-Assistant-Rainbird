@@ -1,0 +1,718 @@
+2025-08-05 00:42:19.510 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration rainbird which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-08-05 00:42:19.513 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration dwains_dashboard which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-08-05 00:42:19.515 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-08-05 00:42:26.155 ERROR (SyncWorker_6) [homeassistant.components.camera.img_util] Error loading libturbojpeg; Camera snapshot performance will be sub-optimal
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/camera/img_util.py", line 93, in __init__
+    TurboJPEGSingleton.__instance = TurboJPEG()
+                                    ~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/turbojpeg.py", line 300, in __init__
+    turbo_jpeg = cdll.LoadLibrary(
+        self.__find_turbojpeg() if lib_path is None else lib_path)
+  File "/usr/local/lib/python3.13/ctypes/__init__.py", line 471, in LoadLibrary
+    return self._dlltype(name)
+           ~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/ctypes/__init__.py", line 390, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: Error loading shared library /usr/lib/libturbojpeg.so.0: Exec format error
+2025-08-05 00:42:34.075 WARNING (MainThread) [homeassistant.util.loop] Detected blocking call to load_default_certs with args (<ssl.SSLContext object at 0x7f5f9a3020>, <Purpose.SERVER_AUTH: _ASN1Object(nid=129, shortname='serverAuth', longname='TLS Web Server Authentication', oid='1.3.6.1.5.5.7.3.1')>) inside the event loop by integration 'freebox' at homeassistant/components/freebox/__init__.py, line 22: await api.open(entry.data[CONF_HOST], entry.data[CONF_PORT]) (offender: /usr/local/lib/python3.13/ssl.py, line 722: context.load_default_certs(purpose)), please create a bug report at https://github.com/home-assistant/core/issues?q=is%3Aopen+is%3Aissue+label%3A%22integration%3A+freebox%22
+For developers, please see https://developers.home-assistant.io/docs/asyncio_blocking_operations/#load_default_certs
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/src/homeassistant/homeassistant/__main__.py", line 223, in <module>
+    sys.exit(main())
+  File "/usr/src/homeassistant/homeassistant/__main__.py", line 209, in main
+    exit_code = runner.run(runtime_conf)
+  File "/usr/src/homeassistant/homeassistant/runner.py", line 154, in run
+    return loop.run_until_complete(setup_and_run_hass(runtime_config))
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 677, in run_forever
+    self._run_once()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 2034, in _run_once
+    handle._run()
+  File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 170, in async_setup_component
+    result = await _async_setup_component(hass, domain, config)
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 470, in _async_setup_component
+    await asyncio.gather(
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 472, in <genexpr>
+    create_eager_task(
+  File "/usr/src/homeassistant/homeassistant/util/async_.py", line 44, in create_eager_task
+    return Task(coro, loop=loop, name=name, eager_start=True)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 894, in async_setup_locked
+    await self.async_setup(hass, integration=integration)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 660, in async_setup
+    await self.__async_setup_with_context(hass, integration)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+  File "/usr/src/homeassistant/homeassistant/components/freebox/__init__.py", line 22, in async_setup_entry
+    await api.open(entry.data[CONF_HOST], entry.data[CONF_PORT])
+
+2025-08-05 00:42:34.080 WARNING (MainThread) [homeassistant.util.loop] Detected blocking call to set_default_verify_paths with args (<ssl.SSLContext object at 0x7f5f9a3020>,) inside the event loop by integration 'freebox' at homeassistant/components/freebox/__init__.py, line 22: await api.open(entry.data[CONF_HOST], entry.data[CONF_PORT]) (offender: /usr/local/lib/python3.13/ssl.py, line 534: self.set_default_verify_paths()), please create a bug report at https://github.com/home-assistant/core/issues?q=is%3Aopen+is%3Aissue+label%3A%22integration%3A+freebox%22
+For developers, please see https://developers.home-assistant.io/docs/asyncio_blocking_operations/#set_default_verify_paths
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/src/homeassistant/homeassistant/__main__.py", line 223, in <module>
+    sys.exit(main())
+  File "/usr/src/homeassistant/homeassistant/__main__.py", line 209, in main
+    exit_code = runner.run(runtime_conf)
+  File "/usr/src/homeassistant/homeassistant/runner.py", line 154, in run
+    return loop.run_until_complete(setup_and_run_hass(runtime_config))
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 677, in run_forever
+    self._run_once()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 2034, in _run_once
+    handle._run()
+  File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 170, in async_setup_component
+    result = await _async_setup_component(hass, domain, config)
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 470, in _async_setup_component
+    await asyncio.gather(
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 472, in <genexpr>
+    create_eager_task(
+  File "/usr/src/homeassistant/homeassistant/util/async_.py", line 44, in create_eager_task
+    return Task(coro, loop=loop, name=name, eager_start=True)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 894, in async_setup_locked
+    await self.async_setup(hass, integration=integration)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 660, in async_setup
+    await self.__async_setup_with_context(hass, integration)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+  File "/usr/src/homeassistant/homeassistant/components/freebox/__init__.py", line 22, in async_setup_entry
+    await api.open(entry.data[CONF_HOST], entry.data[CONF_PORT])
+
+2025-08-05 00:42:34.107 WARNING (MainThread) [homeassistant.util.loop] Detected blocking call to load_verify_locations with args (<ssl.SSLContext object at 0x7f5f9a3020>,) inside the event loop by integration 'freebox' at homeassistant/components/freebox/__init__.py, line 22: await api.open(entry.data[CONF_HOST], entry.data[CONF_PORT]) (offender: /usr/local/lib/python3.13/site-packages/freebox_api/aiofreepybox.py, line 124: ssl_ctx.load_verify_locations(cafile=cert_path)), please create a bug report at https://github.com/home-assistant/core/issues?q=is%3Aopen+is%3Aissue+label%3A%22integration%3A+freebox%22
+For developers, please see https://developers.home-assistant.io/docs/asyncio_blocking_operations/#load_verify_locations
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/src/homeassistant/homeassistant/__main__.py", line 223, in <module>
+    sys.exit(main())
+  File "/usr/src/homeassistant/homeassistant/__main__.py", line 209, in main
+    exit_code = runner.run(runtime_conf)
+  File "/usr/src/homeassistant/homeassistant/runner.py", line 154, in run
+    return loop.run_until_complete(setup_and_run_hass(runtime_config))
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 677, in run_forever
+    self._run_once()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 2034, in _run_once
+    handle._run()
+  File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 170, in async_setup_component
+    result = await _async_setup_component(hass, domain, config)
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 470, in _async_setup_component
+    await asyncio.gather(
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 472, in <genexpr>
+    create_eager_task(
+  File "/usr/src/homeassistant/homeassistant/util/async_.py", line 44, in create_eager_task
+    return Task(coro, loop=loop, name=name, eager_start=True)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 894, in async_setup_locked
+    await self.async_setup(hass, integration=integration)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 660, in async_setup
+    await self.__async_setup_with_context(hass, integration)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+  File "/usr/src/homeassistant/homeassistant/components/freebox/__init__.py", line 22, in async_setup_entry
+    await api.open(entry.data[CONF_HOST], entry.data[CONF_PORT])
+
+2025-08-05 00:42:34.114 WARNING (MainThread) [homeassistant.util.loop] Detected blocking call to open with args (PosixPath('/config/.storage/freebox/2y52zdio_fbxos_fr.conf'), 'r') inside the event loop by integration 'freebox' at homeassistant/components/freebox/__init__.py, line 22: await api.open(entry.data[CONF_HOST], entry.data[CONF_PORT]) (offender: /usr/local/lib/python3.13/site-packages/freebox_api/aiofreepybox.py, line 328: with open(token_file, "r") as f:), please create a bug report at https://github.com/home-assistant/core/issues?q=is%3Aopen+is%3Aissue+label%3A%22integration%3A+freebox%22
+For developers, please see https://developers.home-assistant.io/docs/asyncio_blocking_operations/#open
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/src/homeassistant/homeassistant/__main__.py", line 223, in <module>
+    sys.exit(main())
+  File "/usr/src/homeassistant/homeassistant/__main__.py", line 209, in main
+    exit_code = runner.run(runtime_conf)
+  File "/usr/src/homeassistant/homeassistant/runner.py", line 154, in run
+    return loop.run_until_complete(setup_and_run_hass(runtime_config))
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 677, in run_forever
+    self._run_once()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 2034, in _run_once
+    handle._run()
+  File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 170, in async_setup_component
+    result = await _async_setup_component(hass, domain, config)
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 470, in _async_setup_component
+    await asyncio.gather(
+  File "/usr/src/homeassistant/homeassistant/setup.py", line 472, in <genexpr>
+    create_eager_task(
+  File "/usr/src/homeassistant/homeassistant/util/async_.py", line 44, in create_eager_task
+    return Task(coro, loop=loop, name=name, eager_start=True)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 894, in async_setup_locked
+    await self.async_setup(hass, integration=integration)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 660, in async_setup
+    await self.__async_setup_with_context(hass, integration)
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+  File "/usr/src/homeassistant/homeassistant/components/freebox/__init__.py", line 22, in async_setup_entry
+    await api.open(entry.data[CONF_HOST], entry.data[CONF_PORT])
+
+2025-08-05 00:42:34.666 WARNING (MainThread) [homeassistant.components.freebox.router] Home access is not granted
+2025-08-05 00:42:36.479 WARNING (MainThread) [homeassistant.config_entries] Config entry 'marques.michel@laposte.net' for overkiz integration could not authenticate: Invalid authentication
+2025-08-05 00:42:41.747 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/__init__.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  __import__('pkg_resources').declare_namespace(__name__)
+
+2025-08-05 00:42:43.410 ERROR (SyncWorker_5) [aiodhcpwatcher] Cannot watch for dhcp packets without a functional packet filter: libpcap is not available. Cannot compile filter !
+2025-08-05 00:42:46.130 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/ProtocolMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.149 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/AudioFadeMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.168 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/PlayerPath.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.182 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/Origin.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.186 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/DeviceInfoMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.192 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/Common.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.219 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/NowPlayingClient.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.228 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/NowPlayingPlayer.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.264 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/AudioFadeResponseMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.269 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/ClientUpdatesConfigMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.277 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/ConfigureConnectionMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.289 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/CryptoPairingMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.316 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/GenericMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.323 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/GetKeyboardSessionMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.352 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/GetRemoteTextInputSessionMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.365 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/GetVolumeMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.374 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/GetVolumeResultMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.385 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/KeyboardMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.397 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/ModifyOutputContextRequestMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:42:46.400 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.1 is exactly one major version older than the runtime version 6.31.1 at pyatv/protocols/mrp/protobuf/NotificationMessage.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+
+2025-08-05 00:43:13.180 WARNING (ImportExecutor_0) [homeassistant.helpers.typing] HomeAssistantType was used from rainbird, this is a deprecated alias which will be removed in HA Core 2025.5. Use homeassistant.core.HomeAssistant instead, please report it to the author of the 'rainbird' custom integration
+2025-08-05 00:44:16.222 WARNING (SyncWorker_2) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:44:19.237 WARNING (SyncWorker_2) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:44:22.251 WARNING (SyncWorker_2) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:44:25.265 WARNING (SyncWorker_2) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:44:28.280 WARNING (SyncWorker_2) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:44:31.294 WARNING (SyncWorker_2) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:44:34.310 WARNING (SyncWorker_2) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:44:37.310 WARNING (SyncWorker_2) [pyrainbird] Empty response from controller
+2025-08-05 00:44:37.311 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry marquesmitch@gmail.com for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 113, in async_setup_entry
+    hass.config_entries.async_forward_entry_setup(config_entry, homeassistant.components.binary_sensor.DOMAIN))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigEntries' object has no attribute 'async_forward_entry_setup'. Did you mean: 'async_forward_entry_setups'?
+2025-08-05 00:45:10.871 WARNING (MainThread) [homeassistant.helpers.frame] Detected that custom integration 'rainbird' sets option flow config_entry explicitly, which is deprecated at custom_components/rainbird/config_flow.py, line 110: self.config_entry = config_entry. This will stop working in Home Assistant 2025.12, please create a bug report at https://github.com/konikvranik/hacs_rainbird/issues
+2025-08-05 00:45:10.871 ERROR (MainThread) [aiohttp.server] Error handling request from fe80::aa:4de1:9ad1:50c6
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_protocol.py", line 510, in _handle_request
+    resp = await request_handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_app.py", line 569, in _handle
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_middlewares.py", line 117, in impl
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/security_filter.py", line 92, in security_filter_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/forwarded.py", line 83, in forwarded_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/request_context.py", line 26, in request_context_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 86, in ban_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 242, in auth_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/headers.py", line 41, in headers_middleware
+    response = await handler(request)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/http.py", line 73, in handle
+    result = await handler(request, **request.match_info)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/decorators.py", line 83, in with_admin
+    return await func(self, request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 265, in post
+    return await super().post(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 74, in wrapper
+    return await method(view, request, data, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 76, in post
+    return await self._post_impl(request, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 83, in _post_impl
+    result = await self._flow_mgr.async_init(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 306, in async_init
+    flow = await self.async_create_flow(handler, context=context, data=data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 3472, in async_create_flow
+    return handler.async_get_options_flow(entry)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/config/custom_components/rainbird/config_flow.py", line 97, in async_get_options_flow
+    return OptionsFlowHandler(config_entry)
+  File "/config/custom_components/rainbird/config_flow.py", line 111, in __init__
+    config_entry.options = dict(config_entry.data, **config_entry.options)
+    ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 553, in __setattr__
+    raise AttributeError(
+        f"{key} cannot be changed directly, use async_update_entry instead"
+    )
+AttributeError: options cannot be changed directly, use async_update_entry instead
+2025-08-05 00:46:30.095 WARNING (SyncWorker_4) [pyrainbird] Unable to connect: HTTPConnectionPool(host='rainbird.home', port=80): Max retries exceeded with url: /stick (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f4b88f350>: Failed to resolve 'rainbird.home' ([Errno -2] Name does not resolve)"))
+2025-08-05 00:46:30.095 WARNING (SyncWorker_4) [pyrainbird] Response not returned.
+2025-08-05 00:46:33.097 WARNING (SyncWorker_4) [pyrainbird] Unable to connect: HTTPConnectionPool(host='rainbird.home', port=80): Max retries exceeded with url: /stick (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f4b88fdf0>: Failed to resolve 'rainbird.home' ([Errno -2] Name does not resolve)"))
+2025-08-05 00:46:33.097 WARNING (SyncWorker_4) [pyrainbird] Response not returned.
+2025-08-05 00:46:36.099 WARNING (SyncWorker_4) [pyrainbird] Unable to connect: HTTPConnectionPool(host='rainbird.home', port=80): Max retries exceeded with url: /stick (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f4b88fdf0>: Failed to resolve 'rainbird.home' ([Errno -2] Name does not resolve)"))
+2025-08-05 00:46:36.100 WARNING (SyncWorker_4) [pyrainbird] Response not returned.
+2025-08-05 00:46:39.102 WARNING (SyncWorker_4) [pyrainbird] Unable to connect: HTTPConnectionPool(host='rainbird.home', port=80): Max retries exceeded with url: /stick (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f4b88f8a0>: Failed to resolve 'rainbird.home' ([Errno -2] Name does not resolve)"))
+2025-08-05 00:46:39.102 WARNING (SyncWorker_4) [pyrainbird] Response not returned.
+2025-08-05 00:46:42.104 WARNING (SyncWorker_4) [pyrainbird] Unable to connect: HTTPConnectionPool(host='rainbird.home', port=80): Max retries exceeded with url: /stick (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f4b88f350>: Failed to resolve 'rainbird.home' ([Errno -2] Name does not resolve)"))
+2025-08-05 00:46:42.104 WARNING (SyncWorker_4) [pyrainbird] Response not returned.
+2025-08-05 00:46:45.106 WARNING (SyncWorker_4) [pyrainbird] Unable to connect: HTTPConnectionPool(host='rainbird.home', port=80): Max retries exceeded with url: /stick (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f4b88ef10>: Failed to resolve 'rainbird.home' ([Errno -2] Name does not resolve)"))
+2025-08-05 00:46:45.106 WARNING (SyncWorker_4) [pyrainbird] Response not returned.
+2025-08-05 00:46:48.109 WARNING (SyncWorker_4) [pyrainbird] Unable to connect: HTTPConnectionPool(host='rainbird.home', port=80): Max retries exceeded with url: /stick (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f4b88f9b0>: Failed to resolve 'rainbird.home' ([Errno -2] Name does not resolve)"))
+2025-08-05 00:46:48.109 WARNING (SyncWorker_4) [pyrainbird] Response not returned.
+2025-08-05 00:46:51.109 WARNING (SyncWorker_4) [pyrainbird] Empty response from controller
+2025-08-05 00:46:51.110 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry rainbird.home for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 113, in async_setup_entry
+    hass.config_entries.async_forward_entry_setup(config_entry, homeassistant.components.binary_sensor.DOMAIN))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigEntries' object has no attribute 'async_forward_entry_setup'. Did you mean: 'async_forward_entry_setups'?
+2025-08-05 00:51:51.005 WARNING (SyncWorker_1) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:51:54.021 WARNING (SyncWorker_1) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:51:57.035 WARNING (SyncWorker_1) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:52:00.050 WARNING (SyncWorker_1) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:52:03.065 WARNING (SyncWorker_1) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:52:06.080 WARNING (SyncWorker_1) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:52:09.094 WARNING (SyncWorker_1) [pyrainbird] Response: 404, Not Found
+2025-08-05 00:52:12.094 WARNING (SyncWorker_1) [pyrainbird] Empty response from controller
+2025-08-05 00:52:12.095 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry marquesmitch@gmail.com for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 113, in async_setup_entry
+    hass.config_entries.async_forward_entry_setup(config_entry, homeassistant.components.binary_sensor.DOMAIN))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigEntries' object has no attribute 'async_forward_entry_setup'. Did you mean: 'async_forward_entry_setups'?
+2025-08-05 00:52:24.280 ERROR (MainThread) [aiohttp.server] Error handling request from fe80::aa:4de1:9ad1:50c6
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_protocol.py", line 510, in _handle_request
+    resp = await request_handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_app.py", line 569, in _handle
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_middlewares.py", line 117, in impl
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/security_filter.py", line 92, in security_filter_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/forwarded.py", line 83, in forwarded_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/request_context.py", line 26, in request_context_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 86, in ban_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 242, in auth_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/headers.py", line 41, in headers_middleware
+    response = await handler(request)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/http.py", line 73, in handle
+    result = await handler(request, **request.match_info)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/decorators.py", line 83, in with_admin
+    return await func(self, request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 265, in post
+    return await super().post(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 74, in wrapper
+    return await method(view, request, data, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 76, in post
+    return await self._post_impl(request, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 83, in _post_impl
+    result = await self._flow_mgr.async_init(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 306, in async_init
+    flow = await self.async_create_flow(handler, context=context, data=data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 3472, in async_create_flow
+    return handler.async_get_options_flow(entry)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/config/custom_components/rainbird/config_flow.py", line 97, in async_get_options_flow
+    return OptionsFlowHandler(config_entry)
+  File "/config/custom_components/rainbird/config_flow.py", line 111, in __init__
+    config_entry.options = dict(config_entry.data, **config_entry.options)
+    ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 553, in __setattr__
+    raise AttributeError(
+        f"{key} cannot be changed directly, use async_update_entry instead"
+    )
+AttributeError: options cannot be changed directly, use async_update_entry instead
+2025-08-05 00:59:37.169 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry 192.168.1.185 for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 92, in async_setup_entry
+    await hass.async_add_executor_job(update_model_and_version)
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/config/custom_components/rainbird/__init__.py", line 90, in update_model_and_version
+    hass_data_raibird_[config_entry.entry_id].model_and_version = cli.get_model_and_version()
+                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/pyrainbird/__init__.py", line 41, in get_model_and_version
+    return self._process_command(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        lambda response: ModelAndVersion(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        "ModelAndVersion",
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pyrainbird/__init__.py", line 183, in _process_command
+    funct(response)
+    ~~~~~^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/pyrainbird/__init__.py", line 42, in <lambda>
+    lambda response: ModelAndVersion(
+                     ~~~~~~~~~~~~~~~^
+        response["modelID"],
+        ^^^^^^^^^^^^^^^^^^^^
+        response["protocolRevisionMajor"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        response["protocolRevisionMinor"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pyrainbird/data.py", line 70, in __init__
+    self.model_code = RAINBIRD_MODELS[self.model][0]
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 2066
+2025-08-05 01:00:53.625 WARNING (SyncWorker_0) [pyrainbird] Response: 403, Password
+2025-08-05 01:00:57.347 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:01:00.659 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:01:05.772 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:01:09.148 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:01:12.784 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:01:16.055 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:01:19.134 WARNING (SyncWorker_0) [pyrainbird] Empty response from controller
+2025-08-05 01:01:19.293 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry 192.168.1.185 for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 113, in async_setup_entry
+    hass.config_entries.async_forward_entry_setup(config_entry, homeassistant.components.binary_sensor.DOMAIN))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigEntries' object has no attribute 'async_forward_entry_setup'. Did you mean: 'async_forward_entry_setups'?
+2025-08-05 01:03:28.522 WARNING (MainThread) [aioairzone_cloud.websockets] WS[6878d7ff498cb87a8c4ef0d2]: reconnecting...
+2025-08-05 01:04:45.595 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:04:48.849 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:04:52.145 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:04:55.429 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:04:58.729 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:02.048 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:05.351 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:08.352 WARNING (SyncWorker_0) [pyrainbird] Empty response from controller
+2025-08-05 01:05:08.353 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry 192.168.1.185 for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 113, in async_setup_entry
+    hass.config_entries.async_forward_entry_setup(config_entry, homeassistant.components.binary_sensor.DOMAIN))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigEntries' object has no attribute 'async_forward_entry_setup'. Did you mean: 'async_forward_entry_setups'?
+2025-08-05 01:05:18.355 ERROR (MainThread) [aiohttp.server] Error handling request from fe80::aa:4de1:9ad1:50c6
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_protocol.py", line 510, in _handle_request
+    resp = await request_handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_app.py", line 569, in _handle
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_middlewares.py", line 117, in impl
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/security_filter.py", line 92, in security_filter_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/forwarded.py", line 83, in forwarded_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/request_context.py", line 26, in request_context_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 86, in ban_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 242, in auth_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/headers.py", line 41, in headers_middleware
+    response = await handler(request)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/http.py", line 73, in handle
+    result = await handler(request, **request.match_info)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/decorators.py", line 83, in with_admin
+    return await func(self, request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 265, in post
+    return await super().post(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 74, in wrapper
+    return await method(view, request, data, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 76, in post
+    return await self._post_impl(request, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 83, in _post_impl
+    result = await self._flow_mgr.async_init(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 306, in async_init
+    flow = await self.async_create_flow(handler, context=context, data=data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 3472, in async_create_flow
+    return handler.async_get_options_flow(entry)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/config/custom_components/rainbird/config_flow.py", line 97, in async_get_options_flow
+    return OptionsFlowHandler(config_entry)
+  File "/config/custom_components/rainbird/config_flow.py", line 111, in __init__
+    config_entry.options = dict(config_entry.data, **config_entry.options)
+    ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 553, in __setattr__
+    raise AttributeError(
+        f"{key} cannot be changed directly, use async_update_entry instead"
+    )
+AttributeError: options cannot be changed directly, use async_update_entry instead
+2025-08-05 01:05:39.594 WARNING (SyncWorker_4) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:42.951 WARNING (SyncWorker_4) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:46.351 WARNING (SyncWorker_4) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:49.637 WARNING (SyncWorker_4) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:52.933 WARNING (SyncWorker_4) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:56.230 WARNING (SyncWorker_4) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:05:59.548 WARNING (SyncWorker_4) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:06:02.548 WARNING (SyncWorker_4) [pyrainbird] Empty response from controller
+2025-08-05 01:06:02.549 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry 192.168.1.185 for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 113, in async_setup_entry
+    hass.config_entries.async_forward_entry_setup(config_entry, homeassistant.components.binary_sensor.DOMAIN))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigEntries' object has no attribute 'async_forward_entry_setup'. Did you mean: 'async_forward_entry_setups'?
+2025-08-05 01:13:14.773 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry 192.168.1.185 for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 92, in async_setup_entry
+    await hass.async_add_executor_job(update_model_and_version)
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/config/custom_components/rainbird/__init__.py", line 90, in update_model_and_version
+    hass_data_raibird_[config_entry.entry_id].model_and_version = cli.get_model_and_version()
+                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/pyrainbird/__init__.py", line 41, in get_model_and_version
+    return self._process_command(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        lambda response: ModelAndVersion(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        "ModelAndVersion",
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pyrainbird/__init__.py", line 183, in _process_command
+    funct(response)
+    ~~~~~^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/pyrainbird/__init__.py", line 42, in <lambda>
+    lambda response: ModelAndVersion(
+                     ~~~~~~~~~~~~~~~^
+        response["modelID"],
+        ^^^^^^^^^^^^^^^^^^^^
+        response["protocolRevisionMajor"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        response["protocolRevisionMinor"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pyrainbird/data.py", line 70, in __init__
+    self.model_code = RAINBIRD_MODELS[self.model][0]
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 2066
+2025-08-05 01:14:56.415 WARNING (SyncWorker_1) [pyrainbird] Response: 403, Password
+2025-08-05 01:14:59.532 WARNING (SyncWorker_1) [pyrainbird] Response: 403, Password
+2025-08-05 01:15:02.808 WARNING (SyncWorker_1) [pyrainbird] Response: 403, Password
+2025-08-05 01:15:06.125 WARNING (SyncWorker_1) [pyrainbird] Response: 403, Password
+2025-08-05 01:15:09.319 WARNING (SyncWorker_1) [pyrainbird] Response: 403, Password
+2025-08-05 01:15:12.716 WARNING (SyncWorker_1) [pyrainbird] Response: 403, Password
+2025-08-05 01:15:15.908 WARNING (SyncWorker_1) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:15:18.908 WARNING (SyncWorker_1) [pyrainbird] Empty response from controller
+2025-08-05 01:15:18.909 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry 192.168.1.185 for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 113, in async_setup_entry
+    hass.config_entries.async_forward_entry_setup(config_entry, homeassistant.components.binary_sensor.DOMAIN))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigEntries' object has no attribute 'async_forward_entry_setup'. Did you mean: 'async_forward_entry_setups'?
+2025-08-05 01:18:01.764 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:18:05.115 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:18:08.328 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:18:11.614 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:18:14.824 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:18:18.128 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:18:21.326 WARNING (SyncWorker_0) [pyrainbird] Response: 430, Password Lockout
+2025-08-05 01:18:24.326 WARNING (SyncWorker_0) [pyrainbird] Empty response from controller
+2025-08-05 01:18:24.327 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry 192.168.1.185 for rainbird
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 749, in __async_setup_with_context
+    result = await component.async_setup_entry(hass, self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/rainbird/__init__.py", line 113, in async_setup_entry
+    hass.config_entries.async_forward_entry_setup(config_entry, homeassistant.components.binary_sensor.DOMAIN))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigEntries' object has no attribute 'async_forward_entry_setup'. Did you mean: 'async_forward_entry_setups'?
+2025-08-05 01:18:34.453 ERROR (MainThread) [aiohttp.server] Error handling request from fe80::aa:4de1:9ad1:50c6
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_protocol.py", line 510, in _handle_request
+    resp = await request_handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_app.py", line 569, in _handle
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/aiohttp/web_middlewares.py", line 117, in impl
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/security_filter.py", line 92, in security_filter_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/forwarded.py", line 83, in forwarded_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/request_context.py", line 26, in request_context_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 86, in ban_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 242, in auth_middleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/headers.py", line 41, in headers_middleware
+    response = await handler(request)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/http.py", line 73, in handle
+    result = await handler(request, **request.match_info)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/decorators.py", line 83, in with_admin
+    return await func(self, request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 265, in post
+    return await super().post(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 74, in wrapper
+    return await method(view, request, data, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 76, in post
+    return await self._post_impl(request, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 83, in _post_impl
+    result = await self._flow_mgr.async_init(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 306, in async_init
+    flow = await self.async_create_flow(handler, context=context, data=data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 3472, in async_create_flow
+    return handler.async_get_options_flow(entry)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/config/custom_components/rainbird/config_flow.py", line 97, in async_get_options_flow
+    return OptionsFlowHandler(config_entry)
+  File "/config/custom_components/rainbird/config_flow.py", line 111, in __init__
+    config_entry.options = dict(config_entry.data, **config_entry.options)
+    ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/config_entries.py", line 553, in __setattr__
+    raise AttributeError(
+        f"{key} cannot be changed directly, use async_update_entry instead"
+    )
+AttributeError: options cannot be changed directly, use async_update_entry instead

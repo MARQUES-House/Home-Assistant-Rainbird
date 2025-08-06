@@ -1,0 +1,68 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Frontend & thèmes
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Configuration Home Assistant
+homeassistant:
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.1.0/24
+      trusted_users:
+        192.168.1.136: c12d9a92e4ab44b99a3f8a0cf93719a1
+      allow_bypass_login: true
+
+# Automations & scripts
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+# Covers
+cover: !include_dir_merge_list covers
+
+# Template sensors
+template: !include templates/climate_sensors.yaml
+
+# Groupe spécifique à l'iPad
+group:
+  ipad_dashboard:
+    name: iPad
+    entities:
+      - sensor.time
+      - weather.forecast_maison
+      - light.salondejardin
+      - climate.sejour
+      - sensor.backup_backup_manager_state
+
+# Lovelace en mode YAML avec dashboards séparés
+lovelace:
+  mode: yaml
+  resources:
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
+    - url: /hacsfiles/lovelace-card-mod/card-mod.js
+      type: module
+    - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+      type: module
+  dashboards:
+    ipad-dashboard:
+      mode: yaml
+      title: iPad
+      icon: mdi:tablet-cellphone
+      show_in_sidebar: true
+      filename: ipad_dashboard.yaml
+    modern-dashboard:
+      mode: yaml
+      title: Modern
+      icon: mdi:cellphone
+      show_in_sidebar: true
+      filename: modern_dashboard.yaml
+    ui-dashboard:
+      mode: yaml
+      title: Ui Love
+      icon: mdi:view-dashboard
+      show_in_sidebar: true
+      filename: ui_dashboard.yaml

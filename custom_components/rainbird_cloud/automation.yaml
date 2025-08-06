@@ -1,0 +1,92 @@
+
+# automation.yaml
+
+# Arrosage matinal intelligent
+- alias: "Arrosage matinal zones 1-2"
+  trigger:
+    platform: time
+    at: "06:00:00"
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.weather_precipitation_probability
+      below: 30
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.rain_bird_zone_1
+      data:
+        duration: 900  # 15 minutes
+    - delay: "00:16:00"  # Attendre la fin de zone 1
+    - service: switch.turn_on
+      target:
+        entity_id: switch.rain_bird_zone_2
+      data:
+        duration: 600  # 10 minutes
+
+# Arrêt d'urgence si pluie détectée
+- alias: "Arrêt irrigation si pluie"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.rain_sensor
+    to: 'on'
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.rain_bird_stop_all
+
+# Notification fin d'arrosage
+- alias: "Notification fin arrosage"
+  trigger:
+    platform: state
+    entity_id: 
+      - switch.rain_bird_zone_1
+      - switch.rain_bird_zone_2
+      - switch.rain_bird_zone_3
+      - switch.rain_bird_zone_4
+    to: 'off'
+    for: "00:00:05"
+  action:
+    - service: notify.mobile_app_iphone
+      data:
+        title: "🚿 Arrosage terminé"
+        message: "{{ trigger.to_state.name }} - irrigation terminée"
+
+# Arrosage basé sur l'humidité du sol
+- alias: "Arrosage selon humidité"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.soil_moisture_zone_1
+    below: 30
+  condition:
+    - condition: time
+      after: "05:00:00"
+      before: "09:00:00"
+    - condition: state
+      entity_id: switch.rain_bird_zone_1
+      state: 'off'
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.rain_bird_zone_1
+      data:
+        duration: 1200  # 20 minutes pour sol très sec
+
+# Rotation des zones le weekend
+- alias: "Rotation weekend"
+  trigger:
+    platform: time
+    at: "07:00:00"
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    - service: rainbird_cloud.start_multiple_zones
+      data:
+        zones: [10782087, 10782088, 10782089, 10782090]
+        durations: [600, 600, 300, 300]  # Zones 1-2: 10min, Zones 3-4: 5min
+
