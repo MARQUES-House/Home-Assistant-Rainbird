@@ -5,19 +5,25 @@
   "data": {
     "backups": [
       {
-        "backup_id": "8599fced",
+        "backup_id": "10f11fcf",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "b3a37f33",
+        "backup_id": "ecccb3a5",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "bb3f666f",
+        "backup_id": "ad266e59",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "5a9fa9c3",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
@@ -37,8 +43,8 @@
         "name": null,
         "password": "Q2FD-GA1P-PA4B-0F02-7T9J-HIO1-VY3K"
       },
-      "last_attempted_automatic_backup": "2025-08-06T05:29:59.000811+02:00",
-      "last_completed_automatic_backup": "2025-08-06T05:30:25.208939+02:00",
+      "last_attempted_automatic_backup": "2025-08-08T05:09:56.001016+02:00",
+      "last_completed_automatic_backup": "2025-08-08T05:10:25.754782+02:00",
       "retention": {
         "copies": 3,
         "days": null

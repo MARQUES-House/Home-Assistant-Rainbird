@@ -1,13 +1,10 @@
-# ====================================================================================
-# FILE: custom_components/rainbird_cloud/api.py
-# ====================================================================================
 """Rain Bird Cloud API Client."""
 
 import asyncio
 import base64
 import logging
 import time
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 import aiohttp
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -146,7 +143,8 @@ class RainBirdCloudAPI:
                         return await retry_response.json() if retry_response.content_type == "application/json" else {}
                 
                 elif response.status != 200:
-                    raise RainBirdCloudAPIError(f"API request failed: {response.status}")
+                    error_text = await response.text()
+                    raise RainBirdCloudAPIError(f"API request failed: {response.status} - {error_text}")
                 
                 return await response.json() if response.content_type == "application/json" else {}
 
@@ -157,12 +155,12 @@ class RainBirdCloudAPI:
     async def get_controllers(self) -> List[Dict]:
         """Get list of controllers."""
         try:
-            # Cette API peut ne pas exister, on utilisera des valeurs par défaut
-            result = await self._make_request("GET", f"{CONTROLLERS_ENDPOINT}?satelliteId=0")
+            # Essayer l'endpoint officiel si il existe
+            result = await self._make_request("GET", f"/coreapi/api/Satellite/GetSatelliteListForSatelliteId?satelliteId=0")
             return result.get("controllers", [])
         except Exception:
             # Fallback vers votre contrôleur connu
-            return [{"id": self.controller_id, "name": "Rain Bird RC2"}]
+            return [{"id": self.controller_id, "name": "Rain Bird RC2", "satelliteId": self.controller_id}]
 
     async def get_stations(self, controller_id: Optional[int] = None) -> List[Dict]:
         """Get list of stations/zones."""
@@ -171,20 +169,52 @@ class RainBirdCloudAPI:
 
         # Cache des stations
         if controller_id in self._stations_cache:
+            _LOGGER.debug("Using cached stations for controller %s", controller_id)
             return self._stations_cache[controller_id]
 
         try:
-            # Essayer de récupérer via l'API
-            result = await self._make_request("GET", f"{STATIONS_ENDPOINT}?satelliteId={controller_id}")
-            stations = result.get("stations", [])
-        except Exception:
-            # Fallback vers vos zones connues
+            # Utiliser l'endpoint correct que vous avez trouvé
+            result = await self._make_request("GET", f"/coreapi/api/Station/GetStationListBySatelliteId?satelliteId={controller_id}")
+            
+            # L'API retourne directement la liste des stations
+            stations = result if isinstance(result, list) else []
+            
+            _LOGGER.info("Retrieved %d stations from API for controller %s", len(stations), controller_id)
+            
+        except Exception as err:
+            _LOGGER.warning("Failed to get stations from API: %s", err)
+            # Fallback vers vos zones connues avec les bonnes informations
             stations = [
-                {"id": 10782087, "name": "Zone 1", "controllerId": controller_id},
-                {"id": 10782088, "name": "Zone 2", "controllerId": controller_id},
-                {"id": 10782089, "name": "Zone 3", "controllerId": controller_id},
-                {"id": 10782090, "name": "Zone 4", "controllerId": controller_id},
+                {
+                    "id": 10782087, 
+                    "name": "Station 1", 
+                    "satelliteId": controller_id,
+                    "terminal": 1,
+                    "isLocked": True
+                },
+                {
+                    "id": 10782088, 
+                    "name": "Station 2", 
+                    "satelliteId": controller_id,
+                    "terminal": 2,
+                    "isLocked": True
+                },
+                {
+                    "id": 10782089, 
+                    "name": "Station 3", 
+                    "satelliteId": controller_id,
+                    "terminal": 3,
+                    "isLocked": True
+                },
+                {
+                    "id": 10782090, 
+                    "name": "Station 4", 
+                    "satelliteId": controller_id,
+                    "terminal": 4,
+                    "isLocked": False
+                },
             ]
+            _LOGGER.info("Using fallback station list (%d stations)", len(stations))
 
         self._stations_cache[controller_id] = stations
         return stations
@@ -201,7 +231,7 @@ class RainBirdCloudAPI:
 
         try:
             await self._make_request("POST", START_STATIONS_ENDPOINT, json=payload)
-            _LOGGER.info("Started irrigation for stations: %s", station_ids)
+            _LOGGER.info("Started irrigation for stations: %s with durations: %s", station_ids, durations)
             return True
         except Exception as err:
             _LOGGER.error("Failed to start stations: %s", err)
@@ -217,8 +247,8 @@ class RainBirdCloudAPI:
             controller_id = self.controller_id
             
         try:
-            await self._make_request("POST", STOP_ALL_ENDPOINT, json=[controller_id])
-            _LOGGER.info("Stopped all irrigation")
+            await self._make_request("POST", STOP_ALL_ENDPOINT, json={"satelliteId": controller_id})
+            _LOGGER.info("Stopped all irrigation for controller %s", controller_id)
             return True
         except Exception as err:
             _LOGGER.error("Failed to stop irrigation: %s", err)
@@ -228,6 +258,51 @@ class RainBirdCloudAPI:
         """Test API connection."""
         try:
             await self._refresh_access_token()
+            # Essayer de récupérer les stations pour tester l'API complètement
+            stations = await self.get_stations()
+            _LOGGER.info("Connection test successful - Found %d stations", len(stations))
             return True
-        except Exception:
+        except Exception as err:
+            _LOGGER.error("Connection test failed: %s", err)
             return False
+
+    async def get_system_diagnostics(self) -> Dict[str, any]:
+        """Get system diagnostics for troubleshooting."""
+        diagnostics = {
+            "controller_id": self.controller_id,
+            "token_expires_at": self.token_expires_at,
+            "token_valid": time.time() < self.token_expires_at,
+            "stations_cached": len(self._stations_cache),
+        }
+        
+        try:
+            # Test de base
+            await self._refresh_access_token()
+            diagnostics["auth_status"] = "OK"
+            
+            # Test récupération stations
+            stations = await self.get_stations()
+            diagnostics["stations_count"] = len(stations)
+            diagnostics["stations_status"] = "OK"
+            
+            # Détails des stations
+            active_stations = [s for s in stations if not s.get("isLocked", True)]
+            locked_stations = [s for s in stations if s.get("isLocked", False)]
+            
+            diagnostics["active_stations"] = len(active_stations)
+            diagnostics["locked_stations"] = len(locked_stations)
+            diagnostics["station_details"] = [
+                {
+                    "id": s["id"],
+                    "name": s.get("name", "Unknown"),
+                    "terminal": s.get("terminal"),
+                    "locked": s.get("isLocked", True)
+                }
+                for s in stations
+            ]
+            
+        except Exception as err:
+            diagnostics["error"] = str(err)
+            diagnostics["auth_status"] = "ERROR"
+            
+        return diagnostics

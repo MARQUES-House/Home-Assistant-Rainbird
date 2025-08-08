@@ -26,6 +26,9 @@ cover: !include_dir_merge_list covers
 # Template sensors
 template: !include templates/climate_sensors.yaml
 
+input_select: !include input_select.yaml
+groups: !include groups.yaml
+
 # Groupe spécifique à l'iPad
 group:
   ipad_dashboard:
@@ -37,32 +40,11 @@ group:
       - climate.sejour
       - sensor.backup_backup_manager_state
 
-# Lovelace en mode YAML avec dashboards séparés
 lovelace:
-  mode: yaml
-  resources:
-    - url: /hacsfiles/button-card/button-card.js
-      type: module
-    - url: /hacsfiles/lovelace-card-mod/card-mod.js
-      type: module
-    - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
-      type: module
   dashboards:
-    ipad-dashboard:
+    lovelace-ios:
       mode: yaml
-      title: iPad
-      icon: mdi:tablet-cellphone
+      title: iOS Dashboard Premium
+      icon: mdi:tablet
       show_in_sidebar: true
-      filename: ipad_dashboard.yaml
-    modern-dashboard:
-      mode: yaml
-      title: Modern
-      icon: mdi:cellphone
-      show_in_sidebar: true
-      filename: modern_dashboard.yaml
-    ui-dashboard:
-      mode: yaml
-      title: Ui Love
-      icon: mdi:view-dashboard
-      show_in_sidebar: true
-      filename: ui_dashboard.yaml
+      filename: dashboards/ios_dashboard/dashboard.yaml

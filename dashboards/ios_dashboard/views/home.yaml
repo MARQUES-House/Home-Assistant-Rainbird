@@ -1,0 +1,469 @@
+# views/home.yaml - Page Accueil
+title: 🏠 Accueil
+path: home
+icon: mdi:home
+cards:
+  # Modes Maison - Contrôles principaux
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-select-card
+        entity: input_select.mode_maison
+        name: 🏠 Mode Maison
+        icon: mdi:home
+        card_mod: &glass-style
+          style: |
+            ha-card {
+              border-radius: 20px !important;
+              backdrop-filter: blur(20px);
+              background: rgba(255, 255, 255, 0.1) !important;
+              border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+      - type: custom:mushroom-select-card
+        entity: input_select.mode_clim
+        name: 🌡️ Climat
+        icon: mdi:thermostat
+        card_mod: *glass-style
+      - type: custom:mushroom-select-card
+        entity: input_select.mode_volets
+        name: 🪟 Volets
+        icon: mdi:window-shutter
+        card_mod: *glass-style
+      - type: custom:mushroom-select-card
+        entity: input_select.scenario_sejour
+        name: 🛋️ Séjour
+        icon: mdi:sofa
+        card_mod: *glass-style
+
+  # Météo avec prévisions étendues
+  - type: weather-forecast
+    entity: weather.forecast_maison
+    name: Météo Nogent-sur-Marne
+    show_forecast: true
+    forecast_type: daily
+    card_mod: *glass-style
+
+  # Résumé Climatisation avec capteurs template
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 🌡️ Climatisation Intelligente
+        subtitle: >
+          Mode {{ states('input_select.mode_clim') }} - 
+          {{ states('sensor.resume_climatisation_maison') }}
+      - type: custom:mushroom-entity-card
+        entity: sensor.resume_climatisation_maison
+        name: Vue d'ensemble
+        icon: mdi:home-thermometer
+        secondary_info: >
+          🔥 {{ state_attr('sensor.resume_climatisation_maison', 'zones_chauffage') }} 
+          ❄️ {{ state_attr('sensor.resume_climatisation_maison', 'zones_climatisation') }} |
+          Moyenne: {{ state_attr('sensor.resume_climatisation_maison', 'temperature_moyenne') }}
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: sensor.info_climat_adele
+            name: 🧸 Adèle
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: "🧸 Climatisation Adèle"
+                  content:
+                    type: custom:mushroom-climate-card
+                    entity: climate.adele
+                    show_temperature_control: true
+                    collapsible_controls: true
+            secondary_info: >
+              {{ state_attr('sensor.info_climat_adele', 'mode') }}
+          - type: custom:mushroom-entity-card
+            entity: sensor.info_climat_alex
+            name: 🎮 Alex
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: "🎮 Climatisation Alex"
+                  content:
+                    type: custom:mushroom-climate-card
+                    entity: climate.alex
+                    show_temperature_control: true
+                    collapsible_controls: true
+            secondary_info: >
+              {{ state_attr('sensor.info_climat_alex', 'mode') }}
+          - type: custom:mushroom-entity-card
+            entity: sensor.info_climat_parents
+            name: 🛏️ Parents
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: "🛏️ Climatisation Parents"
+                  content:
+                    type: custom:mushroom-climate-card
+                    entity: climate.parents
+                    show_temperature_control: true
+                    collapsible_controls: true
+            secondary_info: >
+              {{ state_attr('sensor.info_climat_parents', 'mode') }}
+          - type: custom:mushroom-entity-card
+            entity: sensor.info_climat_bureau
+            name: 💼 Bureau
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: "💼 Climatisation Bureau"
+                  content:
+                    type: custom:mushroom-climate-card
+                    entity: climate.bureau
+                    show_temperature_control: true
+                    collapsible_controls: true
+            secondary_info: >
+              {{ state_attr('sensor.info_climat_bureau', 'mode') }}
+          - type: custom:mushroom-entity-card
+            entity: sensor.info_climat_cuisine
+            name: 🍳 Cuisine
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: "🍳 Climatisation Cuisine"
+                  content:
+                    type: custom:mushroom-climate-card
+                    entity: climate.cuisine
+                    show_temperature_control: true
+                    collapsible_controls: true
+            secondary_info: >
+              {{ state_attr('sensor.info_climat_cuisine', 'mode') }}
+    card_mod: *glass-style
+
+  # Media Player avec raccourcis streaming
+  - type: custom:mini-media-player
+    entity: media_player.samsung_6_series_65_ue65tu6905kxxc
+    name: 📺 Samsung TV Premium
+    artwork: cover
+    source: icon
+    sound_mode: icon
+    info: scroll
+    volume_stateless: false
+    toggle_power: true
+    hide:
+      power_state: false
+      volume: false
+      source: false
+    shortcuts:
+      columns: 4
+      buttons:
+        - name: Netflix
+          type: source
+          id: Netflix
+          icon: mdi:netflix
+        - name: YouTube
+          type: source
+          id: YouTube
+          icon: mdi:youtube
+        - name: Prime Video
+          type: source
+          id: Prime Video
+          icon: mdi:amazon
+        - name: Disney+
+          type: source
+          id: Disney+
+          icon: mdi:disney
+        - name: Apple TV
+          type: source
+          id: Apple TV
+          icon: mdi:apple
+        - name: Spotify
+          type: source
+          id: Spotify
+          icon: mdi:spotify
+        - name: Plex
+          type: source
+          id: Plex
+          icon: mdi:plex
+        - name: Twitch
+          type: source
+          id: Twitch
+          icon: mdi:twitch
+    card_mod: *glass-style
+
+  # Scénarios avec feedback visuel et haptic
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+      - type: custom:button-card
+        entity: scene.nuit
+        name: 🌙 Mode Nuit
+        icon: mdi:weather-night
+        color_type: card
+        color: rgb(68, 115, 158)
+        tap_action:
+          action: call-service
+          service: scene.turn_on
+          service_data:
+            entity_id: scene.nuit
+          haptic: light
+        double_tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              title: "🌙 Mode Nuit"
+              content: "Scénario activé avec succès !"
+        styles:
+          card:
+            - height: 100px
+            - border-radius: 20px
+            - box-shadow: 0 4px 12px rgba(0,0,0,0.15)
+            - backdrop-filter: blur(20px)
+            - background: rgba(68, 115, 158, 0.1)
+            - border: 1px solid rgba(68, 115, 158, 0.3)
+            - transition: all 0.3s ease
+          name:
+            - font-size: 14px
+            - font-weight: 600
+            - margin-top: 8px
+          icon:
+            - width: 32px
+            - height: 32px
+        state:
+          - value: "on"
+            styles:
+              card:
+                - background: rgba(68, 115, 158, 0.3)
+                - border: 2px solid rgba(68, 115, 158, 0.8)
+      - type: custom:button-card
+        entity: scene.seance_cinema
+        name: 🍿 Cinéma
+        icon: mdi:theater
+        color_type: card
+        color: rgb(142, 69, 133)
+        tap_action:
+          action: call-service
+          service: scene.turn_on
+          service_data:
+            entity_id: scene.seance_cinema
+          haptic: medium
+        styles:
+          card:
+            - height: 100px
+            - border-radius: 20px
+            - box-shadow: 0 4px 12px rgba(0,0,0,0.15)
+            - backdrop-filter: blur(20px)
+            - background: rgba(142, 69, 133, 0.1)
+            - border: 1px solid rgba(142, 69, 133, 0.3)
+            - transition: all 0.3s ease
+          name:
+            - font-size: 14px
+            - font-weight: 600
+            - margin-top: 8px
+          icon:
+            - width: 32px
+            - height: 32px
+        state:
+          - value: "on"
+            styles:
+              card:
+                - background: rgba(142, 69, 133, 0.3)
+                - border: 2px solid rgba(142, 69, 133, 0.8)
+      - type: custom:button-card
+        entity: scene.je_pars
+        name: 🚗 Je pars
+        icon: mdi:home-export-outline
+        color_type: card
+        color: rgb(223, 84, 72)
+        tap_action:
+          action: call-service
+          service: scene.turn_on
+          service_data:
+            entity_id: scene.je_pars
+          haptic: heavy
+        confirmation:
+          text: "Êtes-vous sûr de vouloir activer le mode 'Je pars' ?"
+        styles:
+          card:
+            - height: 100px
+            - border-radius: 20px
+            - box-shadow: 0 4px 12px rgba(0,0,0,0.15)
+            - backdrop-filter: blur(20px)
+            - background: rgba(223, 84, 72, 0.1)
+            - border: 1px solid rgba(223, 84, 72, 0.3)
+            - transition: all 0.3s ease
+          name:
+            - font-size: 14px
+            - font-weight: 600
+            - margin-top: 8px
+          icon:
+            - width: 32px
+            - height: 32px
+        state:
+          - value: "on"
+            styles:
+              card:
+                - background: rgba(223, 84, 72, 0.3)
+                - border: 2px solid rgba(223, 84, 72, 0.8)
+      - type: custom:button-card
+        entity: scene.invite
+        name: 🎉 Invités
+        icon: mdi:account-group
+        color_type: card
+        color: rgb(76, 175, 80)
+        tap_action:
+          action: call-service
+          service: scene.turn_on
+          service_data:
+            entity_id: scene.invite
+          haptic: light
+        styles:
+          card:
+            - height: 100px
+            - border-radius: 20px
+            - box-shadow: 0 4px 12px rgba(0,0,0,0.15)
+            - backdrop-filter: blur(20px)
+            - background: rgba(76, 175, 80, 0.1)
+            - border: 1px solid rgba(76, 175, 80, 0.3)
+            - transition: all 0.3s ease
+          name:
+            - font-size: 14px
+            - font-weight: 600
+            - margin-top: 8px
+          icon:
+            - width: 32px
+            - height: 32px
+      - type: custom:button-card
+        entity: scene.reveil
+        name: ☀️ Réveil
+        icon: mdi:weather-sunny
+        color_type: card
+        color: rgb(255, 193, 7)
+        tap_action:
+          action: call-service
+          service: scene.turn_on
+          service_data:
+            entity_id: scene.reveil
+          haptic: light
+        styles:
+          card:
+            - height: 100px
+            - border-radius: 20px
+            - box-shadow: 0 4px 12px rgba(0,0,0,0.15)
+            - backdrop-filter: blur(20px)
+            - background: rgba(255, 193, 7, 0.1)
+            - border: 1px solid rgba(255, 193, 7, 0.3)
+            - transition: all 0.3s ease
+          name:
+            - font-size: 14px
+            - font-weight: 600
+            - margin-top: 8px
+          icon:
+            - width: 32px
+            - height: 32px
+      - type: custom:button-card
+        entity: scene.economie
+        name: 💰 Économie
+        icon: mdi:leaf
+        color_type: card
+        color: rgb(67, 160, 71)
+        tap_action:
+          action: call-service
+          service: scene.turn_on
+          service_data:
+            entity_id: scene.economie
+          haptic: light
+        styles:
+          card:
+            - height: 100px
+            - border-radius: 20px
+            - box-shadow: 0 4px 12px rgba(0,0,0,0.15)
+            - backdrop-filter: blur(20px)
+            - background: rgba(67, 160, 71, 0.1)
+            - border: 1px solid rgba(67, 160, 71, 0.3)
+            - transition: all 0.3s ease
+          name:
+            - font-size: 14px
+            - font-weight: 600
+            - margin-top: 8px
+          icon:
+            - width: 32px
+            - height: 32px
+
+  # Raccourcis navigation rapide
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        name: 🔧 Matériel
+        icon: mdi:tools
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/equipment"
+        styles:
+          card:
+            - height: 60px
+            - border-radius: 15px
+            - background: rgba(255, 255, 255, 0.1)
+            - border: 1px solid rgba(255, 255, 255, 0.2)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🏠 Pièces
+        icon: mdi:floor-plan
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/rooms"
+        styles:
+          card:
+            - height: 60px
+            - border-radius: 15px
+            - background: rgba(255, 255, 255, 0.1)
+            - border: 1px solid rgba(255, 255, 255, 0.2)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🌳 Extérieur
+        icon: mdi:nature
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/outdoor"
+        styles:
+          card:
+            - height: 60px
+            - border-radius: 15px
+            - background: rgba(255, 255, 255, 0.1)
+            - border: 1px solid rgba(255, 255, 255, 0.2)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 📊 Système
+        icon: mdi:monitor-dashboard
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/system"
+        styles:
+          card:
+            - height: 60px
+            - border-radius: 15px
+            - background: rgba(255, 255, 255, 0.1)
+            - border: 1px solid rgba(255, 255, 255, 0.2)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px

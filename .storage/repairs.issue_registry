@@ -3,6 +3,35 @@
   "minor_version": 2,
   "key": "repairs.issue_registry",
   "data": {
-    "issues": []
+    "issues": [
+      {
+        "created": "2025-08-07T10:29:42.666092+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_only_openai_conversation"
+      },
+      {
+        "created": "2025-08-08T15:09:38.223691+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_194140521_tags/v2.4.4"
+      },
+      {
+        "created": "2025-08-08T21:04:18.383002+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_455174197_tags/v0.6.5"
+      },
+      {
+        "created": "2025-08-08T21:05:24.781838+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_204192861_tags/2.4.0"
+      }
+    ]
   }
 }

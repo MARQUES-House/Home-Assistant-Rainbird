@@ -1,0 +1,482 @@
+# views/rooms.yaml - Page Pièces
+title: 🏠 Pièces
+path: rooms
+icon: mdi:floor-plan
+cards:
+  # Sélecteur de pièce
+  - type: custom:mushroom-select-card
+    entity: input_select.room_selection
+    name: Sélection de pièce
+    icon: mdi:floor-plan
+    card_mod: &glass-style
+      style: |
+        ha-card {
+          border-radius: 20px !important;
+          backdrop-filter: blur(20px);
+          background: rgba(255, 255, 255, 0.1) !important;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+  # Salon & Séjour
+  - type: conditional
+    conditions:
+      - entity: input_select.room_selection
+        state: "salon"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🛋️ Salon & Séjour
+          subtitle: Zone de vie principale avec climatisation et volets
+        - type: grid
+          columns: 2
+          cards:
+            - type: custom:mushroom-climate-card
+              entity: climate.entree_tv
+              name: 🌡️ Climatisation Salon
+              show_temperature_control: true
+              collapsible_controls: true
+              card_mod: *glass-style
+            - type: entities
+              title: 🪟 Volets Salon
+              entities:
+                - entity: cover.fenetre_salon_gauche
+                  name: Fenêtre Gauche
+                  secondary_info: last-changed
+                - entity: cover.fenetre_salon_central
+                  name: Fenêtre Centrale
+                  secondary_info: last-changed
+                - entity: cover.fenetre_salon_dr
+                  name: Fenêtre Droite
+                  secondary_info: last-changed
+                - entity: cover.fenetre_salon_tv
+                  name: Fenêtre TV
+                  secondary_info: last-changed
+              card_mod: *glass-style
+        - type: entities
+          title: 💡 Éclairage & Média
+          entities:
+            - entity: light.module_on_off
+              name: Éclairage Général
+              secondary_info: last-changed
+            - entity: media_player.samsung_6_series_65_ue65tu6905kxxc
+              name: Samsung TV 65"
+              secondary_info: last-changed
+          card_mod: *glass-style
+        - type: entities
+          title: 🌡️ Informations Environnementales
+          entities:
+            - entity: sensor.entree_tv_temperature
+              name: Température Actuelle
+            - entity: sensor.entree_tv_humidite
+              name: Humidité
+          card_mod: *glass-style
+
+  # Cuisine
+  - type: conditional
+    conditions:
+      - entity: input_select.room_selection
+        state: "cuisine"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🍳 Cuisine
+          subtitle: Espace culinaire avec électroménager connecté
+        - type: grid
+          columns: 2
+          cards:
+            - type: custom:mushroom-climate-card
+              entity: climate.cuisine
+              name: 🌡️ Climatisation Cuisine
+              show_temperature_control: true
+              collapsible_controls: true
+              card_mod: *glass-style
+            - type: entities
+              title: 🪟 Volets Cuisine
+              entities:
+                - entity: cover.fenetre_cuisine
+                  name: Fenêtre Jardin
+                  secondary_info: last-changed
+                - entity: cover.fenetre_cuisine_avant
+                  name: Fenêtre Rue
+                  secondary_info: last-changed
+              card_mod: *glass-style
+        - type: grid
+          columns: 2
+          cards:
+            - type: entities
+              title: 🍽️ Lave-vaisselle
+              entities:
+                - entity: sensor.lave_vaisselle_etat
+                  name: État
+                  secondary_info: last-changed
+                - entity: sensor.lave_vaisselle_porte
+                  name: État Porte
+                - entity: sensor.lave_vaisselle_progression_du_programme
+                  name: Progression
+                - entity: switch.lave_vaisselle_demi_charge
+                  name: Demi-charge
+                - entity: switch.lave_vaisselle_hygiene_plus
+                  name: Hygiène+
+              card_mod: *glass-style
+            - type: entities
+              title: 🔥 Table de Cuisson
+              entities:
+                - entity: sensor.table_de_cuisson_etat
+                  name: État
+                  secondary_info: last-changed
+                - entity: switch.table_de_cuisson_securite_enfant
+                  name: Sécurité Enfant
+                - entity: number.table_de_cuisson_alarm_clock
+                  name: Minuteur
+              card_mod: *glass-style
+        - type: entities
+          title: 🌡️ Environnement Cuisine
+          entities:
+            - entity: sensor.cuisine_temperature
+              name: Température
+            - entity: sensor.cuisine_humidite
+              name: Humidité
+          card_mod: *glass-style
+
+  # Chambre Parents
+  - type: conditional
+    conditions:
+      - entity: input_select.room_selection
+        state: "chambre_parents"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🛏️ Chambre Parents
+          subtitle: Suite parentale avec climatisation et surveillance
+        - type: grid
+          columns: 2
+          cards:
+            - type: custom:mushroom-climate-card
+              entity: climate.parents
+              name: 🌡️ Climatisation Parents
+              show_temperature_control: true
+              collapsible_controls: true
+              card_mod: *glass-style
+            - type: entities
+              title: 🪟 Volets Suite
+              entities:
+                - entity: cover.fenetre_suite
+                  name: Fenêtre Suite
+                  secondary_info: last-changed
+                - entity: cover.fenetre_sdb_suite
+                  name: Fenêtre SdB Suite
+                  secondary_info: last-changed
+              card_mod: *glass-style
+        - type: entities
+          title: 👁️ Sécurité & Surveillance
+          entities:
+            - entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4
+              name: Capteur Mouvement
+              secondary_info: last-changed
+            - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_4
+              name: Batterie Capteur
+            - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_4
+              name: Luminosité
+          card_mod: *glass-style
+        - type: entities
+          title: 🌡️ Confort & Environnement
+          entities:
+            - entity: sensor.parents_temperature
+              name: Température
+            - entity: sensor.parents_humidite
+              name: Humidité
+            - entity: binary_sensor.parents_air_quality_active
+              name: Qualité Air Active
+            - entity: select.parents_air_quality_mode
+              name: Mode Qualité Air
+          card_mod: *glass-style
+
+  # Chambre Alex
+  - type: conditional
+    conditions:
+      - entity: input_select.room_selection
+        state: "chambre_alex"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🎮 Chambre Alex
+          subtitle: Espace personnel avec climatisation et surveillance
+        - type: grid
+          columns: 2
+          cards:
+            - type: custom:mushroom-climate-card
+              entity: climate.alex
+              name: 🌡️ Climatisation Alex
+              show_temperature_control: true
+              collapsible_controls: true
+              card_mod: *glass-style
+            - type: entities
+              title: 🪟 Volets Alex
+              entities:
+                - entity: cover.fenetre_alex_jar
+                  name: Fenêtre Jardin
+                  secondary_info: last-changed
+                - entity: cover.fenetre_alex_rue
+                  name: Fenêtre Rue
+                  secondary_info: last-changed
+              card_mod: *glass-style
+        - type: entities
+          title: 👁️ Surveillance
+          entities:
+            - entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3
+              name: Capteur Mouvement
+              secondary_info: last-changed
+            - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_3
+              name: Batterie Capteur
+            - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_3
+              name: Luminosité
+          card_mod: *glass-style
+        - type: entities
+          title: 🌡️ Qualité de l'Air
+          entities:
+            - entity: sensor.alex_temperature
+              name: Température
+            - entity: sensor.alex_humidite
+              name: Humidité
+            - entity: binary_sensor.alex_air_quality_active
+              name: Qualité Air Active
+            - entity: select.alex_air_quality_mode
+              name: Mode Qualité Air
+          card_mod: *glass-style
+
+  # Chambre Adèle
+  - type: conditional
+    conditions:
+      - entity: input_select.room_selection
+        state: "chambre_adele"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🧸 Chambre Adèle
+          subtitle: Chambre d'enfant avec climatisation et surveillance
+        - type: grid
+          columns: 2
+          cards:
+            - type: custom:mushroom-climate-card
+              entity: climate.adele
+              name: 🌡️ Climatisation Adèle
+              show_temperature_control: true
+              collapsible_controls: true
+              card_mod: *glass-style
+            - type: entities
+              title: 🪟 Volets Adèle
+              entities:
+                - entity: cover.fenetre_adele_arriere
+                  name: Fenêtre Jardin
+                  secondary_info: last-changed
+                - entity: cover.fenetre_adele_ru
+                  name: Fenêtre Rue
+                  secondary_info: last-changed
+              card_mod: *glass-style
+        - type: entities
+          title: 👁️ Surveillance
+          entities:
+            - entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2
+              name: Capteur Mouvement
+              secondary_info: last-changed
+            - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_2
+              name: Batterie Capteur
+            - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_2
+              name: Luminosité
+          card_mod: *glass-style
+        - type: entities
+          title: 🌡️ Confort
+          entities:
+            - entity: sensor.adele_temperature
+              name: Température
+            - entity: sensor.adele_humidite
+              name: Humidité
+            - entity: select.adele_air_quality_mode
+              name: Mode Qualité Air
+          card_mod: *glass-style
+
+  # Bureau
+  - type: conditional
+    conditions:
+      - entity: input_select.room_selection
+        state: "bureau"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 💼 Bureau
+          subtitle: Espace de travail avec surveillance et climatisation
+        - type: grid
+          columns: 2
+          cards:
+            - type: custom:mushroom-climate-card
+              entity: climate.bureau
+              name: 🌡️ Climatisation Bureau
+              show_temperature_control: true
+              collapsible_controls: true
+              card_mod: *glass-style
+            - type: entities
+              title: 🪟 Volet Bureau
+              entities:
+                - entity: cover.fenetre_bureau
+                  name: Fenêtre Bureau
+                  secondary_info: last-changed
+              card_mod: *glass-style
+        - type: entities
+          title: 👁️ Surveillance
+          entities:
+            - entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor
+              name: Capteur Mouvement
+              secondary_info: last-changed
+            - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie
+              name: Batterie Capteur
+            - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement
+              name: Luminosité
+          card_mod: *glass-style
+        - type: entities
+          title: 🌡️ Environnement de Travail
+          entities:
+            - entity: sensor.bureau_temperature
+              name: Température
+            - entity: sensor.bureau_humidite
+              name: Humidité
+            - entity: select.bureau_air_quality_mode
+              name: Mode Qualité Air
+          card_mod: *glass-style
+
+  # Contrôles globaux rapides
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        name: 🌡️ Climat Auto
+        icon: mdi:thermostat-auto
+        tap_action:
+          action: call-service
+          service: input_select.select_option
+          service_data:
+            entity_id: input_select.mode_clim
+            option: "Auto"
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(33, 150, 243, 0.1)
+            - border: 1px solid rgba(33, 150, 243, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🪟 Ouvrir Volets
+        icon: mdi:window-shutter-open
+        tap_action:
+          action: call-service
+          service: cover.open_cover
+          service_data:
+            entity_id: cover.tous_les_volets
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(255, 193, 7, 0.1)
+            - border: 1px solid rgba(255, 193, 7, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🪟 Fermer Volets
+        icon: mdi:window-shutter
+        tap_action:
+          action: call-service
+          service: cover.close_cover
+          service_data:
+            entity_id: cover.tous_les_volets
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(68, 115, 158, 0.1)
+            - border: 1px solid rgba(68, 115, 158, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🚨 État Sécurité
+        icon: mdi:shield-check
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              title: "🛡️ État de la Sécurité"
+              content:
+                type: entities
+                entities:
+                  - alarm_control_panel.virtual_alarm
+                  - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor
+                  - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2
+                  - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3
+                  - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(76, 175, 80, 0.1)
+            - border: 1px solid rgba(76, 175, 80, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+
+  # Navigation rapide
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        name: 🏠 Accueil
+        icon: mdi:home
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/home"
+        styles: &nav-style
+          card:
+            - height: 60px
+            - border-radius: 15px
+            - background: rgba(255, 255, 255, 0.1)
+            - border: 1px solid rgba(255, 255, 255, 0.2)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🔧 Matériel
+        icon: mdi:tools
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/equipment"
+        styles: *nav-style
+      - type: custom:button-card
+        name: 🌳 Extérieur
+        icon: mdi:nature
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/outdoor"
+        styles: *nav-style
+      - type: custom:button-card
+        name: 📊 Système
+        icon: mdi:monitor-dashboard
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/system"
+        styles: *nav-style

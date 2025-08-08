@@ -1,0 +1,479 @@
+# ===================================================
+# DASHBOARD iOS STYLE
+# Fichier: /config/ios_dashboard.yaml
+# ===================================================
+
+title: iOS Dashboard
+# Thème iOS avec basculement automatique selon votre input_boolean.theme_sombre
+theme: >
+  {% if is_state('input_boolean.theme_sombre', 'on') %}
+    ios-dark-mode-blue-red
+  {% else %}
+    ios-light-mode-blue-red
+  {% endif %}
+
+views:
+  - title: Accueil
+    path: default_view
+    icon: mdi:home
+    cards:
+      # === CONTRÔLES CLIMATISATION ===
+      - type: entities
+        title: Climatisation
+        show_header_toggle: false
+        entities:
+          - type: custom:fold-entity-row
+            head:
+              type: custom:template-entity-row
+              entity: climate.adele
+              name: Chambre Adèle
+              state: "{{ states('sensor.adele_temperature') }}°C - {{ states('sensor.adele_humidite') }}%"
+            entities:
+              - climate.adele
+              - sensor.adele_temperature
+              - sensor.adele_humidite
+          - type: custom:fold-entity-row
+            head:
+              type: custom:template-entity-row
+              entity: climate.alex
+              name: Chambre Alex
+              state: "{{ states('sensor.alex_temperature') }}°C - {{ states('sensor.alex_humidite') }}%"
+            entities:
+              - climate.alex
+              - sensor.alex_temperature
+              - sensor.alex_humidite
+          - type: custom:fold-entity-row
+            head:
+              type: custom:template-entity-row
+              entity: climate.parents
+              name: Chambre Parents
+              state: "{{ states('sensor.parents_temperature') }}°C - {{ states('sensor.parents_humidite') }}%"
+            entities:
+              - climate.parents
+              - sensor.parents_temperature
+              - sensor.parents_humidite
+          - type: custom:fold-entity-row
+            head:
+              type: custom:template-entity-row
+              entity: climate.bureau
+              name: Bureau
+              state: "{{ states('sensor.bureau_temperature') }}°C - {{ states('sensor.bureau_humidite') }}%"
+            entities:
+              - climate.bureau
+              - sensor.bureau_temperature
+              - sensor.bureau_humidite
+          - type: custom:fold-entity-row
+            head:
+              type: custom:template-entity-row
+              entity: climate.cuisine
+              name: Cuisine
+              state: "{{ states('sensor.cuisine_temperature') }}°C - {{ states('sensor.cuisine_humidite') }}%"
+            entities:
+              - climate.cuisine
+              - sensor.cuisine_temperature
+              - sensor.cuisine_humidite
+
+      # === GESTION DES VOLETS ===
+      - type: entities
+        title: Volets
+        show_header_toggle: false
+        entities:
+          - type: custom:template-entity-row
+            entity: cover.tous_les_volets
+            name: Tous les volets
+            secondary: "Position: {{ state_attr('cover.tous_les_volets', 'current_position') }}%"
+          - type: custom:template-entity-row
+            entity: cover.volets_chambres_2
+            name: Volets Chambres
+            secondary: "Position: {{ state_attr('cover.volets_chambres_2', 'current_position') }}%"
+          - type: custom:template-entity-row
+            entity: cover.volets_rdc_2
+            name: Volets RDC
+            secondary: "Position: {{ state_attr('cover.volets_rdc_2', 'current_position') }}%"
+          - type: divider
+          - type: custom:fold-entity-row
+            head:
+              entity: cover.volets_chambres_2
+              name: Détail Chambres
+            entities:
+              - cover.fenetre_adele_arriere
+              - cover.fenetre_adele_ru
+              - cover.fenetre_alex_jar
+              - cover.fenetre_alex_rue
+              - cover.fenetre_bureau
+              - cover.fenetre_suite
+              - cover.fenetre_sdb_suite
+          - type: custom:fold-entity-row
+            head:
+              entity: cover.volets_rdc_2
+              name: Détail RDC
+            entities:
+              - cover.fenetre_salon_gauche
+              - cover.fenetre_salon_central
+              - cover.fenetre_salon_dr
+              - cover.fenetre_salon_tv
+              - cover.fenetre_cuisine
+              - cover.fenetre_cuisine_avant
+              - cover.fenetre_entree
+
+      # === ÉCLAIRAGE ===
+      - type: entities
+        title: Éclairage
+        show_header_toggle: false
+        entities:
+          - entity: light.module_on_off
+            name: Éclairage Général
+          - entity: light.none_camera_1
+            name: Caméra Jardin
+          - entity: light.none_camera_1_2
+            name: Caméra Entrée
+
+      # === DÉTECTION ET SÉCURITÉ ===
+      - type: entities
+        title: Détecteurs & Sécurité
+        show_header_toggle: false
+        entities:
+          - entity: alarm_control_panel.virtual_alarm
+            name: Alarme Virtuelle
+          - type: custom:template-entity-row
+            entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor
+            name: Mouvement Bureau
+            secondary: "Batterie: {{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie') }}% | Éclairage: {{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement') }} lx"
+          - type: custom:template-entity-row
+            entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2
+            name: Mouvement Chambre Adèle
+            secondary: "Batterie: {{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_2') }}% | Éclairage: {{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_2') }} lx"
+          - type: custom:template-entity-row
+            entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3
+            name: Mouvement Chambre Alex
+            secondary: "Batterie: {{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_3') }}% | Éclairage: {{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_3') }} lx"
+          - type: custom:template-entity-row
+            entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4
+            name: Mouvement Chambre Parents
+            secondary: "Batterie: {{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_4') }}% | Éclairage: {{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_4') }} lx"
+
+      # === ÉLECTROMÉNAGER ===
+      - type: entities
+        title: Électroménager
+        show_header_toggle: false
+        entities:
+          - type: custom:fold-entity-row
+            head:
+              type: custom:template-entity-row
+              entity: sensor.lave_vaisselle_etat
+              name: Lave-vaisselle
+              secondary: "État: {{ states('sensor.lave_vaisselle_etat') }} | Porte: {{ states('sensor.lave_vaisselle_porte') }}"
+            entities:
+              - sensor.lave_vaisselle_etat
+              - sensor.lave_vaisselle_porte
+              - sensor.lave_vaisselle_progression_du_programme
+              - sensor.lave_vaisselle_heure_de_fin_de_programme
+              - switch.lave_vaisselle_demi_charge
+              - switch.lave_vaisselle_hygiene_plus
+              - switch.lave_vaisselle_intensive_zone
+              - switch.lave_vaisselle_mode_accelere
+              - button.lave_vaisselle_arreter_le_programme
+          - type: custom:fold-entity-row
+            head:
+              type: custom:template-entity-row
+              entity: sensor.table_de_cuisson_etat
+              name: Table de cuisson
+              secondary: "État: {{ states('sensor.table_de_cuisson_etat') }}"
+            entities:
+              - sensor.table_de_cuisson_etat
+              - switch.table_de_cuisson_securite_enfant
+              - number.table_de_cuisson_alarm_clock
+
+      # === MÉTÉO ===
+      - entity: weather.forecast_maison
+        name: Météo Nogent-sur-Marne
+        type: weather-forecast
+
+      # === MÉDIA ===
+      - type: entities
+        title: Multimédia
+        show_header_toggle: false
+        entities:
+          - entity: media_player.samsung_6_series_65_ue65tu6905kxxc
+            name: TV Samsung
+          - entity: remote.samsung_6_series_65_ue65tu6905kxxc
+            name: Télécommande TV
+
+      # === RACCOURCIS SCÈNES (Style iOS) ===
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            entity: scene.nuit
+            name: Mode Nuit
+            icon: mdi:weather-night
+            color_type: card
+            color: rgb(68, 115, 158)
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.nuit
+            styles:
+              card:
+                - height: 70px
+                - border-radius: 15px
+              name:
+                - font-size: 14px
+                - font-weight: 500
+          - type: custom:button-card
+            entity: scene.seance_cinema
+            name: Cinéma
+            icon: mdi:theater
+            color_type: card
+            color: rgb(142, 69, 133)
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.seance_cinema
+            styles:
+              card:
+                - height: 70px
+                - border-radius: 15px
+              name:
+                - font-size: 14px
+                - font-weight: 500
+          - type: custom:button-card
+            entity: scene.je_pars
+            name: Je pars
+            icon: mdi:home-export-outline
+            color_type: card
+            color: rgb(223, 84, 72)
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.je_pars
+            styles:
+              card:
+                - height: 70px
+                - border-radius: 15px
+              name:
+                - font-size: 14px
+                - font-weight: 500
+
+  - title: Système
+    path: system
+    icon: mdi:cog
+    cards:
+      # === INFORMATIONS SYSTÈME ===
+      - type: entities
+        title: État du système
+        show_header_toggle: false
+        entities:
+          - entity: sensor.backup_backup_manager_state
+            name: État des sauvegardes
+          - entity: sensor.backup_last_successful_automatic_backup
+            name: Dernière sauvegarde
+          - entity: sensor.backup_next_scheduled_automatic_backup
+            name: Prochaine sauvegarde
+          - entity: binary_sensor.rpi_power_status
+            name: État alimentation RPi
+
+      # === RÉSEAU ===
+      - type: entities
+        title: Réseau & Connectivité
+        show_header_toggle: false
+        entities:
+          - entity: device_tracker.freebox_v9_r1
+            name: Freebox
+          - entity: binary_sensor.freebox_v9_r1_etat_du_reseau_etendu_wan
+            name: État WAN
+          - entity: switch.freebox_wifi
+            name: WiFi Freebox
+          - type: custom:template-entity-row
+            entity: sensor.freebox_download_speed
+            name: Débit descendant
+            secondary: "{{ states('sensor.freebox_download_speed') }} kB/s"
+          - type: custom:template-entity-row
+            entity: sensor.freebox_upload_speed
+            name: Débit montant
+            secondary: "{{ states('sensor.freebox_upload_speed') }} kB/s"
+          - entity: sensor.freebox_missed_calls
+            name: Appels manqués
+          - type: custom:template-entity-row
+            entity: sensor.freebox_temperature_cpu_0
+            name: Température CPU Freebox
+            secondary: "CPU0: {{ states('sensor.freebox_temperature_cpu_0') }}°C | CPU1: {{ states('sensor.freebox_temperature_cpu_1') }}°C"
+
+      # === MISES À JOUR ===
+      - type: entities
+        title: Mises à jour disponibles
+        show_header_toggle: false
+        entities:
+          - entity: update.home_assistant_core_update
+            name: Home Assistant Core
+          - entity: update.home_assistant_operating_system_update
+            name: Home Assistant OS
+          - entity: update.home_assistant_supervisor_update
+            name: Supervisor
+          - entity: update.hacs_update
+            name: HACS
+
+      # === IMPRIMANTE ===
+      - type: entities
+        title: Imprimante HP
+        show_header_toggle: false
+        entities:
+          - entity: sensor.hp_deskjet_3700_series
+            name: État imprimante
+          - type: custom:template-entity-row
+            entity: sensor.hp_deskjet_3700_series_black_ink
+            name: Encre noire
+            secondary: "{{ states('sensor.hp_deskjet_3700_series_black_ink') }}%"
+          - type: custom:template-entity-row
+            entity: sensor.hp_deskjet_3700_series_tri_color_ink
+            name: Encre couleur
+            secondary: "{{ states('sensor.hp_deskjet_3700_series_tri_color_ink') }}%"
+
+  - title: Capteurs
+    path: sensors
+    icon: mdi:chart-line
+    cards:
+      # === GRAPHIQUES TEMPÉRATURE ===
+      - type: custom:swipe-card
+        cards:
+          - cards:
+              - type: custom:mini-graph-card
+                entities:
+                  - entity: sensor.adele_temperature
+                    name: Adèle
+                  - entity: sensor.alex_temperature
+                    name: Alex
+                  - entity: sensor.parents_temperature
+                    name: Parents
+                  - entity: sensor.bureau_temperature
+                    name: Bureau
+                  - entity: sensor.cuisine_temperature
+                    name: Cuisine
+                  - entity: sensor.entree_tv_temperature
+                    name: Entrée/TV
+                name: Températures par pièce
+                hours_to_show: 24
+                points_per_hour: 2
+                line_width: 2
+                font_size: 75
+                show:
+                  name: true
+                  state: true
+                  extrema: true
+              - type: custom:mini-graph-card
+                entities:
+                  - entity: sensor.adele_humidite
+                    name: Adèle
+                  - entity: sensor.alex_humidite
+                    name: Alex
+                  - entity: sensor.parents_humidite
+                    name: Parents
+                  - entity: sensor.bureau_humidite
+                    name: Bureau
+                  - entity: sensor.cuisine_humidite
+                    name: Cuisine
+                  - entity: sensor.entree_tv_humidite
+                    name: Entrée/TV
+                name: Humidité par pièce
+                hours_to_show: 24
+                points_per_hour: 2
+                line_width: 2
+                font_size: 75
+                show:
+                  name: true
+                  state: true
+                  extrema: true
+
+      # === QUALITÉ DE L'AIR ===
+      - type: entities
+        title: Qualité de l'air
+        show_header_toggle: false
+        entities:
+          - entity: sensor.alex_indice_de_qualite_de_l_air
+            name: Indice qualité air (Alex)
+          - entity: sensor.alex_pm1
+            name: PM1 (Alex)
+          - entity: sensor.alex_pm2_5
+            name: PM2.5 (Alex)
+          - entity: sensor.alex_pm10
+            name: PM10 (Alex)
+          - entity: sensor.parents_indice_de_qualite_de_l_air
+            name: Indice qualité air (Parents)
+          - entity: sensor.parents_pm1
+            name: PM1 (Parents)
+          - entity: sensor.parents_pm2_5
+            name: PM2.5 (Parents)
+          - entity: sensor.parents_pm10
+            name: PM10 (Parents)
+
+      # === PROBLÈMES DÉTECTÉS ===
+      - type: entities
+        title: État des systèmes
+        show_header_toggle: false
+        entities:
+          - entity: binary_sensor.adele_probleme
+            name: Problème Adèle
+          - entity: binary_sensor.alex_probleme
+            name: Problème Alex
+          - entity: binary_sensor.bureau_probleme
+            name: Problème Bureau
+          - entity: binary_sensor.cuisine_probleme
+            name: Problème Cuisine
+          - entity: binary_sensor.entree_tv_probleme
+            name: Problème Entrée/TV
+          - entity: binary_sensor.parents_probleme
+            name: Problème Parents
+          - entity: binary_sensor.system_1_probleme
+            name: Problème Système 1
+          - entity: binary_sensor.system_2_probleme
+            name: Problème Système 2
+
+  - title: Arrosage
+    path: irrigation
+    icon: mdi:sprinkler
+    cards:
+      # === CONTRÔLE ARROSAGE ===
+      - type: entities
+        title: Système d'arrosage
+        show_header_toggle: false
+        entities:
+          - entity: irrigation_unlimited.coordinator
+            name: Coordinateur arrosage
+          - entity: binary_sensor.irrigation_unlimited_c1_m
+            name: Arrosage principal
+          - entity: binary_sensor.irrigation_unlimited_c1_z1
+            name: Pelouse avant
+          - entity: binary_sensor.irrigation_unlimited_c1_z2
+            name: Pelouse arrière
+          - entity: binary_sensor.irrigation_unlimited_c1_z3
+            name: Massifs
+
+  - title: Automatisations
+    path: automations
+    icon: mdi:robot
+    cards:
+      # === AUTOMATISATIONS PRINCIPALES ===
+      - type: entities
+        title: Automatisations actives
+        show_header_toggle: false
+        entities:
+          - entity: automation.nuit
+            name: Mode Nuit
+          - entity: automation.soiree_film
+            name: Soirée Film
+
+      # === UTILITAIRES ===
+      - type: entities
+        title: Utilitaires
+        show_header_toggle: false
+        entities:
+          - entity: todo.liste_dachats
+            name: Liste d'achats
+          - entity: input_boolean.theme_sombre
+            name: Thème sombre
+          - type: custom:template-entity-row
+            entity: person.marques
+            name: Localisation
+            secondary: "{{ states('sensor.iphone_geocoded_location') }}"

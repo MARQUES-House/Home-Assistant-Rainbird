@@ -884,8 +884,6 @@ trackUniqueVisitor();
 
 // Gestionnaire d'erreurs global
 window.onerror = function(message, source, lineno, colno, error) {
-    console.error('Erreur capturée: ' + message);
-    
     // Afficher une notification d'erreur
     showError('Une erreur est survenue: ' + message);
 };
@@ -930,29 +928,6 @@ function shutdown() {
 // shutdown();
 
 /* ===========================================
-   TESTS UNITAIRES ET D'INTÉGRATION
-   =========================================== */
-
-// Exemple de test unitaire
-function testCalculateSum() {
-    var result = calculateSum(2, 3);
-    console.assert(result === 5, 'Test échoué: calculateSum(2, 3) devrait être 5');
-}
-
-// Exemple de test d'intégration
-function testAdvancedClimateControl() {
-    var entity = getEntityById('climate.adele');
-    var html = createAdvancedClimateControl(entity);
-    
-    console.assert(html.includes('PAC Adele'), 'Test échoué: le nom de la PAC devrait être présent');
-    console.assert(html.includes('🌡️ Température: 21°C'), 'Test échoué: la température cible devrait être affichée');
-}
-
-// Exécuter les tests
-testCalculateSum();
-testAdvancedClimateControl();
-
-/* ===========================================
    DOCUMENTATION ET COMMENTAIRES
    =========================================== */
 
@@ -993,4 +968,4 @@ document.getElementById('climate-control-container').innerHTML = climateControlH
 // Remerciements spéciaux à la communauté Home Assistant pour son soutien
 // et à tous les contributeurs de ce projet.
 
-debugLog('Module Advanced Controls entièrement chargé'); 
+debugLog('Module Advanced Controls entièrement chargé');

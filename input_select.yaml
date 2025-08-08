@@ -1,0 +1,64 @@
+# input_select.yaml
+
+mode_maison:
+  name: "Mode Maison"
+  options:
+    - "Jour"
+    - "Nuit"
+    - "Vacances"
+    - "Absent"
+  initial: "Jour"
+  icon: mdi:home
+
+mode_volets:
+  name: "Mode Volets"
+  options:
+    - "Auto"
+    - "Ouverts"
+    - "Fermés"
+    - "Mi-ombre"
+  initial: "Auto"
+  icon: mdi:window-shutter
+
+mode_clim:
+  name: "Mode Clim"
+  options:
+    - "Auto"
+    - "Confort"
+    - "Eco"
+    - "Off"
+  initial: "Auto"
+  icon: mdi:thermostat
+
+scenario_sejour:
+  name: "Scénario Séjour"
+  options:
+    - "Normal"
+    - "Soirée film" # <- ligne 38, maintenant quotée
+    - "Invités"
+    - "Lecture"
+  initial: "Normal"
+  icon: mdi:sofa
+
+equipment_category:
+  name: "Catégorie d'équipement"
+  options:
+    - "climatisation"
+    - "eclairage"
+    - "volets"
+    - "securite"
+    - "electromenager"
+  initial: "climatisation"
+  icon: mdi:home-automation
+
+room_selection:
+  name: "Sélection de pièce"
+  options:
+    - "salon"
+    - "cuisine"
+    - "chambre_parents"
+    - "chambre_alex"
+    - "chambre_adele"
+    - "bureau"
+  initial: "salon"
+  icon: mdi:floor-plan

@@ -6,9 +6,9 @@
     "items": [
       {
         "conversation_engine": "conversation.home_assistant",
-        "conversation_language": "en",
+        "conversation_language": "fr",
         "id": "01k1dm22gmes43z3wm11bpb62c",
-        "language": "en",
+        "language": "fr",
         "name": "Home Assistant",
         "stt_engine": null,
         "stt_language": null,

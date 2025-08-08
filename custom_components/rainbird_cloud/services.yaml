@@ -1,43 +1,78 @@
-
 start_zone:
-  name: "Démarrer zone"
-  description: "Démarre l'irrigation d'une zone spécifique"
-  target:
-    entity:
-      domain: switch
-      integration: rainbird_cloud
+  name: "Démarrer zone Rain Bird"
+  description: "Démarre l'irrigation d'une zone spécifique pour une durée donnée"
   fields:
+    station_id:
+      name: "ID de la station"
+      description: "Identifiant numérique de la station Rain Bird"
+      required: true
+      example: 10782087
+      selector:
+        select:
+          options:
+            - value: 10782087
+              label: "Station 1 (Terminal 1)"
+            - value: 10782088
+              label: "Station 2 (Terminal 2)"
+            - value: 10782089
+              label: "Station 3 (Terminal 3)"
     duration:
-      name: "Durée"
-      description: "Durée en secondes"
-      example: 600
+      name: "Durée d'arrosage"
+      description: "Durée en secondes (30 sec à 1 heure)"
+      required: false
       default: 300
+      example: 600
       selector:
         number:
           min: 30
           max: 3600
           step: 30
-          unit_of_measurement: "s"
+          unit_of_measurement: "secondes"
+          mode: slider
 
 start_multiple_zones:
   name: "Démarrer plusieurs zones"
-  description: "Démarre l'irrigation de plusieurs zones"
+  description: "Démarre l'irrigation de plusieurs zones avec des durées personnalisées"
   fields:
     zones:
-      name: "Zones"
-      description: "Liste des zones à démarrer"
-      example: "[10782087, 10782088]"
+      name: "Liste des zones"
+      description: "Liste des IDs des stations à démarrer"
       required: true
+      example: "[10782087, 10782088, 10782089]"
       selector:
         object:
     durations:
-      name: "Durées"
-      description: "Durées correspondantes en secondes"
-      example: "[300, 600]"
+      name: "Durées correspondantes"
+      description: "Liste des durées en secondes (même ordre que les zones)"
       required: true
+      example: "[900, 1200, 600]"
       selector:
         object:
 
 stop_all:
-  name: "Arrêter tout"
-  description: "Arrête toute irrigation en cours"
+  name: "Arrêter toute irrigation"
+  description: "Arrête immédiatement toute irrigation en cours sur toutes les zones"
+
+test_system:
+  name: "Test système Rain Bird"
+  description: "Teste la connexion et l'état du système d'irrigation"
+  fields:
+    include_stations:
+      name: "Tester les stations"
+      description: "Inclure un test physique des stations disponibles"
+      required: false
+      default: true
+      selector:
+        boolean:
+    test_duration:
+      name: "Durée du test"
+      description: "Durée du test de chaque station en secondes"
+      required: false
+      default: 30
+      example: 30
+      selector:
+        number:
+          min: 10
+          max: 120
+          step: 10
+          unit_of_measurement: "secondes"

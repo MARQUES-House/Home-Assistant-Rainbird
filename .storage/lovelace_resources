@@ -28,6 +28,71 @@
         "id": "c38ef4aa28ac40ce9e978e8ab1891bcb",
         "url": "/hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js?hacstag=142051833101",
         "type": "module"
+      },
+      {
+        "id": "797c57a0dc174764a7ac5af6521eb298",
+        "url": "/browser_mod.js?automatically-added&2.4.4",
+        "type": "module"
+      },
+      {
+        "id": "91ce2134a2244117abd8ddf58b77692b",
+        "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620130",
+        "type": "module"
+      },
+      {
+        "id": "ee696c12940740c9ae67d7791701717e",
+        "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381169",
+        "type": "module"
+      },
+      {
+        "id": "aa606bfc0e3d43f49362abd7bf249051",
+        "url": "/hacsfiles/lovelace-auto-entities/auto-entities.js?hacstag=1677445841161",
+        "type": "module"
+      },
+      {
+        "id": "1c82f02115654975825464af364eca62",
+        "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994232",
+        "type": "module"
+      },
+      {
+        "id": "fa760126b79e45fcaf719846cd2251d9",
+        "url": "/hacsfiles/lovelace-state-switch/state-switch.js?hacstag=158756598196",
+        "type": "module"
+      },
+      {
+        "id": "ad94f400319a4ae99f1ceabe65a5b5c8",
+        "url": "/hacsfiles/simple-weather-card/simple-weather-card-bundle.js?hacstag=172998062085",
+        "type": "module"
+      },
+      {
+        "id": "bb532541ae164ee3a9a17debfb13734c",
+        "url": "/hacsfiles/swipe-card/swipe-card.js?hacstag=192732887500",
+        "type": "module"
+      },
+      {
+        "id": "d937f2d8fb2a4f9f889ca0ff2523881f",
+        "url": "/hacsfiles/light-entity-card/light-entity-card.js?hacstag=168744428613",
+        "type": "module"
+      },
+      {
+        "id": "2c2ce0e86e0e4c558269f77817512621",
+        "url": "/hacsfiles/weather-radar-card/weather-radar-card.js?hacstag=487680971210",
+        "type": "module"
+      },
+      {
+        "id": "9ac0c83a9dd24a1eb40a4f7c5536e642",
+        "url": "/hacsfiles/my-cards/my-cards.js?hacstag=399108901106",
+        "type": "module"
+      },
+      {
+        "id": "32285816296a401a9828dc7d06ac473e",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375450",
+        "type": "module"
+      },
+      {
+        "id": "ca5936e29bb44814bd565b4ccea2e0db",
+        "url": "/hacsfiles/lovelace-card-templater/lovelace-card-templater.js?hacstag=1843331630017",
+        "type": "module"
       }
     ]
   }

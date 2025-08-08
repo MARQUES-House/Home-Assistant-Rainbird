@@ -1,1 +1,107 @@
+# groups.yaml
+# Groupes d'entités pour organisation logique
 
+# Groupes par équipement
+climatisation_zones:
+  name: "Zones de Climatisation"
+  entities:
+    - climate.adele
+    - climate.alex
+    - climate.parents
+    - climate.bureau
+    - climate.cuisine
+
+eclairage_general:
+  name: "Éclairage Général"
+  entities:
+    - light.module_on_off
+    - light.none_camera_1
+    - light.none_camera_1_2
+
+volets_etage:
+  name: "Volets Étage"
+  entities:
+    - cover.fenetre_adele_arriere
+    - cover.fenetre_adele_ru
+    - cover.fenetre_alex_jar
+    - cover.fenetre_alex_rue
+    - cover.fenetre_suite
+    - cover.fenetre_sdb_suite
+    - cover.fenetre_bureau
+
+volets_rdc:
+  name: "Volets RDC"
+  entities:
+    - cover.fenetre_salon_gauche
+    - cover.fenetre_salon_central
+    - cover.fenetre_salon_dr
+    - cover.fenetre_salon_tv
+    - cover.fenetre_cuisine
+    - cover.fenetre_cuisine_avant
+    - cover.fenetre_entree
+
+capteurs_mouvement:
+  name: "Capteurs de Mouvement"
+  entities:
+    - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor
+    - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2
+    - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3
+    - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4
+
+electromenager:
+  name: "Électroménager Intelligent"
+  entities:
+    - sensor.lave_vaisselle_etat
+    - sensor.lave_vaisselle_porte
+    - sensor.lave_vaisselle_progression_du_programme
+    - sensor.table_de_cuisson_etat
+
+# Groupes par pièce
+chambre_adele:
+  name: "Chambre Adèle"
+  entities:
+    - climate.adele
+    - cover.fenetre_adele_arriere
+    - cover.fenetre_adele_ru
+    - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2
+
+chambre_alex:
+  name: "Chambre Alex"
+  entities:
+    - climate.alex
+    - cover.fenetre_alex_jar
+    - cover.fenetre_alex_rue
+    - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3
+
+chambre_parents:
+  name: "Chambre Parents"
+  entities:
+    - climate.parents
+    - cover.fenetre_suite
+    - cover.fenetre_sdb_suite
+    - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4
+
+bureau:
+  name: "Bureau"
+  entities:
+    - climate.bureau
+    - cover.fenetre_bureau
+    - binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor
+
+salon:
+  name: "Salon"
+  entities:
+    - cover.fenetre_salon_gauche
+    - cover.fenetre_salon_central
+    - cover.fenetre_salon_dr
+    - cover.fenetre_salon_tv
+    - media_player.samsung_6_series_65_ue65tu6905kxxc
+
+cuisine:
+  name: "Cuisine"
+  entities:
+    - climate.cuisine
+    - cover.fenetre_cuisine
+    - cover.fenetre_cuisine_avant
+    - sensor.lave_vaisselle_etat
+    - sensor.table_de_cuisson_etat

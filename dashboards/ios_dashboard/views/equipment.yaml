@@ -1,0 +1,296 @@
+# views/equipment.yaml - Page Matériel
+title: 🔧 Matériel
+path: equipment
+icon: mdi:tools
+cards:
+  # Sélecteur de catégorie
+  - type: custom:mushroom-select-card
+    entity: input_select.equipment_category
+    name: Catégorie d'équipement
+    icon: mdi:tune
+    card_mod: &glass-style
+      style: |
+        ha-card {
+          border-radius: 20px !important;
+          backdrop-filter: blur(20px);
+          background: rgba(255, 255, 255, 0.1) !important;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+  # Climatisation
+  - type: conditional
+    conditions:
+      - entity: input_select.equipment_category
+        state: "climatisation"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🌡️ Systèmes de Climatisation
+          subtitle: Gestion centralisée des zones thermiques
+        - type: entities
+          title: 📊 État Global
+          show_header_toggle: false
+          entities:
+            - entity: sensor.resume_climatisation_maison
+              name: Résumé Global
+              secondary_info: last-changed
+            - type: divider
+            - entity: input_select.mode_clim
+              name: Mode Climatisation
+              icon: mdi:thermostat
+          card_mod: *glass-style
+        - type: grid
+          columns: 2
+          cards:
+            - type: entities
+              title: 🏠 Zones Principales
+              entities:
+                - entity: climate.adele
+                  name: 🧸 Chambre Adèle
+                  secondary_info: current-temperature
+                - entity: climate.alex
+                  name: 🎮 Chambre Alex
+                  secondary_info: current-temperature
+                - entity: climate.parents
+                  name: 🛏️ Chambre Parents
+                  secondary_info: current-temperature
+              card_mod: *glass-style
+            - type: entities
+              title: 🏢 Zones Communes
+              entities:
+                - entity: climate.bureau
+                  name: 💼 Bureau
+                  secondary_info: current-temperature
+                - entity: climate.cuisine
+                  name: 🍳 Cuisine
+                  secondary_info: current-temperature
+                - entity: climate.entree_tv
+                  name: 🚪 Entrée/TV
+                  secondary_info: current-temperature
+              card_mod: *glass-style
+
+  # Éclairage
+  - type: conditional
+    conditions:
+      - entity: input_select.equipment_category
+        state: "eclairage"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 💡 Systèmes d'Éclairage
+          subtitle: Contrôle intelligent de l'éclairage
+        - type: entities
+          title: 🏠 Éclairage Intérieur
+          entities:
+            - entity: light.module_on_off
+              name: Éclairage Général
+              secondary_info: last-changed
+            - entity: light.salon_principal
+              name: Salon Principal
+              secondary_info: last-changed
+            - entity: light.cuisine_spots
+              name: Spots Cuisine
+              secondary_info: last-changed
+            - entity: light.escalier
+              name: Éclairage Escalier
+              secondary_info: last-changed
+          card_mod: *glass-style
+        - type: entities
+          title: 🌙 Éclairage Extérieur
+          entities:
+            - entity: light.none_camera_1
+              name: Éclairage Caméra Jardin
+              secondary_info: last-changed
+            - entity: light.none_camera_1_2
+              name: Éclairage Caméra Entrée
+              secondary_info: last-changed
+            - entity: light.terrasse
+              name: Éclairage Terrasse
+              secondary_info: last-changed
+            - entity: light.allée
+              name: Éclairage Allée
+              secondary_info: last-changed
+          card_mod: *glass-style
+
+  # Volets et Stores
+  - type: conditional
+    conditions:
+      - entity: input_select.equipment_category
+        state: "volets"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🪟 Volets et Stores
+          subtitle: Gestion automatique des ouvertures
+        - type: entities
+          title: 🎛️ Contrôles Globaux
+          entities:
+            - entity: input_select.mode_volets
+              name: Mode Volets
+              icon: mdi:window-shutter
+            - type: divider
+            - entity: cover.tous_les_volets
+              name: Tous les Volets
+              secondary_info: last-changed
+            - entity: cover.volets_chambres_2
+              name: Volets Étage
+              secondary_info: last-changed
+            - entity: cover.volets_rdc_2
+              name: Volets RDC
+              secondary_info: last-changed
+          card_mod: *glass-style
+        - type: custom:swipe-card
+          cards:
+            - type: entities
+              title: 🏠 Étage - Chambres
+              entities:
+                - entity: cover.fenetre_adele_arriere
+                  name: Adèle - Arrière
+                  secondary_info: last-changed
+                - entity: cover.fenetre_adele_ru
+                  name: Adèle - Rue
+                  secondary_info: last-changed
+                - entity: cover.fenetre_alex_jar
+                  name: Alex - Jardin
+                  secondary_info: last-changed
+                - entity: cover.fenetre_alex_rue
+                  name: Alex - Rue
+                  secondary_info: last-changed
+                - entity: cover.fenetre_suite
+                  name: Parents - Principal
+                  secondary_info: last-changed
+                - entity: cover.fenetre_bureau
+                  name: Bureau
+                  secondary_info: last-changed
+              card_mod: *glass-style
+            - type: entities
+              title: 🏡 RDC - Salon & Cuisine
+              entities:
+                - entity: cover.fenetre_salon_gauche
+                  name: Salon - Gauche
+                  secondary_info: last-changed
+                - entity: cover.fenetre_salon_central
+                  name: Salon - Central
+                  secondary_info: last-changed
+                - entity: cover.fenetre_salon_dr
+                  name: Salon - Droite
+                  secondary_info: last-changed
+                - entity: cover.fenetre_salon_tv
+                  name: Salon - TV
+                  secondary_info: last-changed
+                - entity: cover.fenetre_cuisine
+                  name: Cuisine - Principal
+                  secondary_info: last-changed
+                - entity: cover.fenetre_entree
+                  name: Entrée
+                  secondary_info: last-changed
+              card_mod: *glass-style
+
+  # Sécurité
+  - type: conditional
+    conditions:
+      - entity: input_select.equipment_category
+        state: "securite"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🛡️ Systèmes de Sécurité
+          subtitle: Surveillance et détection intelligente
+        - type: entities
+          title: 🚨 Alarme Principale
+          entities:
+            - entity: alarm_control_panel.virtual_alarm
+              name: Système d'Alarme
+              secondary_info: last-changed
+            - entity: binary_sensor.alarme_declenchee
+              name: État Déclenchement
+              secondary_info: last-changed
+          card_mod: *glass-style
+        - type: grid
+          columns: 2
+          cards:
+            - type: entities
+              title: 👁️ Capteurs Mouvement
+              entities:
+                - entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor
+                  name: 💼 Bureau
+                  secondary_info: last-changed
+                - entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2
+                  name: 🧸 Chambre Adèle
+                  secondary_info: last-changed
+                - entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3
+                  name: 🎮 Chambre Alex
+                  secondary_info: last-changed
+                - entity: binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4
+                  name: 🛏️ Chambre Parents
+                  secondary_info: last-changed
+              card_mod: *glass-style
+            - type: entities
+              title: 🔋 État Capteurs
+              entities:
+                - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie
+                  name: Batterie Bureau
+                - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_2
+                  name: Batterie Adèle
+                - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_3
+                  name: Batterie Alex
+                - entity: sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_4
+                  name: Batterie Parents
+              card_mod: *glass-style
+
+  # Audio/Vidéo
+  - type: conditional
+    conditions:
+      - entity: input_select.equipment_category
+        state: "audio_tv"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 📺 Équipements Audio/Vidéo
+          subtitle: Divertissement et multimédia
+        - type: entities
+          title: 📺 Télévisions
+          entities:
+            - entity: media_player.samsung_6_series_65_ue65tu6905kxxc
+              name: Samsung TV Salon
+              secondary_info: last-changed
+            - entity: media_player.tv_chambre_parents
+              name: TV Chambre Parents
+              secondary_info: last-changed
+          card_mod: *glass-style
+        - type: entities
+          title: 🔊 Audio
+          entities:
+            - entity: media_player.sonos_salon
+              name: Sonos Salon
+              secondary_info: last-changed
+            - entity: media_player.alexa_cuisine
+              name: Alexa Cuisine
+              secondary_info: last-changed
+            - entity: media_player.google_home_bureau
+              name: Google Home Bureau
+              secondary_info: last-changed
+          card_mod: *glass-style
+
+  # Électroménager
+  - type: conditional
+    conditions:
+      - entity: input_select.equipment_category
+        state: "electromenager"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: 🏠 Électroménager Intelligent
+          subtitle: Appareils connectés et automatisés
+        - type: custom:swipe-card
+          cards:
+            - type: entities
+              title: 🍽️ Lave-vaisselle
+              entities:
+                - entity: sensor.lave_vaisselle_etat

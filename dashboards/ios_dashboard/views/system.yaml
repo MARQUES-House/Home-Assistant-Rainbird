@@ -1,0 +1,423 @@
+# views/system.yaml - Page Système
+title: 📊 Système
+path: system
+icon: mdi:monitor-dashboard
+cards:
+  # Monitoring avancé du système
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 💻 Monitoring Système
+        subtitle: Performance et ressources en temps réel
+      - type: grid
+        columns: 2
+        cards:
+          - type: entities
+            title: 🖥️ Ressources Serveur
+            entities:
+              - entity: sensor.processor_use
+                name: CPU
+                icon: mdi:cpu-64-bit
+              - entity: sensor.memory_use_percent
+                name: RAM
+                icon: mdi:memory
+              - entity: sensor.disk_use_percent_home
+                name: Disque Principal
+                icon: mdi:harddisk
+              - entity: sensor.disk_use_percent_config
+                name: Disque Config
+                icon: mdi:folder-cog
+              - entity: sensor.temperature_cpu
+                name: Température CPU
+                icon: mdi:thermometer
+            card_mod: &glass-style
+              style: |
+                ha-card {
+                  border-radius: 20px !important;
+                  backdrop-filter: blur(20px);
+                  background: rgba(255, 255, 255, 0.1) !important;
+                  border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+          - type: entities
+            title: 📈 Graphiques Performance
+            entities:
+              - entity: sensor.load_1m
+                name: Charge 1min
+                icon: mdi:chart-line
+              - entity: sensor.load_5m
+                name: Charge 5min
+                icon: mdi:chart-line-variant
+              - entity: sensor.load_15m
+                name: Charge 15min
+                icon: mdi:chart-timeline-variant
+              - entity: sensor.uptime
+                name: Temps de Fonctionnement
+                icon: mdi:clock-outline
+              - entity: sensor.derniere_sauvegarde
+                name: Dernière Sauvegarde
+                icon: mdi:backup-restore
+            card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Débit internet en temps réel
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 🌐 Connectivité Internet
+        subtitle: Débit et qualité de connexion
+      - type: grid
+        columns: 2
+        cards:
+          - type: entities
+            title: ⬇️ Téléchargement
+            entities:
+              - entity: sensor.speedtest_download
+                name: Débit Descendant
+                icon: mdi:download
+              - entity: sensor.speedtest_download_moyenne
+                name: Moyenne 24h
+                icon: mdi:chart-line
+              - entity: sensor.bande_passante_download_temps_reel
+                name: Temps Réel
+                icon: mdi:speedometer
+            card_mod: *glass-style
+          - type: entities
+            title: ⬆️ Téléversement
+            entities:
+              - entity: sensor.speedtest_upload
+                name: Débit Montant
+                icon: mdi:upload
+              - entity: sensor.speedtest_upload_moyenne
+                name: Moyenne 24h
+                icon: mdi:chart-line
+              - entity: sensor.bande_passante_upload_temps_reel
+                name: Temps Réel
+                icon: mdi:speedometer-medium
+            card_mod: *glass-style
+      - type: entities
+        title: 📊 Qualité Connexion
+        entities:
+          - entity: sensor.speedtest_ping
+            name: Latence (Ping)
+            icon: mdi:timer-outline
+          - entity: sensor.qualite_connexion
+            name: Qualité Globale
+            icon: mdi:signal
+          - entity: sensor.dernier_test_vitesse
+            name: Dernier Test
+            icon: mdi:clock-check-outline
+          - entity: binary_sensor.connexion_internet
+            name: État Internet
+            icon: mdi:web
+        card_mod: *glass-style
+      # Graphique temps réel
+      - type: custom:mini-graph-card
+        entities:
+          - entity: sensor.bande_passante_download_temps_reel
+            name: Download
+            color: "#03A9F4"
+          - entity: sensor.bande_passante_upload_temps_reel
+            name: Upload
+            color: "#FF5722"
+        name: Débit Internet Temps Réel
+        hours_to_show: 2
+        points_per_hour: 30
+        line_width: 2
+        font_size: 75
+        animate: true
+        show:
+          state: false
+          name: true
+          icon: false
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # État des intégrations
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 🔗 État des Intégrations
+        subtitle: Connectivité des protocoles et services
+      - type: grid
+        columns: 2
+        cards:
+          - type: entities
+            title: 📡 Protocoles Sans Fil
+            entities:
+              - entity: binary_sensor.zigbee_status
+                name: Zigbee Coordinator
+                secondary_info: last-changed
+              - entity: sensor.zigbee_devices_connected
+                name: Appareils Zigbee
+                icon: mdi:zigbee
+              - entity: binary_sensor.mqtt_status
+                name: Serveur MQTT
+                secondary_info: last-changed
+              - entity: sensor.mqtt_messages_today
+                name: Messages MQTT
+                icon: mdi:message-processing
+              - entity: binary_sensor.bluetooth_status
+                name: Bluetooth
+                secondary_info: last-changed
+            card_mod: *glass-style
+          - type: entities
+            title: 📶 Réseau WiFi
+            entities:
+              - entity: sensor.wifi_devices_connected
+                name: Appareils Connectés
+                icon: mdi:wifi
+              - entity: sensor.wifi_signal_strength
+                name: Force du Signal
+                icon: mdi:wifi-strength-4
+              - entity: binary_sensor.routeur_principal
+                name: Routeur Principal
+                secondary_info: last-changed
+              - entity: binary_sensor.point_acces_etage
+                name: Point d'Accès Étage
+                secondary_info: last-changed
+              - entity: sensor.wifi_interference
+                name: Interférences
+                icon: mdi:wifi-strength-alert-outline
+            card_mod: *glass-style
+      - type: entities
+        title: ☁️ Services Cloud
+        entities:
+          - entity: binary_sensor.google_assistant_status
+            name: Google Assistant
+            secondary_info: last-changed
+          - entity: binary_sensor.alexa_status
+            name: Amazon Alexa
+            secondary_info: last-changed
+          - entity: binary_sensor.spotify_connect
+            name: Spotify Connect
+            secondary_info: last-changed
+          - entity: binary_sensor.netflix_api
+            name: Netflix API
+            secondary_info: last-changed
+          - entity: binary_sensor.weather_service
+            name: Service Météo
+            secondary_info: last-changed
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Surveillance HACS et mises à jour
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 🔄 Mises à Jour & HACS
+        subtitle: Gestion des composants et mises à jour
+      - type: grid
+        columns: 2
+        cards:
+          - type: entities
+            title: 📦 HACS - Composants
+            entities:
+              - entity: sensor.hacs_updates_available
+                name: Mises à Jour Disponibles
+                icon: mdi:package-up
+              - entity: sensor.hacs_installed_repositories
+                name: Repos Installés
+                icon: mdi:git
+              - entity: binary_sensor.hacs_status
+                name: État HACS
+                icon: mdi:home-assistant
+              - entity: sensor.derniere_verification_hacs
+                name: Dernière Vérification
+                icon: mdi:clock-check
+            card_mod: *glass-style
+          - type: entities
+            title: 🏠 Home Assistant Core
+            entities:
+              - entity: binary_sensor.updater
+                name: Mise à Jour Core
+                icon: mdi:home-assistant
+              - entity: sensor.version_actuelle
+                name: Version Actuelle
+                icon: mdi:information-outline
+              - entity: sensor.version_disponible
+                name: Version Disponible
+                icon: mdi:new-box
+              - entity: sensor.taille_sauvegarde
+                name: Taille Sauvegarde
+                icon: mdi:database
+            card_mod: *glass-style
+      - type: entities
+        title: 🔧 Add-ons Supervisor
+        entities:
+          - entity: binary_sensor.addon_file_editor
+            name: File Editor
+            secondary_info: last-changed
+          - entity: binary_sensor.addon_mosquitto
+            name: Mosquitto Broker
+            secondary_info: last-changed
+          - entity: binary_sensor.addon_zigbee2mqtt
+            name: Zigbee2MQTT
+            secondary_info: last-changed
+          - entity: binary_sensor.addon_node_red
+            name: Node-RED
+            secondary_info: last-changed
+          - entity: binary_sensor.addon_grafana
+            name: Grafana
+            secondary_info: last-changed
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Logs et diagnostics
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 📋 Logs & Diagnostics
+        subtitle: Surveillance des erreurs et alertes
+      - type: entities
+        title: ⚠️ Alertes Système Récentes
+        entities:
+          - entity: sensor.erreurs_systeme_24h
+            name: Erreurs 24h
+            icon: mdi:alert-circle
+          - entity: sensor.warnings_systeme_24h
+            name: Avertissements 24h
+            icon: mdi:alert
+          - entity: sensor.dernier_redemarrage
+            name: Dernier Redémarrage
+            icon: mdi:restart
+          - entity: sensor.entites_indisponibles
+            name: Entités Indisponibles
+            icon: mdi:help-circle
+        card_mod: *glass-style
+      - type: entities
+        title: 🔍 Diagnostic Rapide
+        entities:
+          - entity: binary_sensor.db_taille_critique
+            name: Taille Base de Données
+            icon: mdi:database-alert
+          - entity: binary_sensor.ssl_expire_bientot
+            name: Certificat SSL
+            icon: mdi:certificate
+          - entity: binary_sensor.config_valide
+            name: Configuration Valide
+            icon: mdi:check-circle
+          - entity: sensor.dernier_backup_auto
+            name: Dernière Sauvegarde Auto
+            icon: mdi:backup-restore
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Actions rapides système
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        name: 🔄 Redémarrer HA
+        icon: mdi:restart
+        tap_action:
+          action: call-service
+          service: homeassistant.restart
+        confirmation:
+          text: "Êtes-vous sûr de vouloir redémarrer Home Assistant ?"
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(255, 152, 0, 0.1)
+            - border: 1px solid rgba(255, 152, 0, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 💾 Sauvegarde
+        icon: mdi:backup-restore
+        tap_action:
+          action: call-service
+          service: hassio.backup_full
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(76, 175, 80, 0.1)
+            - border: 1px solid rgba(76, 175, 80, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🧹 Nettoyer DB
+        icon: mdi:database-refresh
+        tap_action:
+          action: call-service
+          service: recorder.purge
+          service_data:
+            keep_days: 7
+        confirmation:
+          text: "Supprimer les données de plus de 7 jours ?"
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(244, 67, 54, 0.1)
+            - border: 1px solid rgba(244, 67, 54, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🔍 Logs
+        icon: mdi:text-box-search
+        tap_action:
+          action: navigate
+          navigation_path: "/config/logs"
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(103, 58, 183, 0.1)
+            - border: 1px solid rgba(103, 58, 183, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+
+  # Navigation rapide
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        name: 🏠 Accueil
+        icon: mdi:home
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/home"
+        styles: &nav-style
+          card:
+            - height: 60px
+            - border-radius: 15px
+            - background: rgba(255, 255, 255, 0.1)
+            - border: 1px solid rgba(255, 255, 255, 0.2)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🔧 Matériel
+        icon: mdi:tools
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/equipment"
+        styles: *nav-style
+      - type: custom:button-card
+        name: 🏠 Pièces
+        icon: mdi:floor-plan
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/rooms"
+        styles: *nav-style
+      - type: custom:button-card
+        name: 🤖 Automatisations
+        icon: mdi:robot
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/automations"
+        styles: *nav-style

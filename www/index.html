@@ -19,9 +19,13 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4a90e2">
     <meta name="apple-mobile-web-app-title" content="HA Dashboard">
-    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+    
+    <!-- Favicons et icônes personnalisés -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
+    <link rel="icon" type="image/png" href="/icons/icon.png">
 </head>
 <body>
     <!-- Panel de debug -->
@@ -97,6 +101,9 @@
     <div class="status-bar" id="statusBar">
         🔄 Dernière mise à jour : --:--:--
     </div>
+
+    <!-- Conteneur pour le contrôle climatisation avancé -->
+    <div id="climate-control-container"></div>
 
     <!-- Scripts - Ordre d'importation important pour iOS 9.3.5 -->
     <script src="js/config.js"></script>

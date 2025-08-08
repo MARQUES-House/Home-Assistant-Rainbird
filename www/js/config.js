@@ -30,7 +30,7 @@ var currentMaterial = null;
 
 // Paramètres de l'application
 var REFRESH_INTERVAL = 10000; // 10 secondes
-var DEBUG_MODE = true; // Activer/désactiver les logs de debug
+var DEBUG_MODE = false; // Désactiver les logs de debug pour production et compatibilité clavier iOS
 
 /* ===========================================
    CONFIGURATION DES PIÈCES

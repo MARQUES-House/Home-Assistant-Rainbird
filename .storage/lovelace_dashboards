@@ -5,24 +5,6 @@
   "data": {
     "items": [
       {
-        "id": "map",
-        "icon": "mdi:map",
-        "title": "Map",
-        "url_path": "map",
-        "mode": "storage",
-        "require_admin": false,
-        "show_in_sidebar": false
-      },
-      {
-        "id": "dashboard_tablette",
-        "show_in_sidebar": false,
-        "icon": "mdi:view-dashboard",
-        "title": "Tablette",
-        "require_admin": false,
-        "mode": "storage",
-        "url_path": "dashboard-tablette"
-      },
-      {
         "id": "dashboard_piece",
         "show_in_sidebar": false,
         "icon": "mdi:google-classroom",
@@ -32,13 +14,13 @@
         "url_path": "dashboard-piece"
       },
       {
-        "id": "dashboard_ipad",
-        "show_in_sidebar": false,
-        "icon": "mdi:tablet",
-        "title": "Ipad",
+        "id": "dashboard_ios",
+        "show_in_sidebar": true,
+        "icon": "mdi:apple-ios",
+        "title": "IOS",
         "require_admin": false,
         "mode": "storage",
-        "url_path": "dashboard-ipad"
+        "url_path": "dashboard-ios"
       }
     ]
   }

@@ -519,22 +519,6 @@ if (typeof showTemporaryMessage !== 'function') {
     }
 }
 
-// Intégrer dans le cycle de vie de l'application
-var originalInitApp = initApp;
-if (typeof initApp === 'function') {
-    initApp = function() {
-        var result = originalInitApp();
-        
-        if (result) {
-            // Initialiser les gestes après l'app
-            setTimeout(initGestures, 100);
-        }
-        
-        return result;
-    };
-} else {
-    // Si initApp n'existe pas encore, initialiser directement
-    document.addEventListener('DOMContentLoaded', initGestures);
-}
+// Suppression de la redéfinition de initApp dans ce fichier
 
 debugLog('Module Gestures chargé');

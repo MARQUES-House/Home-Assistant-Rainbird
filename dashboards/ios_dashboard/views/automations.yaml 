@@ -1,0 +1,453 @@
+# views/automations.yaml - Page Automatisations
+title: 🤖 Automatisations
+path: automations
+icon: mdi:robot
+cards:
+  # Modes maison avancés
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 🏠 Modes Maison Avancés
+        subtitle: Gestion intelligente des modes de vie
+      - type: grid
+        columns: 2
+        cards:
+          - type: entities
+            title: 🎛️ Modes Principaux
+            entities:
+              - entity: input_select.mode_maison
+                name: Mode Actuel
+                icon: mdi:home
+              - entity: sensor.duree_mode_actuel
+                name: Durée Mode Actuel
+                icon: mdi:clock-outline
+              - entity: sensor.derniere_commutation_mode
+                name: Dernière Commutation
+                icon: mdi:swap-horizontal
+              - entity: automation.gestion_mode_maison
+                name: Auto Gestion Modes
+                icon: mdi:robot
+            card_mod: &glass-style
+              style: |
+                ha-card {
+                  border-radius: 20px !important;
+                  backdrop-filter: blur(20px);
+                  background: rgba(255, 255, 255, 0.1) !important;
+                  border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+          - type: entities
+            title: 🌙 Modes Spéciaux
+            entities:
+              - entity: input_boolean.mode_vacances
+                name: Mode Vacances
+                icon: mdi:airplane
+              - entity: input_boolean.mode_economie
+                name: Mode Économie
+                icon: mdi:leaf
+              - entity: input_boolean.mode_securite_renforcee
+                name: Sécurité Renforcée
+                icon: mdi:shield-alert
+              - entity: input_boolean.mode_maintenance
+                name: Mode Maintenance
+                icon: mdi:wrench
+            card_mod: *glass-style
+      - type: entities
+        title: 📊 Statistiques Modes (7 derniers jours)
+        entities:
+          - entity: sensor.temps_mode_jour_semaine
+            name: Mode Jour
+            icon: mdi:weather-sunny
+          - entity: sensor.temps_mode_nuit_semaine
+            name: Mode Nuit
+            icon: mdi:weather-night
+          - entity: sensor.temps_mode_absent_semaine
+            name: Mode Absent
+            icon: mdi:home-export-outline
+          - entity: sensor.temps_mode_vacances_semaine
+            name: Mode Vacances
+            icon: mdi:airplane
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Scénarios avec dernière exécution
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 🎬 Scénarios Automatisés
+        subtitle: Contrôle et historique des scénarios
+      - type: grid
+        columns: 2
+        cards:
+          - type: entities
+            title: 🌅 Scénarios Quotidiens
+            entities:
+              - entity: scene.reveil
+                name: 🌅 Réveil Matinal
+                secondary_info: last-triggered
+              - entity: scene.je_pars
+                name: 🚗 Départ Maison
+                secondary_info: last-triggered
+              - entity: scene.retour_maison
+                name: 🏠 Retour Maison
+                secondary_info: last-triggered
+              - entity: scene.nuit
+                name: 🌙 Coucher
+                secondary_info: last-triggered
+            card_mod: *glass-style
+          - type: entities
+            title: 🎉 Scénarios Spéciaux
+            entities:
+              - entity: scene.seance_cinema
+                name: 🍿 Séance Cinéma
+                secondary_info: last-triggered
+              - entity: scene.invite
+                name: 🎉 Mode Invités
+                secondary_info: last-triggered
+              - entity: scene.economie
+                name: 💰 Mode Économie
+                secondary_info: last-triggered
+              - entity: scene.maintenance
+                name: 🔧 Mode Maintenance
+                secondary_info: last-triggered
+            card_mod: *glass-style
+      - type: entities
+        title: 📈 Fréquence d'Utilisation (30 jours)
+        entities:
+          - entity: sensor.scene_reveil_utilisations
+            name: Réveil (Auto + Manuel)
+          - entity: sensor.scene_cinema_utilisations
+            name: Cinéma
+          - entity: sensor.scene_nuit_utilisations
+            name: Mode Nuit (Auto + Manuel)
+          - entity: sensor.scene_invite_utilisations
+            name: Mode Invités
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Statistiques quotidiennes
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 📊 Statistiques Quotidiennes
+        subtitle: Analyse des habitudes et optimisations
+      - type: grid
+        columns: 2
+        cards:
+          - type: entities
+            title: ⚡ Consommation Énergie
+            entities:
+              - entity: sensor.consommation_electrique_aujourd_hui
+                name: Électricité Aujourd'hui
+                icon: mdi:lightning-bolt
+              - entity: sensor.consommation_eau_aujourd_hui
+                name: Eau Aujourd'hui
+                icon: mdi:water
+              - entity: sensor.cout_energie_aujourd_hui
+                name: Coût Énergétique
+                icon: mdi:currency-eur
+              - entity: sensor.economie_mode_eco_aujourd_hui
+                name: Économie Mode Eco
+                icon: mdi:leaf
+            card_mod: *glass-style
+          - type: entities
+            title: 🏠 Activité Maison
+            entities:
+              - entity: sensor.ouvertures_portail_aujourd_hui
+                name: Ouvertures Portail
+                icon: mdi:gate
+              - entity: sensor.activations_alarme_aujourd_hui
+                name: Activations Alarme
+                icon: mdi:shield-alert
+              - entity: sensor.detections_mouvement_aujourd_hui
+                name: Détections Mouvement
+                icon: mdi:motion-sensor
+              - entity: sensor.commandes_vocales_aujourd_hui
+                name: Commandes Vocales
+                icon: mdi:microphone
+            card_mod: *glass-style
+      - type: entities
+        title: 🌡️ Confort Thermique
+        entities:
+          - entity: sensor.temperature_moyenne_maison
+            name: Température Moyenne
+            icon: mdi:thermometer
+          - entity: sensor.humidite_moyenne_maison
+            name: Humidité Moyenne
+            icon: mdi:water-percent
+          - entity: sensor.temps_chauffage_aujourd_hui
+            name: Temps Chauffage
+            icon: mdi:fire
+          - entity: sensor.temps_climatisation_aujourd_hui
+            name: Temps Climatisation
+            icon: mdi:snowflake
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Centre de notifications
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: 🔔 Centre de Notifications
+        subtitle: Alertes et événements importants
+      - type: entities
+        title: ⚠️ Alertes Actives
+        entities:
+          - entity: binary_sensor.alerte_batterie_faible
+            name: Batteries Faibles
+            secondary_info: last-changed
+          - entity: binary_sensor.alerte_maintenance_requise
+            name: Maintenance Requise
+            secondary_info: last-changed
+          - entity: binary_sensor.alerte_securite
+            name: Alerte Sécurité
+            secondary_info: last-changed
+          - entity: binary_sensor.alerte_meteo
+            name: Alerte Météo
+            secondary_info: last-changed
+        card_mod: *glass-style
+      - type: entities
+        title: 📱 Notifications Récentes
+        entities:
+          - entity: sensor.notification_1
+            name: "14:32 - Lave-vaisselle terminé"
+            icon: mdi:dishwasher
+          - entity: sensor.notification_2
+            name: "12:15 - Portail ouvert (Livraison)"
+            icon: mdi:gate-open
+          - entity: sensor.notification_3
+            name: "09:45 - Mode Absent activé"
+            icon: mdi:home-export-outline
+          - entity: sensor.notification_4
+            name: "08:30 - Arrosage automatique démarré"
+            icon: mdi:sprinkler
+          - entity: sensor.notification_5
+            name: "07:00 - Scénario Réveil exécuté"
+            icon: mdi:weather-sunny
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Automatisations critiques
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: ⚙️ Automatisations Critiques
+        subtitle: État et contrôle des automatisations principales
+      - type: grid
+        columns: 2
+        cards:
+          - type: entities
+            title: 🔒 Sécurité & Surveillance
+            entities:
+              - entity: automation.alarme_auto_nuit
+                name: Alarme Auto Nuit
+                secondary_info: last-triggered
+              - entity: automation.detection_intrusion
+                name: Détection Intrusion
+                secondary_info: last-triggered
+              - entity: automation.eclairage_mouvement
+                name: Éclairage Mouvement
+                secondary_info: last-triggered
+              - entity: automation.notification_porte_ouverte
+                name: Alerte Porte Ouverte
+                secondary_info: last-triggered
+            card_mod: *glass-style
+          - type: entities
+            title: 🌡️ Confort & Énergie
+            entities:
+              - entity: automation.regulation_temperature
+                name: Régulation Température
+                secondary_info: last-triggered
+              - entity: automation.volets_automatiques
+                name: Volets Automatiques
+                secondary_info: last-triggered
+              - entity: automation.mode_economie_auto
+                name: Mode Économie Auto
+                secondary_info: last-triggered
+              - entity: automation.arrosage_intelligent
+                name: Arrosage Intelligent
+                secondary_info: last-triggered
+            card_mod: *glass-style
+      - type: entities
+        title: 🏠 Vie Quotidienne
+        entities:
+          - entity: automation.reveil_intelligent
+            name: Réveil Intelligent
+            secondary_info: last-triggered
+          - entity: automation.scenarios_presence
+            name: Scénarios Présence
+            secondary_info: last-triggered
+          - entity: automation.notifications_electromenager
+            name: Notifications Électroménager
+            secondary_info: last-triggered
+          - entity: automation.gestion_eclairage_exterieur
+            name: Éclairage Extérieur Auto
+            secondary_info: last-triggered
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Planificateur et programmations
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: ⏰ Planificateur Intelligent
+        subtitle: Programmations et horaires automatiques
+      - type: entities
+        title: 📅 Programmations Actives
+        entities:
+          - entity: input_datetime.reveil_semaine
+            name: Réveil Semaine
+            icon: mdi:alarm
+          - entity: input_datetime.reveil_weekend
+            name: Réveil Weekend
+            icon: mdi:alarm-snooze
+          - entity: input_datetime.coucher_enfants
+            name: Coucher Enfants
+            icon: mdi:sleep
+          - entity: input_datetime.arrosage_matin
+            name: Arrosage Matin
+            icon: mdi:sprinkler
+          - entity: input_datetime.nettoyage_piscine
+            name: Nettoyage Piscine
+            icon: mdi:pool
+        card_mod: *glass-style
+      - type: entities
+        title: 🔄 Cycles Programmés
+        entities:
+          - entity: sensor.prochain_arrosage
+            name: Prochain Arrosage
+            icon: mdi:calendar-clock
+          - entity: sensor.prochaine_sauvegarde
+            name: Prochaine Sauvegarde
+            icon: mdi:backup-restore
+          - entity: sensor.prochain_nettoyage_filtres
+            name: Nettoyage Filtres
+            icon: mdi:air-filter
+          - entity: sensor.prochaine_maintenance_clim
+            name: Maintenance Climatisation
+            icon: mdi:wrench-clock
+        card_mod: *glass-style
+    card_mod: *glass-style
+
+  # Actions rapides automatisations
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        name: ▶️ Tout Activer
+        icon: mdi:play-circle
+        tap_action:
+          action: call-service
+          service: automation.turn_on
+          service_data:
+            entity_id: all
+        confirmation:
+          text: "Activer toutes les automatisations ?"
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(76, 175, 80, 0.1)
+            - border: 1px solid rgba(76, 175, 80, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: ⏸️ Tout Suspendre
+        icon: mdi:pause-circle
+        tap_action:
+          action: call-service
+          service: automation.turn_off
+          service_data:
+            entity_id: all
+        confirmation:
+          text: "Suspendre toutes les automatisations ?"
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(255, 152, 0, 0.1)
+            - border: 1px solid rgba(255, 152, 0, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🧪 Mode Test
+        icon: mdi:test-tube
+        tap_action:
+          action: call-service
+          service: input_boolean.turn_on
+          service_data:
+            entity_id: input_boolean.mode_test_automatisations
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(103, 58, 183, 0.1)
+            - border: 1px solid rgba(103, 58, 183, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 📊 Statistiques
+        icon: mdi:chart-line
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/statistics"
+        styles:
+          card:
+            - height: 80px
+            - border-radius: 15px
+            - background: rgba(33, 150, 243, 0.1)
+            - border: 1px solid rgba(33, 150, 243, 0.3)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+
+  # Navigation rapide
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        name: 🏠 Accueil
+        icon: mdi:home
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/home"
+        styles: &nav-style
+          card:
+            - height: 60px
+            - border-radius: 15px
+            - background: rgba(255, 255, 255, 0.1)
+            - border: 1px solid rgba(255, 255, 255, 0.2)
+          name:
+            - font-size: 12px
+          icon:
+            - width: 24px
+            - height: 24px
+      - type: custom:button-card
+        name: 🔧 Matériel
+        icon: mdi:tools
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/equipment"
+        styles: *nav-style
+      - type: custom:button-card
+        name: 🏠 Pièces
+        icon: mdi:floor-plan
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/rooms"
+        styles: *nav-style
+      - type: custom:button-card
+        name: 📊 Système
+        icon: mdi:monitor-dashboard
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace-ios/system"
+        styles: *nav-style

@@ -1,0 +1,1111 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_ios",
+  "data": {
+    "config": {
+      "title": "iOS Dashboard Premium",
+      "theme": "{% if is_state('input_boolean.theme_sombre', 'on') %}\n  ios-dark-mode-blue-red\n{% else %}\n  ios-light-mode-blue-red\n{% endif %}\n",
+      "views": [
+        {
+          "title": "🏠 Accueil",
+          "path": "default_view",
+          "icon": "mdi:home",
+          "cards": [
+            {
+              "type": "weather-forecast",
+              "entity": "weather.forecast_maison",
+              "name": "Météo Nogent-sur-Marne",
+              "show_forecast": true,
+              "card_mod": {
+                "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "🌡️ Climatisation Intelligente",
+                  "subtitle": "Contrôle multi-zones"
+                },
+                {
+                  "type": "grid",
+                  "columns": 2,
+                  "square": false,
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-climate-card",
+                      "entity": "climate.adele",
+                      "name": "🧸 Adèle",
+                      "icon": "mdi:teddy-bear",
+                      "primary_info": "name",
+                      "secondary_info": "current-temperature",
+                      "show_temperature_control": true,
+                      "collapsible_controls": true,
+                      "hvac_modes": [
+                        "off",
+                        "heat",
+                        "cool",
+                        "auto"
+                      ]
+                    },
+                    {
+                      "type": "custom:mushroom-climate-card",
+                      "entity": "climate.alex",
+                      "name": "🎮 Alex",
+                      "icon": "mdi:gamepad-variant",
+                      "primary_info": "name",
+                      "secondary_info": "current-temperature",
+                      "show_temperature_control": true,
+                      "collapsible_controls": true,
+                      "hvac_modes": [
+                        "off",
+                        "heat",
+                        "cool",
+                        "auto"
+                      ]
+                    },
+                    {
+                      "type": "custom:mushroom-climate-card",
+                      "entity": "climate.parents",
+                      "name": "🛏️ Parents",
+                      "icon": "mdi:bed-double",
+                      "primary_info": "name",
+                      "secondary_info": "current-temperature",
+                      "show_temperature_control": true,
+                      "collapsible_controls": true,
+                      "hvac_modes": [
+                        "off",
+                        "heat",
+                        "cool",
+                        "auto"
+                      ]
+                    },
+                    {
+                      "type": "custom:mushroom-climate-card",
+                      "entity": "climate.bureau",
+                      "name": "💼 Bureau",
+                      "icon": "mdi:desk",
+                      "primary_info": "name",
+                      "secondary_info": "current-temperature",
+                      "show_temperature_control": true,
+                      "collapsible_controls": true,
+                      "hvac_modes": [
+                        "off",
+                        "heat",
+                        "cool",
+                        "auto"
+                      ]
+                    },
+                    {
+                      "type": "custom:mushroom-climate-card",
+                      "entity": "climate.cuisine",
+                      "name": "🍳 Cuisine",
+                      "icon": "mdi:chef-hat",
+                      "primary_info": "name",
+                      "secondary_info": "current-temperature",
+                      "show_temperature_control": true,
+                      "collapsible_controls": true,
+                      "hvac_modes": [
+                        "off",
+                        "heat",
+                        "cool",
+                        "auto"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+              }
+            },
+            {
+              "type": "custom:swipe-card",
+              "start_card": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "title": "🪟 Contrôles Globaux",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "entity": "cover.tous_les_volets",
+                      "name": "Tous les volets",
+                      "icon": "mdi:window-shutter",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "cover.volets_chambres_2",
+                      "name": "Volets Étage (Chambres)",
+                      "icon": "mdi:home-floor-1",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "cover.volets_rdc_2",
+                      "name": "Volets RDC",
+                      "icon": "mdi:home-floor-0",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "card_mod": {
+                    "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                  }
+                },
+                {
+                  "type": "entities",
+                  "title": "🏠 Étage - Chambres",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "type": "custom:fold-entity-row",
+                      "head": {
+                        "entity": "cover.fenetre_adele_arriere",
+                        "name": "Chambre Adèle",
+                        "icon": "mdi:bed"
+                      },
+                      "entities": [
+                        {
+                          "entity": "cover.fenetre_adele_arriere",
+                          "name": "Fenêtre Arrière"
+                        },
+                        {
+                          "entity": "cover.fenetre_adele_ru",
+                          "name": "Fenêtre Rue"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "custom:fold-entity-row",
+                      "head": {
+                        "entity": "cover.fenetre_alex_jar",
+                        "name": "Chambre Alex",
+                        "icon": "mdi:bed"
+                      },
+                      "entities": [
+                        {
+                          "entity": "cover.fenetre_alex_jar",
+                          "name": "Fenêtre Jardin"
+                        },
+                        {
+                          "entity": "cover.fenetre_alex_rue",
+                          "name": "Fenêtre Rue"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "custom:fold-entity-row",
+                      "head": {
+                        "entity": "cover.fenetre_suite",
+                        "name": "Suite Parentale",
+                        "icon": "mdi:bed-king"
+                      },
+                      "entities": [
+                        {
+                          "entity": "cover.fenetre_suite",
+                          "name": "Fenêtre Principale"
+                        },
+                        {
+                          "entity": "cover.fenetre_sdb_suite",
+                          "name": "Salle de Bain"
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "cover.fenetre_bureau",
+                      "name": "Bureau",
+                      "icon": "mdi:desk"
+                    }
+                  ],
+                  "card_mod": {
+                    "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                  }
+                },
+                {
+                  "type": "entities",
+                  "title": "🏡 RDC - Salon & Cuisine",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "type": "custom:fold-entity-row",
+                      "head": {
+                        "entity": "cover.fenetre_salon_central",
+                        "name": "Salon",
+                        "icon": "mdi:sofa"
+                      },
+                      "entities": [
+                        {
+                          "entity": "cover.fenetre_salon_gauche",
+                          "name": "Fenêtre Gauche"
+                        },
+                        {
+                          "entity": "cover.fenetre_salon_central",
+                          "name": "Fenêtre Centrale"
+                        },
+                        {
+                          "entity": "cover.fenetre_salon_dr",
+                          "name": "Fenêtre Droite"
+                        },
+                        {
+                          "entity": "cover.fenetre_salon_tv",
+                          "name": "Fenêtre TV"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "custom:fold-entity-row",
+                      "head": {
+                        "entity": "cover.fenetre_cuisine",
+                        "name": "Cuisine",
+                        "icon": "mdi:chef-hat"
+                      },
+                      "entities": [
+                        {
+                          "entity": "cover.fenetre_cuisine",
+                          "name": "Fenêtre Principale"
+                        },
+                        {
+                          "entity": "cover.fenetre_cuisine_avant",
+                          "name": "Fenêtre Avant"
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "cover.fenetre_entree",
+                      "name": "Entrée",
+                      "icon": "mdi:door"
+                    }
+                  ],
+                  "card_mod": {
+                    "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "title": "💡 Éclairage & Sécurité Visuelle",
+              "show_header_toggle": false,
+              "entities": [
+                {
+                  "entity": "light.module_on_off",
+                  "name": "Éclairage Général",
+                  "icon": "mdi:lightbulb-group",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "entity": "light.none_camera_1",
+                  "name": "Éclairage Caméra Jardin",
+                  "icon": "mdi:outdoor-lamp",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "light.none_camera_1_2",
+                  "name": "Éclairage Caméra Entrée",
+                  "icon": "mdi:outdoor-lamp",
+                  "secondary_info": "last-changed"
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+              }
+            },
+            {
+              "type": "entities",
+              "title": "🛡️ Sécurité & Détection Intelligente",
+              "show_header_toggle": false,
+              "entities": [
+                {
+                  "entity": "alarm_control_panel.virtual_alarm",
+                  "name": "🚨 Alarme Principale",
+                  "icon": "mdi:shield-home",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "custom:fold-entity-row",
+                  "head": {
+                    "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor",
+                    "name": "🏢 Capteur Bureau",
+                    "icon": "mdi:motion-sensor"
+                  },
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor",
+                      "name": "Détection Mouvement",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie",
+                      "name": "Niveau Batterie"
+                    },
+                    {
+                      "entity": "sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement",
+                      "name": "Luminosité"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:fold-entity-row",
+                  "head": {
+                    "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2",
+                    "name": "👧 Capteur Chambre Adèle",
+                    "icon": "mdi:motion-sensor"
+                  },
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2",
+                      "name": "Détection Mouvement",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_2",
+                      "name": "Niveau Batterie"
+                    },
+                    {
+                      "entity": "sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_2",
+                      "name": "Luminosité"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:fold-entity-row",
+                  "head": {
+                    "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3",
+                    "name": "👦 Capteur Chambre Alex",
+                    "icon": "mdi:motion-sensor"
+                  },
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3",
+                      "name": "Détection Mouvement",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_3",
+                      "name": "Niveau Batterie"
+                    },
+                    {
+                      "entity": "sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_3",
+                      "name": "Luminosité"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:fold-entity-row",
+                  "head": {
+                    "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4",
+                    "name": "👫 Capteur Chambre Parents",
+                    "icon": "mdi:motion-sensor"
+                  },
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4",
+                      "name": "Détection Mouvement",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_4",
+                      "name": "Niveau Batterie"
+                    },
+                    {
+                      "entity": "sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_eclairement_4",
+                      "name": "Luminosité"
+                    }
+                  ]
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+              }
+            },
+            {
+              "type": "custom:swipe-card",
+              "cards": [
+                {
+                  "type": "entities",
+                  "title": "🍽️ Lave-vaisselle Intelligent",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "entity": "sensor.lave_vaisselle_etat",
+                      "name": "État Actuel",
+                      "icon": "mdi:dishwasher",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.lave_vaisselle_porte",
+                      "name": "État Porte",
+                      "icon": "mdi:door"
+                    },
+                    {
+                      "entity": "sensor.lave_vaisselle_progression_du_programme",
+                      "name": "Progression",
+                      "icon": "mdi:progress-clock"
+                    },
+                    {
+                      "entity": "sensor.lave_vaisselle_heure_de_fin_de_programme",
+                      "name": "Fin Prévue",
+                      "icon": "mdi:clock-end"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "switch.lave_vaisselle_demi_charge",
+                      "name": "Demi-charge",
+                      "icon": "mdi:dishwasher"
+                    },
+                    {
+                      "entity": "switch.lave_vaisselle_hygiene_plus",
+                      "name": "Hygiène+",
+                      "icon": "mdi:bacteria"
+                    },
+                    {
+                      "entity": "switch.lave_vaisselle_intensive_zone",
+                      "name": "Zone Intensive",
+                      "icon": "mdi:spray"
+                    },
+                    {
+                      "entity": "switch.lave_vaisselle_mode_accelere",
+                      "name": "Mode Accéléré",
+                      "icon": "mdi:fast-forward"
+                    },
+                    {
+                      "entity": "button.lave_vaisselle_arreter_le_programme",
+                      "name": "Arrêter Programme",
+                      "icon": "mdi:stop"
+                    }
+                  ],
+                  "card_mod": {
+                    "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                  }
+                },
+                {
+                  "type": "entities",
+                  "title": "🔥 Table de Cuisson Intelligente",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "entity": "sensor.table_de_cuisson_etat",
+                      "name": "État",
+                      "icon": "mdi:stove",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "switch.table_de_cuisson_securite_enfant",
+                      "name": "Sécurité Enfant",
+                      "icon": "mdi:account-child"
+                    },
+                    {
+                      "entity": "number.table_de_cuisson_alarm_clock",
+                      "name": "Minuteur",
+                      "icon": "mdi:timer"
+                    }
+                  ],
+                  "card_mod": {
+                    "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "custom:mini-media-player",
+              "entity": "media_player.samsung_6_series_65_ue65tu6905kxxc",
+              "name": "📺 Samsung TV Premium",
+              "artwork": "cover",
+              "source": "icon",
+              "sound_mode": "icon",
+              "info": "scroll",
+              "volume_stateless": false,
+              "toggle_power": true,
+              "hide": {
+                "power_state": false,
+                "volume": false,
+                "source": false
+              },
+              "shortcuts": {
+                "columns": 4,
+                "buttons": [
+                  {
+                    "name": "Netflix",
+                    "type": "source",
+                    "id": "Netflix",
+                    "icon": "mdi:netflix"
+                  },
+                  {
+                    "name": "YouTube",
+                    "type": "source",
+                    "id": "YouTube",
+                    "icon": "mdi:youtube"
+                  },
+                  {
+                    "name": "Prime Video",
+                    "type": "source",
+                    "id": "Prime Video",
+                    "icon": "mdi:amazon"
+                  },
+                  {
+                    "name": "Disney+",
+                    "type": "source",
+                    "id": "Disney+",
+                    "icon": "mdi:disney"
+                  }
+                ]
+              },
+              "card_mod": {
+                "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+              }
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:button-card",
+                  "entity": "scene.nuit",
+                  "name": "🌙 Mode Nuit",
+                  "icon": "mdi:weather-night",
+                  "color_type": "card",
+                  "color": "rgb(68, 115, 158)",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "scene.turn_on",
+                    "service_data": {
+                      "entity_id": "scene.nuit"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "styles": {
+                    "card": [
+                      {
+                        "height": "80px"
+                      },
+                      {
+                        "border-radius": "20px"
+                      },
+                      {
+                        "box-shadow": "0 4px 12px rgba(0,0,0,0.15)"
+                      },
+                      {
+                        "backdrop-filter": "blur(20px)"
+                      },
+                      {
+                        "background": "rgba(68, 115, 158, 0.1)"
+                      },
+                      {
+                        "border": "1px solid rgba(68, 115, 158, 0.3)"
+                      },
+                      {
+                        "transition": "all 0.3s ease"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "font-size": "16px"
+                      },
+                      {
+                        "font-weight": 600
+                      },
+                      {
+                        "margin-top": "8px"
+                      }
+                    ],
+                    "icon": [
+                      {
+                        "width": "32px"
+                      },
+                      {
+                        "height": "32px"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "custom:button-card",
+                  "entity": "scene.seance_cinema",
+                  "name": "🍿 Cinéma",
+                  "icon": "mdi:theater",
+                  "color_type": "card",
+                  "color": "rgb(142, 69, 133)",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "scene.turn_on",
+                    "service_data": {
+                      "entity_id": "scene.seance_cinema"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "styles": {
+                    "card": [
+                      {
+                        "height": "80px"
+                      },
+                      {
+                        "border-radius": "20px"
+                      },
+                      {
+                        "box-shadow": "0 4px 12px rgba(0,0,0,0.15)"
+                      },
+                      {
+                        "backdrop-filter": "blur(20px)"
+                      },
+                      {
+                        "background": "rgba(142, 69, 133, 0.1)"
+                      },
+                      {
+                        "border": "1px solid rgba(142, 69, 133, 0.3)"
+                      },
+                      {
+                        "transition": "all 0.3s ease"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "font-size": "16px"
+                      },
+                      {
+                        "font-weight": 600
+                      },
+                      {
+                        "margin-top": "8px"
+                      }
+                    ],
+                    "icon": [
+                      {
+                        "width": "32px"
+                      },
+                      {
+                        "height": "32px"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "custom:button-card",
+                  "entity": "scene.je_pars",
+                  "name": "🚗 Je pars",
+                  "icon": "mdi:home-export-outline",
+                  "color_type": "card",
+                  "color": "rgb(223, 84, 72)",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "scene.turn_on",
+                    "service_data": {
+                      "entity_id": "scene.je_pars"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "styles": {
+                    "card": [
+                      {
+                        "height": "80px"
+                      },
+                      {
+                        "border-radius": "20px"
+                      },
+                      {
+                        "box-shadow": "0 4px 12px rgba(0,0,0,0.15)"
+                      },
+                      {
+                        "backdrop-filter": "blur(20px)"
+                      },
+                      {
+                        "background": "rgba(223, 84, 72, 0.1)"
+                      },
+                      {
+                        "border": "1px solid rgba(223, 84, 72, 0.3)"
+                      },
+                      {
+                        "transition": "all 0.3s ease"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "font-size": "16px"
+                      },
+                      {
+                        "font-weight": 600
+                      },
+                      {
+                        "margin-top": "8px"
+                      }
+                    ],
+                    "icon": [
+                      {
+                        "width": "32px"
+                      },
+                      {
+                        "height": "32px"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "🔧 Par Matériel",
+          "path": "equipment",
+          "icon": "mdi:tools",
+          "cards": [
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-title-card",
+                      "title": "📋 Sélection Matériel",
+                      "subtitle": "Choisissez une catégorie"
+                    },
+                    {
+                      "type": "entities",
+                      "title": "🎛️ Catégories d'Équipements",
+                      "show_header_toggle": false,
+                      "entities": [
+                        {
+                          "entity": "input_select.equipment_category",
+                          "name": "🌡️ Climatisation",
+                          "icon": "mdi:air-conditioner"
+                        },
+                        {
+                          "entity": "input_select.equipment_category",
+                          "name": "💡 Éclairage",
+                          "icon": "mdi:lightbulb-group"
+                        },
+                        {
+                          "entity": "input_select.equipment_category",
+                          "name": "📹 Surveillance",
+                          "icon": "mdi:camera"
+                        },
+                        {
+                          "entity": "input_select.equipment_category",
+                          "name": "📺 Audio/Vidéo",
+                          "icon": "mdi:television"
+                        },
+                        {
+                          "entity": "input_select.equipment_category",
+                          "name": "🪟 Volets/Stores",
+                          "icon": "mdi:window-shutter"
+                        },
+                        {
+                          "entity": "input_select.equipment_category",
+                          "name": "🛡️ Sécurité",
+                          "icon": "mdi:shield-home"
+                        },
+                        {
+                          "entity": "input_select.equipment_category",
+                          "name": "🏠 Électroménager",
+                          "icon": "mdi:home-automation"
+                        }
+                      ],
+                      "card_mod": {
+                        "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-title-card",
+                      "title": "⚙️ Contrôles Disponibles",
+                      "subtitle": "Équipements de la catégorie sélectionnée"
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "entity": "input_select.equipment_category",
+                          "state": "climatisation"
+                        }
+                      ],
+                      "card": {
+                        "type": "entities",
+                        "title": "🌡️ Systèmes de Climatisation",
+                        "entities": [
+                          {
+                            "entity": "climate.adele",
+                            "name": "Climatisation Adèle",
+                            "secondary_info": "current-temperature"
+                          },
+                          {
+                            "entity": "climate.alex",
+                            "name": "Climatisation Alex",
+                            "secondary_info": "current-temperature"
+                          },
+                          {
+                            "entity": "climate.parents",
+                            "name": "Climatisation Parents",
+                            "secondary_info": "current-temperature"
+                          },
+                          {
+                            "entity": "climate.bureau",
+                            "name": "Climatisation Bureau",
+                            "secondary_info": "current-temperature"
+                          },
+                          {
+                            "entity": "climate.cuisine",
+                            "name": "Climatisation Cuisine",
+                            "secondary_info": "current-temperature"
+                          }
+                        ],
+                        "card_mod": {
+                          "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "entity": "input_select.equipment_category",
+                          "state": "eclairage"
+                        }
+                      ],
+                      "card": {
+                        "type": "entities",
+                        "title": "💡 Systèmes d'Éclairage",
+                        "entities": [
+                          {
+                            "entity": "light.module_on_off",
+                            "name": "Éclairage Général",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "light.none_camera_1",
+                            "name": "Éclairage Caméra Jardin",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "light.none_camera_1_2",
+                            "name": "Éclairage Caméra Entrée",
+                            "secondary_info": "last-changed"
+                          }
+                        ],
+                        "card_mod": {
+                          "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "entity": "input_select.equipment_category",
+                          "state": "volets"
+                        }
+                      ],
+                      "card": {
+                        "type": "entities",
+                        "title": "🪟 Contrôles de Volets",
+                        "entities": [
+                          {
+                            "entity": "cover.tous_les_volets",
+                            "name": "Tous les Volets",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "cover.volets_chambres_2",
+                            "name": "Volets Chambres (Étage)",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "cover.volets_rdc_2",
+                            "name": "Volets RDC",
+                            "secondary_info": "last-changed"
+                          }
+                        ],
+                        "card_mod": {
+                          "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "entity": "input_select.equipment_category",
+                          "state": "securite"
+                        }
+                      ],
+                      "card": {
+                        "type": "entities",
+                        "title": "🛡️ Systèmes de Sécurité",
+                        "entities": [
+                          {
+                            "entity": "alarm_control_panel.virtual_alarm",
+                            "name": "Alarme Principale",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor",
+                            "name": "Capteur Bureau",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2",
+                            "name": "Capteur Chambre Adèle",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3",
+                            "name": "Capteur Chambre Alex",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4",
+                            "name": "Capteur Chambre Parents",
+                            "secondary_info": "last-changed"
+                          }
+                        ],
+                        "card_mod": {
+                          "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "entity": "input_select.equipment_category",
+                          "state": "audio_tv"
+                        }
+                      ],
+                      "card": {
+                        "type": "entities",
+                        "title": "📺 Équipements Audio/Vidéo",
+                        "entities": [
+                          {
+                            "entity": "media_player.samsung_6_series_65_ue65tu6905kxxc",
+                            "name": "Samsung TV Premium",
+                            "secondary_info": "last-changed"
+                          }
+                        ],
+                        "card_mod": {
+                          "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                        }
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "entity": "input_select.equipment_category",
+                          "state": "electromenager"
+                        }
+                      ],
+                      "card": {
+                        "type": "entities",
+                        "title": "🏠 Électroménager Intelligent",
+                        "entities": [
+                          {
+                            "entity": "sensor.lave_vaisselle_etat",
+                            "name": "Lave-vaisselle",
+                            "secondary_info": "last-changed"
+                          },
+                          {
+                            "entity": "sensor.table_de_cuisson_etat",
+                            "name": "Table de Cuisson",
+                            "secondary_info": "last-changed"
+                          }
+                        ],
+                        "card_mod": {
+                          "style": "ha-card {\n  border-radius: 20px !important;\n  backdrop-filter: blur(20px);\n  background: rgba(255, 255, 255, 0.1) !important;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "🏠 Par Pièce",
+          "path": "rooms",
+          "icon": "mdi:floor-plan",
+          "cards": [
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-title-card",
+                      "title": "🚪 Sélection Pièce",
+                      "subtitle": "Navigation par zone"
+                    },
+                    {
+                      "type": "entities",
+                      "title": "🏡 Zones de la Maison",
+                      "show_header_toggle": false,
+                      "entities": [
+                        {
+                          "entity": "input_select.room_selection",
+                          "name": "🛋️ Salon",
+                          "icon": "mdi:sofa"
+                        },
+                        {
+                          "entity": "input_select.room_selection",
+                          "name": "🍳 Cuisine",
+                          "icon": "mdi:chef-hat"
+                        },
+                        {
+                          "entity": "input_select.room_selection",
+                          "name": "🛏️ Chambre Parents",
+                          "icon": "mdi:bed-double"
+                        },
+                        {
+                          "entity": "input_select.room_selection",
+                          "name": "🎮 Chambre Alex",
+                          "icon": "mdi:gamepad-variant"
+                        },
+                        {
+                          "entity": "input_select.room_selection",
+                          "name": "🧸 Chambre Adèle",
+                          "icon": "mdi:teddy-bear"
+                        },
+                        {
+                          "entity": "input_select.room_selection",
+                          "name": "💼 Bureau",
+                          "icon": "mdi:desk"
+                        },
+                        {
+                          "entity": "input_select.room_selection",
+                          "name": "🚪 Entrée",
+                          "icon": "mdi:door"
+                        },
+                        {
+                          "entity": "input_select.room_selection",
+                          "name": "🛁 Salle de Bain",
+                          "icon": "mdi:shower"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

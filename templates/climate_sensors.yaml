@@ -1,6 +1,6 @@
 - sensor:
-    - name: 'Info Climat Adèle'
-      unique_id: 'info_climat_adele'
+    - name: "Info Climat Adèle"
+      unique_id: "info_climat_adele"
       state: >
         {% set climate = states('climate.adele') %}
         {% set temp = state_attr('climate.adele', 'current_temperature') | float %}
@@ -18,8 +18,8 @@
         climate_state: >
           {{ states('climate.adele') }}
 
-    - name: 'Info Climat Alex'
-      unique_id: 'info_climat_alex'
+    - name: "Info Climat Alex"
+      unique_id: "info_climat_alex"
       state: >
         {% set temp = state_attr('climate.alex', 'current_temperature') | float %}
         {% if temp > 0 %}
@@ -35,8 +35,8 @@
         climate_state: >
           {{ states('climate.alex') }}
 
-    - name: 'Info Climat Bureau'
-      unique_id: 'info_climat_bureau'
+    - name: "Info Climat Bureau"
+      unique_id: "info_climat_bureau"
       state: >
         {% set temp = state_attr('climate.bureau', 'current_temperature') | float %}
         {% if temp > 0 %}
@@ -52,8 +52,8 @@
         climate_state: >
           {{ states('climate.bureau') }}
 
-    - name: 'Info Climat Cuisine'
-      unique_id: 'info_climat_cuisine'
+    - name: "Info Climat Cuisine"
+      unique_id: "info_climat_cuisine"
       state: >
         {% set temp = state_attr('climate.cuisine', 'current_temperature') | float %}
         {% if temp > 0 %}
@@ -69,8 +69,8 @@
         climate_state: >
           {{ states('climate.cuisine') }}
 
-    - name: 'Info Climat Entrée'
-      unique_id: 'info_climat_entree'
+    - name: "Info Climat Entrée"
+      unique_id: "info_climat_entree"
       state: >
         {% set temp = state_attr('climate.entree_tv', 'current_temperature') | float %}
         {% if temp > 0 %}
@@ -86,8 +86,8 @@
         climate_state: >
           {{ states('climate.entree_tv') }}
 
-    - name: 'Info Climat Parents'
-      unique_id: 'info_climat_parents'
+    - name: "Info Climat Parents"
+      unique_id: "info_climat_parents"
       state: >
         {% set temp = state_attr('climate.parents', 'current_temperature') | float %}
         {% if temp > 0 %}
@@ -102,3 +102,172 @@
           {{ state_attr('climate.parents', 'temperature') | float }}
         climate_state: >
           {{ states('climate.parents') }}
+
+    - name: "Résumé Climatisation Maison"
+      unique_id: "resume_climatisation_maison"
+      state: >
+        {% set zones_actives = [
+          states('climate.adele'),
+          states('climate.alex'), 
+          states('climate.parents'),
+          states('climate.bureau'),
+          states('climate.cuisine'),
+          states('climate.entree_tv')
+        ] | select('ne', 'off') | list | length %}
+        {{ zones_actives }} zone(s) active(s)
+      attributes:
+        zones_chauffage: >
+          {{ [
+            states('climate.adele'), 
+            states('climate.alex'), 
+            states('climate.parents'), 
+            states('climate.bureau'), 
+            states('climate.cuisine'),
+            states('climate.entree_tv')
+          ] | select('eq', 'heat') | list | length }}
+        zones_climatisation: >
+          {{ [
+            states('climate.adele'), 
+            states('climate.alex'), 
+            states('climate.parents'), 
+            states('climate.bureau'), 
+            states('climate.cuisine'),
+            states('climate.entree_tv')
+          ] | select('eq', 'cool') | list | length }}
+        temperature_moyenne: >
+          {% set temps = [
+            state_attr('climate.adele', 'current_temperature'),
+            state_attr('climate.alex', 'current_temperature'),
+            state_attr('climate.parents', 'current_temperature'),
+            state_attr('climate.bureau', 'current_temperature'),
+            state_attr('climate.cuisine', 'current_temperature'),
+            state_attr('climate.entree_tv', 'current_temperature')
+          ] | select('number') | list %}
+          {% if temps | length > 0 %}
+            {{ (temps | sum / temps | length) | round(1) }}°C
+          {% else %}
+            N/A
+          {% endif %}
+      icon: mdi:home-thermometer
+
+    - name: "État Capteurs Mouvement"
+      state: >
+        {% set capteurs_actifs = [
+          states('binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor'),
+          states('binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2'),
+          states('binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3'),
+          states('binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4')
+        ] | select('eq', 'on') | list | length %}
+        {% if capteurs_actifs > 0 %}
+          🔴 {{ capteurs_actifs }} détection(s)
+        {% else %}
+          🟢 Aucune détection
+        {% endif %}
+      attributes:
+        bureau: "{{ states('binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor') }}"
+        adele: "{{ states('binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_2') }}"
+        alex: "{{ states('binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_3') }}"
+        parents: "{{ states('binary_sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_4') }}"
+      icon: mdi:motion-sensor
+
+    - name: "Batteries Capteurs"
+      state: >
+        {% set batteries = [
+          states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie') | int(0),
+          states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_2') | int(0),
+          states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_3') | int(0),
+          states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_4') | int(0)
+        ] %}
+        {% set min_batterie = batteries | min %}
+        {% if min_batterie < 20 %}
+          🔴 {{ min_batterie }}% (Critique)
+        {% elif min_batterie < 50 %}
+          🟡 {{ min_batterie }}% (Faible)
+        {% else %}
+          🟢 {{ min_batterie }}% (OK)
+        {% endif %}
+      attributes:
+        bureau: "{{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie') }}%"
+        adele: "{{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_2') }}%"
+        alex: "{{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_3') }}%"
+        parents: "{{ states('sensor.ikea_of_sweden_vallhorn_wireless_motion_sensor_batterie_4') }}%"
+        batterie_min: "{{ batteries | min }}%"
+      icon: mdi:battery
+
+    # Capteurs pour l'électroménager
+    - name: "État Électroménager"
+      state: >
+        {% set lave_vaisselle = states('sensor.lave_vaisselle_etat') %}
+        {% set table_cuisson = states('sensor.table_de_cuisson_etat') %}
+        {% if lave_vaisselle == 'run' or table_cuisson == 'run' %}
+          🟡 En cours
+        {% elif lave_vaisselle == 'finished' %}
+          🟢 Lave-vaisselle terminé
+        {% elif lave_vaisselle == 'ready' and table_cuisson == 'inactive' %}
+          🔵 Prêt
+        {% else %}
+          ⚪ Inactif
+        {% endif %}
+      attributes:
+        lave_vaisselle: "{{ states('sensor.lave_vaisselle_etat') | title }}"
+        table_cuisson: "{{ states('sensor.table_de_cuisson_etat') | title }}"
+        porte_lave_vaisselle: "{{ states('sensor.lave_vaisselle_porte') | title }}"
+      icon: mdi:dishwasher
+
+    # Capteur pour les volets
+    - name: "État Volets Global"
+      state: >
+        {% set position = state_attr('cover.tous_les_volets', 'current_position') | int(0) %}
+        {% if position == 0 %}
+          🔒 Fermés
+        {% elif position == 100 %}
+          🔓 Ouverts
+        {% else %}
+          📊 {{ position }}% ouverts
+        {% endif %}
+      attributes:
+        position_globale: "{{ state_attr('cover.tous_les_volets', 'current_position') }}%"
+        volets_chambres: "{{ state_attr('cover.volets_chambres_2', 'current_position') }}%"
+        volets_rdc: "{{ state_attr('cover.volets_rdc_2', 'current_position') }}%"
+      icon: mdi:window-shutter
+
+    # Capteur réseau et connectivité
+    - name: "Qualité Réseau"
+      state: >
+        {% set download = states('sensor.freebox_download_speed') | float(0) %}
+        {% set upload = states('sensor.freebox_upload_speed') | float(0) %}
+        {% if download > 100 and upload > 50 %}
+          🟢 Excellent
+        {% elif download > 50 and upload > 25 %}
+          🟡 Bon
+        {% elif download > 10 and upload > 5 %}
+          🟠 Correct
+        {% else %}
+          🔴 Faible
+        {% endif %}
+      attributes:
+        download_speed: "{{ states('sensor.freebox_download_speed') }} kB/s"
+        upload_speed: "{{ states('sensor.freebox_upload_speed') }} kB/s"
+        wan_status: "{{ states('binary_sensor.freebox_v9_r1_etat_du_reseau_etendu_wan') }}"
+        wifi_status: "{{ states('switch.freebox_wifi') }}"
+      icon: mdi:speedometer
+
+    # Capteur pour l'éclairage
+    - name: "État Éclairage"
+      state: >
+        {% set general = states('light.module_on_off') %}
+        {% set camera1 = states('light.none_camera_1') %}
+        {% set camera2 = states('light.none_camera_1_2') %}
+        {% set eclairages_on = [general, camera1, camera2] | select('eq', 'on') | list | length %}
+        {% if eclairages_on == 0 %}
+          🌙 Tout éteint
+        {% elif eclairages_on == 1 %}
+          💡 1 éclairage
+        {% else %}
+          🏠 {{ eclairages_on }} éclairages
+        {% endif %}
+      attributes:
+        eclairage_general: "{{ states('light.module_on_off') }}"
+        camera_jardin: "{{ states('light.none_camera_1') }}"
+        camera_entree: "{{ states('light.none_camera_1_2') }}"
+      icon: mdi:lightbulb-group

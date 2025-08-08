@@ -1,0 +1,15 @@
+# dashboard.yaml - Configuration principale du dashboard iOS Premium
+title: iOS Dashboard Premium
+theme: |
+  {% if is_state('input_boolean.theme_sombre', 'on') %}
+    ios-dark-mode-blue-red
+  {% else %}
+    ios-light-mode-blue-red
+  {% endif %}
+views:
+  - !include views/home.yaml
+  - !include views/equipment.yaml
+  - !include views/rooms.yaml
+  - !include views/outdoor.yaml
+  - !include views/system.yaml
+  - !include views/automations.yaml
